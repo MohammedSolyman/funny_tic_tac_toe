@@ -2,4 +2,10 @@ import 'package:flutter/material.dart';
 
 class HomeModel {
   List<Widget> backgroundList = [];
+
+  double p1x = 0;
+  double p1y = 0.2;
+  double controlPoint1x = 0.333;
+  double controlPoint2x = 0.666;
+  double controlPoint2y = 0.3;
 }
