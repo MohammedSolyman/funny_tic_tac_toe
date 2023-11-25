@@ -8,19 +8,11 @@ import 'package:get/get.dart';
 // GetTickerProviderStateMixin
 class HomeController extends GetxController with GetTickerProviderStateMixin {
   Rx<HomeModel> model = HomeModel().obs;
+  //top block animation
   late AnimationController topAnimationController;
-  late Animation<double> p1xAnimation;
-  late Animation<double> p1yAnimation;
-  late Animation<double> controlPoint1xAnimation;
-  late Animation<double> controlPoint2xAnimation;
-  late Animation<double> controlPoint2yAnimation;
 
-//                  portrait  ->  landscape
-//p1x:                  0             0.8
-//p1y:                 0.2             0
-//controlPoint1x       0.333             0.9
-//controlPoint2x       0.666              1
-//controlPoint2y        0.3            0.2
+  //background animation
+  late AnimationController gradientAnimationController;
 
   void _initializeBackground() {
     List<Widget> x = [];
@@ -35,7 +27,12 @@ class HomeController extends GetxController with GetTickerProviderStateMixin {
   }
 
   void _initializeTopAnimation() {
-    //dimensions
+//                  portrait  ->  landscape
+//p1x:                  0             0.8
+//p1y:                 0.2             0
+//controlPoint1x       0.333             0.9
+//controlPoint2x       0.666              1
+//controlPoint2y        0.3            0.2
 
     //controller
     topAnimationController =
@@ -59,13 +56,19 @@ class HomeController extends GetxController with GetTickerProviderStateMixin {
     Tween<double> controlPoint2yTween = Tween(begin: 0.3, end: 0.2);
 
     //animation
-    Animation<double> p1xAnimation = p1xTween.animate(topAnimationController);
-    Animation<double> p1yAnimation = p1yTween.animate(topAnimationController);
-    Animation<double> controlPoint1xAnimation =
+    Animation<double> p1xAnimation;
+    Animation<double> p1yAnimation;
+    Animation<double> controlPoint1xAnimation;
+    Animation<double> controlPoint2xAnimation;
+    Animation<double> controlPoint2yAnimation;
+
+    p1xAnimation = p1xTween.animate(topAnimationController);
+    p1yAnimation = p1yTween.animate(topAnimationController);
+    controlPoint1xAnimation =
         controlPoint1xTween.animate(topAnimationController);
-    Animation<double> controlPoint2xAnimation =
+    controlPoint2xAnimation =
         controlPoint2xTween.animate(topAnimationController);
-    Animation<double> controlPoint2yAnimation =
+    controlPoint2yAnimation =
         controlPoint2yTween.animate(topAnimationController);
 
     //updating vales
@@ -77,6 +80,39 @@ class HomeController extends GetxController with GetTickerProviderStateMixin {
         val.controlPoint2x = controlPoint2xAnimation.value;
         val.controlPoint2y = controlPoint2yAnimation.value;
       });
+    });
+  }
+
+  void _initializeGradientAnimation() {
+    //controller
+    gradientAnimationController =
+        AnimationController(duration: const Duration(seconds: 5), vsync: this);
+
+    //tween
+    Tween<double> tween1 = Tween(begin: -3, end: 1);
+    Tween<double> tween2 = Tween(begin: -1, end: 3);
+
+    //animation
+    late Animation<double> gradientAnimation1;
+    late Animation<double> gradientAnimation2;
+
+    gradientAnimation1 = tween1.animate(gradientAnimationController);
+    gradientAnimation2 = tween2.animate(gradientAnimationController);
+
+    //updating vales
+    gradientAnimationController.addListener(() {
+      model.update((val) {
+        val!.grdientFactorY1 = gradientAnimation1.value;
+        val.grdientFactorY2 = gradientAnimation2.value;
+      });
+    });
+
+    //firing animation
+    gradientAnimationController.forward();
+    gradientAnimationController.addStatusListener((status) {
+      if (status == AnimationStatus.completed) {
+        gradientAnimationController.repeat();
+      }
     });
   }
 
@@ -92,6 +128,7 @@ class HomeController extends GetxController with GetTickerProviderStateMixin {
   void onInit() {
     _initializeBackground();
     _initializeTopAnimation();
+    _initializeGradientAnimation();
     super.onInit();
   }
 
@@ -99,5 +136,6 @@ class HomeController extends GetxController with GetTickerProviderStateMixin {
   void onClose() {
     super.onClose();
     topAnimationController.dispose();
+    gradientAnimationController.dispose();
   }
 }

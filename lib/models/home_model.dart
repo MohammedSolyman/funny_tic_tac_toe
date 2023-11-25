@@ -2,10 +2,13 @@ import 'package:flutter/material.dart';
 
 class HomeModel {
   List<Widget> backgroundList = [];
-
+  // top animation factors
   double p1x = 0;
   double p1y = 0.2;
   double controlPoint1x = 0.333;
   double controlPoint2x = 0.666;
   double controlPoint2y = 0.3;
+  // background gradient factor
+  double grdientFactorY1 = -1;
+  double grdientFactorY2 = 1;
 }

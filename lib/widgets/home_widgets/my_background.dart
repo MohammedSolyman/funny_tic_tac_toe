@@ -8,19 +8,13 @@ class MyBackground extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    ThemingController thCont = Get.put(ThemingController());
+    //ThemingController thCont = Get.put(ThemingController());
     HomeController hCont = Get.put(HomeController());
 
     // double width = MediaQuery.of(context).size.width;
     // double height = MediaQuery.of(context).size.height;
     return Stack(children: [
-      Container(
-        decoration: BoxDecoration(
-            gradient: LinearGradient(
-                colors: [thCont.model.value.myTheme.bgColor2, Colors.white],
-                begin: const Alignment(0, -1),
-                end: const Alignment(0, 1))),
-      ),
+      const MyGradient(),
       GridView.builder(
         itemCount: 2000,
         padding: const EdgeInsets.all(0),
@@ -34,5 +28,30 @@ class MyBackground extends StatelessWidget {
         },
       ),
     ]);
+  }
+}
+
+class MyGradient extends StatelessWidget {
+  const MyGradient({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    ThemingController thCont = Get.put(ThemingController());
+    HomeController hCont = Get.put(HomeController());
+    return Obx(() {
+      return Container(
+        decoration: BoxDecoration(
+            gradient: LinearGradient(
+                colors: [
+              thCont.model.value.myTheme.bgColor2,
+              Colors.white,
+              thCont.model.value.myTheme.bgColor2,
+            ],
+                begin: Alignment(0, hCont.model.value.grdientFactorY1),
+                end: Alignment(0, hCont.model.value.grdientFactorY2))),
+      );
+    });
   }
 }
