@@ -42,8 +42,18 @@ class HomeController extends GetxController with GetTickerProviderStateMixin {
         AnimationController(duration: const Duration(seconds: 3), vsync: this);
 
     //tween
-    Tween<double> p1xTween = Tween(begin: 0, end: 0.8);
-    Tween<double> p1yTween = Tween(begin: 0.2, end: 0);
+    TweenSequence<double> p1xTween = TweenSequence<double>([
+      TweenSequenceItem<double>(tween: Tween(begin: 0, end: 0), weight: 1),
+      TweenSequenceItem<double>(tween: Tween(begin: 0, end: 0.8), weight: 1),
+    ]);
+
+    TweenSequence<double> p1yTween = TweenSequence<double>([
+      TweenSequenceItem<double>(tween: Tween(begin: 0.2, end: 0), weight: 1),
+      TweenSequenceItem<double>(tween: Tween(begin: 0, end: 0), weight: 1),
+    ]);
+
+    // Tween<double> p1xTween = Tween(begin: 0, end: 0.8);
+    // Tween<double> p1yTween = Tween(begin: 0.2, end: 0);
     Tween<double> controlPoint1xTween = Tween(begin: 0.333, end: 0.9);
     Tween<double> controlPoint2xTween = Tween(begin: 0.666, end: 1);
     Tween<double> controlPoint2yTween = Tween(begin: 0.3, end: 0.2);
