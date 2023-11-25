@@ -4,6 +4,7 @@ import 'package:funny_tic_tac_toe/widgets/home_widgets/bottom_block.dart';
 import 'package:funny_tic_tac_toe/widgets/home_widgets/middle_block.dart';
 import 'package:funny_tic_tac_toe/widgets/home_widgets/my_background.dart';
 import 'package:funny_tic_tac_toe/widgets/home_widgets/top_block.dart';
+import 'package:funny_tic_tac_toe/widgets/transition_widgets/transition_block.dart';
 import 'package:get/get.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -25,6 +26,7 @@ class HomeScreen extends StatelessWidget {
         TopBlock(),
         BottomBlock(),
         MiddleBlock(),
+        TransitionBlock()
       ],
     ));
   }
