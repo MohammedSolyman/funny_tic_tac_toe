@@ -4,9 +4,14 @@ import 'package:funny_tic_tac_toe/models/transition_model.dart';
 import 'package:funny_tic_tac_toe/widgets/transition_widgets/stick.dart';
 import 'package:get/get.dart';
 
-class TransitionController extends GetxController {
+class TransitionController extends GetxController
+    with GetTickerProviderStateMixin {
   Rx<TransitionModel> model = TransitionModel().obs;
   ThemingController thCon = Get.find<ThemingController>();
+
+  //transition animation
+  late AnimationController transitionAnimationController;
+  late Animation<double> animation;
 
   void initializeTransitionList({
     required int sticksNumber,
@@ -36,9 +41,39 @@ class TransitionController extends GetxController {
     });
   }
 
-  void inc() {
+  void initializeTransitionAnimation(double deviceHeight) {
+    //updating device hight
     model.update((val) {
-      val!.displacement += 10;
+      val!.displacementY = deviceHeight * 1.5;
     });
+
+    // controller
+    transitionAnimationController =
+        AnimationController(duration: const Duration(seconds: 3), vsync: this);
+
+    //Tween
+    Tween<double> tween = Tween<double>(
+        begin: model.value.displacementY, end: deviceHeight * (-0.5));
+
+    //animation
+    animation = tween.animate(transitionAnimationController);
+
+    //updating values
+    transitionAnimationController.addListener(() {
+      model.update((val) {
+        val!.displacementY = animation.value;
+      });
+    });
+  }
+
+  void coverScreen() {
+    transitionAnimationController.forward();
+  }
+
+  @override
+  void onClose() {
+    super.onClose();
+
+    transitionAnimationController.dispose();
   }
 }

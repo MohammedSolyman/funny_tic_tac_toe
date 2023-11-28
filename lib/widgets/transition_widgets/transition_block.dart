@@ -9,12 +9,13 @@ class TransitionBlock extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     TransitionController tCont = Get.find<TransitionController>();
+    //HomeController hCont = Get.find<HomeController>();
     double width = MediaQuery.of(context).size.width;
     double height = MediaQuery.of(context).size.height;
     return Obx(() {
       return CustomPaint(
         painter: MyPainter(
-            tCont.model.value.sticksList, tCont.model.value.displacement),
+            tCont.model.value.sticksList, tCont.model.value.displacementY),
         size: Size(width, height),
       );
     });

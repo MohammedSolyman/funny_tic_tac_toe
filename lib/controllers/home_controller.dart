@@ -15,9 +15,6 @@ class HomeController extends GetxController with GetTickerProviderStateMixin {
   //background animation
   late AnimationController gradientAnimationController;
 
-  //transition animation
-  late AnimationController transitionAnimationController;
-
   void _initializeBackground() {
     List<Widget> x = [];
     for (var i = 0; i < 1000; i++) {
@@ -120,14 +117,6 @@ class HomeController extends GetxController with GetTickerProviderStateMixin {
     });
   }
 
-  void _initializeTransitionAnimation() {
-    // controller
-    transitionAnimationController =
-        AnimationController(duration: const Duration(seconds: 3), vsync: this);
-
-    //Tween
-  }
-
   toLandscapeLayout() {
     topAnimationController.forward();
   }
@@ -136,7 +125,11 @@ class HomeController extends GetxController with GetTickerProviderStateMixin {
     topAnimationController.reverse();
   }
 
-  void goToGame() {
+  Future<void> goToGame() async {
+    //wait 3 seconds
+    await Future.delayed(const Duration(seconds: 5));
+
+    //navigate to game screen;
     Get.to(const GameScreen());
   }
 

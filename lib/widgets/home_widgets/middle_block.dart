@@ -66,8 +66,8 @@ class GoButton extends StatelessWidget {
 
     return ElevatedButton(
         onPressed: () {
-          tCont.inc();
-          // hCont.goToGame();
+          tCont.coverScreen();
+          hCont.goToGame();
         },
         child: const Text('go'));
   }

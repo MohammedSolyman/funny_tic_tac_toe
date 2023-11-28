@@ -12,7 +12,7 @@ class Stick {
       required this.borderColor,
       required this.stickIndex});
 
-  draw(Canvas canvas, Size size, {double displacement = 0}) {
+  draw(Canvas canvas, Size size, {double displacement = 3000}) {
     //dimensions
     double height = size.height * 2;
 
@@ -27,9 +27,9 @@ class Stick {
     Path path = Path();
     path.moveTo(p0.dx, p0.dy);
     path.lineTo(p1.dx, p1.dy);
-    path.conicTo(c1.dx, c1.dy, p2.dx, p2.dy, 1);
+    path.conicTo(c1.dx, c1.dy, p2.dx, p2.dy, 0.5);
     path.lineTo(p3.dx, p3.dy);
-    path.conicTo(c2.dx, c2.dy, p0.dx, p0.dy, 1);
+    path.conicTo(c2.dx, c2.dy, p0.dx, p0.dy, 0.5);
 
     //border paint
     Paint borderPaint = Paint();
