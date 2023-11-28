@@ -8,8 +8,7 @@ class MyBackground extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    //ThemingController thCont = Get.put(ThemingController());
-    HomeController hCont = Get.put(HomeController());
+    HomeController hCont = Get.find<HomeController>();
 
     // double width = MediaQuery.of(context).size.width;
     // double height = MediaQuery.of(context).size.height;
@@ -38,8 +37,9 @@ class MyGradient extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    ThemingController thCont = Get.put(ThemingController());
-    HomeController hCont = Get.put(HomeController());
+    ThemingController thCont = Get.find<ThemingController>();
+    HomeController hCont = Get.find<HomeController>();
+
     return Obx(() {
       return Container(
         decoration: BoxDecoration(

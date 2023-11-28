@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:funny_tic_tac_toe/controllers/audio_controller.dart';
+import 'package:funny_tic_tac_toe/controllers/home_controller.dart';
+import 'package:funny_tic_tac_toe/controllers/theming_controller.dart';
 import 'package:funny_tic_tac_toe/controllers/transition_controller.dart';
 import 'package:funny_tic_tac_toe/views/home_screen.dart';
 import 'package:get/get.dart';
@@ -11,7 +14,10 @@ git push https://github.com/MohammedSolyman/funny_tic_tac_toe.git master
 
 */
 void main() {
+  Get.put(ThemingController());
   Get.put(TransitionController());
+  Get.put(AudioController());
+  Get.put(HomeController());
 
   runApp(const MainApp());
 }
@@ -27,7 +33,7 @@ class MainApp extends StatelessWidget {
     tCont.initializeTransitionList(
         sticksNumber: 10, deviceWidth: weight, deviceHeight: height);
 
-    return const MaterialApp(
+    return const GetMaterialApp(
       home: HomeScreen(),
     );
   }

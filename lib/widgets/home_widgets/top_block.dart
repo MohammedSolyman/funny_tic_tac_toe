@@ -8,7 +8,7 @@ class TopBlock extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    HomeController hCont = Get.put(HomeController());
+    HomeController hCont = Get.find<HomeController>();
     double width = MediaQuery.of(context).size.width;
     double height = MediaQuery.of(context).size.height;
     return Obx(() {
@@ -42,7 +42,7 @@ class MyTopPainter extends CustomPainter {
 
   @override
   void paint(Canvas canvas, Size size) {
-    ThemingController thCon = Get.put(ThemingController());
+    ThemingController thCon = Get.find<ThemingController>();
 
     //dimensions
     double deviceWidth = size.width;
@@ -125,7 +125,7 @@ class MyTopPainter extends CustomPainter {
 // class MyTopPainter extends CustomPainter {
 //   @override
 //   void paint(Canvas canvas, Size size) {
-//     ThemingController thCon = Get.put(ThemingController());
+//     ThemingController thCon = Get.find<ThemingController>();
 
 //     //dimensions
 //     double deviceWidth = size.width;

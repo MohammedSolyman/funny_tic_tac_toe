@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:funny_tic_tac_toe/models/home_model.dart';
+import 'package:funny_tic_tac_toe/views/game_screen.dart';
 import 'package:funny_tic_tac_toe/widgets/home_widgets/small_o.dart';
 import 'package:funny_tic_tac_toe/widgets/home_widgets/small_x.dart';
 import 'package:get/get.dart';
@@ -13,6 +14,9 @@ class HomeController extends GetxController with GetTickerProviderStateMixin {
 
   //background animation
   late AnimationController gradientAnimationController;
+
+  //transition animation
+  late AnimationController transitionAnimationController;
 
   void _initializeBackground() {
     List<Widget> x = [];
@@ -116,12 +120,24 @@ class HomeController extends GetxController with GetTickerProviderStateMixin {
     });
   }
 
+  void _initializeTransitionAnimation() {
+    // controller
+    transitionAnimationController =
+        AnimationController(duration: const Duration(seconds: 3), vsync: this);
+
+    //Tween
+  }
+
   toLandscapeLayout() {
     topAnimationController.forward();
   }
 
   toPortraitLayout() {
     topAnimationController.reverse();
+  }
+
+  void goToGame() {
+    Get.to(const GameScreen());
   }
 
   @override

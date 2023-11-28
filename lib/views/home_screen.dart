@@ -12,7 +12,7 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    HomeController hCont = Get.put(HomeController());
+    HomeController hCont = Get.find<HomeController>();
 
     if (MediaQuery.of(context).orientation == Orientation.portrait) {
       hCont.toPortraitLayout();
@@ -26,7 +26,7 @@ class HomeScreen extends StatelessWidget {
         TopBlock(),
         BottomBlock(),
         MiddleBlock(),
-        TransitionBlock()
+        IgnorePointer(child: TransitionBlock())
       ],
     ));
   }

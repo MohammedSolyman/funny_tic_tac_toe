@@ -2,33 +2,34 @@ import 'package:flutter/material.dart';
 
 class Stick {
   final double width;
-  final Offset p0;
   final Color borderColor;
   final Color bodyColor;
+  int stickIndex;
+
   Stick(
       {required this.width,
       required this.bodyColor,
       required this.borderColor,
-      required this.p0});
+      required this.stickIndex});
 
-  draw(Canvas canvas, Size size) {
+  draw(Canvas canvas, Size size, {double displacement = 0}) {
     //dimensions
-    double height = size.height;
-    Offset p2 = Offset(p0.dx + width, p0.dy + height * 2);
+    double height = size.height * 2;
+
+    Offset p0 = Offset(stickIndex * width, displacement);
+    Offset p1 = Offset(p0.dx, height + displacement);
+    Offset p2 = Offset(p0.dx + width, height + displacement);
+    Offset p3 = Offset(p0.dx + width, displacement);
+    Offset c1 = Offset(p0.dx + width * 0.5, (height * 1.05) + displacement);
+    Offset c2 = Offset(p0.dx + width * 0.5, (-height * 0.05) + displacement);
 
     //path
-    Radius radius = const Radius.circular(15);
-    Rect rect = Rect.fromPoints(p0, p2);
-    RRect rrect = RRect.fromRectAndCorners(
-      rect,
-      bottomLeft: radius,
-      bottomRight: radius,
-      topLeft: radius,
-      topRight: radius,
-    );
-
     Path path = Path();
-    path.addRRect(rrect);
+    path.moveTo(p0.dx, p0.dy);
+    path.lineTo(p1.dx, p1.dy);
+    path.conicTo(c1.dx, c1.dy, p2.dx, p2.dy, 1);
+    path.lineTo(p3.dx, p3.dy);
+    path.conicTo(c2.dx, c2.dy, p0.dx, p0.dy, 1);
 
     //border paint
     Paint borderPaint = Paint();

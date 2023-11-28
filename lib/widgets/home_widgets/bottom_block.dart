@@ -19,7 +19,7 @@ class BottomBlock extends StatelessWidget {
 class MyTopPainter extends CustomPainter {
   @override
   void paint(Canvas canvas, Size size) {
-    ThemingController thCon = Get.put(ThemingController());
+    ThemingController thCon = Get.find<ThemingController>();
 
     //dimensions
     double deviceWidth = size.width;

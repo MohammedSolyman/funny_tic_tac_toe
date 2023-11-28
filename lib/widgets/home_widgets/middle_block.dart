@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:funny_tic_tac_toe/controllers/home_controller.dart';
 import 'package:funny_tic_tac_toe/controllers/theming_controller.dart';
+import 'package:funny_tic_tac_toe/controllers/transition_controller.dart';
 import 'package:funny_tic_tac_toe/utilities/consts/assets_paths.dart';
 import 'package:get/get.dart';
 
@@ -8,10 +10,6 @@ class MiddleBlock extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // ThemingController theCont = Get.put(ThemingController());
-    // double width = MediaQuery.of(context).size.width;
-    // double height = MediaQuery.of(context).size.height;
-
     return const Center(
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
@@ -29,7 +27,8 @@ class Option1 extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    ThemingController thCont = Get.put(ThemingController());
+    ThemingController thCont = Get.find<ThemingController>();
+
     double width = MediaQuery.of(context).size.width;
     //  double height = MediaQuery.of(context).size.height;
     return Container(
@@ -62,6 +61,14 @@ class GoButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ElevatedButton(onPressed: () {}, child: const Text('go'));
+    HomeController hCont = Get.find<HomeController>();
+    TransitionController tCont = Get.find<TransitionController>();
+
+    return ElevatedButton(
+        onPressed: () {
+          tCont.inc();
+          // hCont.goToGame();
+        },
+        child: const Text('go'));
   }
 }
