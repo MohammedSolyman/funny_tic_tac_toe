@@ -70,6 +70,10 @@ class TransitionController extends GetxController
     transitionAnimationController.forward();
   }
 
+  void unCoverScreen() {
+    transitionAnimationController.reverse();
+  }
+
   @override
   void onClose() {
     super.onClose();
