@@ -38,3 +38,32 @@ class MainApp extends StatelessWidget {
     );
   }
 }
+
+// /////////////////////////////////////////////
+// class OOO extends StatelessWidget {
+//   const OOO({super.key});
+
+//   @override
+//   Widget build(BuildContext context) {
+//     return Scaffold(
+//       body: CustomPaint(
+//         painter: MyPainter(),
+//         size: Size(MediaQuery.of(context).size.width,
+//             MediaQuery.of(context).size.height),
+//       ),
+//     );
+//   }
+// }
+
+// // class MyPainter extends CustomPainter {
+// //   @override
+// //   void paint(Canvas canvas, Size size) {
+// //     BigOOO b = BigOOO(Offset(0, 0));
+// //     b.draw(canvas, size);
+// //   }
+
+// //   @override
+// //   bool shouldRepaint(covariant CustomPainter oldDelegate) {
+// //     return true;
+// //   }
+// // }
