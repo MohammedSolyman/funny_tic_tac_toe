@@ -35,10 +35,10 @@ class MyLightTheme implements MyTheme {
 
 class MyDarkTheme implements MyTheme {
   @override
-  Color bgColor1 = Colors.black;
+  Color bgColor1 = Colors.grey.shade800;
 
   @override
-  Color bgColor2 = Colors.grey;
+  Color bgColor2 = Colors.black;
 
   @override
   Color borderColor = Colors.purple.shade800;
@@ -46,5 +46,5 @@ class MyDarkTheme implements MyTheme {
   double borderRadius = 15;
 
   @override
-  double borderWidth = 20;
+  double borderWidth = 4;
 }

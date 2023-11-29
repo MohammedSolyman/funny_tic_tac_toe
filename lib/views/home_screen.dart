@@ -28,7 +28,7 @@ class HomeScreen extends StatelessWidget {
       children: [
         MyBackground(),
         TopBlock(),
-        BottomBlock(),
+        IgnorePointer(child: BottomBlock()),
         MiddleBlock(),
         IgnorePointer(child: TransitionBlock())
       ],

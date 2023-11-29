@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:funny_tic_tac_toe/controllers/home_controller.dart';
 import 'package:funny_tic_tac_toe/controllers/theming_controller.dart';
+import 'package:funny_tic_tac_toe/utilities/consts/assets_paths.dart';
 import 'package:get/get.dart';
 
 class TopBlock extends StatelessWidget {
@@ -9,6 +10,7 @@ class TopBlock extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     HomeController hCont = Get.find<HomeController>();
+    ThemingController thCont = Get.find<ThemingController>();
     double width = MediaQuery.of(context).size.width;
     double height = MediaQuery.of(context).size.height;
     return Obx(() {
@@ -21,6 +23,28 @@ class TopBlock extends StatelessWidget {
           controlPoint2y: hCont.model.value.controlPoint2y,
         ),
         size: Size(width, height),
+        child: Align(
+          alignment: Alignment.topRight,
+          child: Column(
+            children: [
+              GestureDetector(
+                onTap: () {
+                  thCont.toggleThemingMode();
+                },
+                child: Image.asset(
+                  AssetsPaths.sun,
+                  color: thCont.model.value.myTheme.borderColor,
+                ),
+              ),
+              GestureDetector(
+                child: Image.asset(
+                  AssetsPaths.audio,
+                  color: thCont.model.value.myTheme.borderColor,
+                ),
+              )
+            ],
+          ),
+        ),
       );
     });
   }

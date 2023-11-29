@@ -8,11 +8,13 @@ class SmallX extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     ThemingController thCon = Get.find<ThemingController>();
-    return CustomPaint(
-      painter: Painter(thCon.model.value.myTheme.bgColor1),
-      size: Size(MediaQuery.of(context).size.width,
-          MediaQuery.of(context).size.height),
-    );
+    return Obx(() {
+      return CustomPaint(
+        painter: Painter(thCon.model.value.myTheme.bgColor1),
+        size: Size(MediaQuery.of(context).size.width,
+            MediaQuery.of(context).size.height),
+      );
+    });
   }
 }
 

@@ -8,7 +8,7 @@ class GameScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    GameController gCont = Get.put(GameController());
+    Get.put(GameController());
     return const Scaffold(
       body: Center(
           child: Stack(

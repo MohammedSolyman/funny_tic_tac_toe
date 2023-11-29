@@ -31,28 +31,30 @@ class Option1 extends StatelessWidget {
 
     double width = MediaQuery.of(context).size.width;
     //  double height = MediaQuery.of(context).size.height;
-    return Container(
-      margin: const EdgeInsets.all(8),
-      decoration: BoxDecoration(
-          color: thCont.model.value.myTheme.bgColor2,
-          border: Border.all(
-            color: thCont.model.value.myTheme.borderColor,
-            width: thCont.model.value.myTheme.borderWidth,
+    return Obx(() {
+      return Container(
+        margin: const EdgeInsets.all(8),
+        decoration: BoxDecoration(
+            color: thCont.model.value.myTheme.bgColor2,
+            border: Border.all(
+              color: thCont.model.value.myTheme.borderColor,
+              width: thCont.model.value.myTheme.borderWidth,
+            ),
+            borderRadius:
+                BorderRadius.circular(thCont.model.value.myTheme.borderRadius)),
+        child: SizedBox(
+          width: width * 0.5,
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: [
+              Image.asset(AssetsPaths.person),
+              const Text('vs.'),
+              Image.asset(AssetsPaths.person)
+            ],
           ),
-          borderRadius:
-              BorderRadius.circular(thCont.model.value.myTheme.borderRadius)),
-      child: SizedBox(
-        width: width * 0.5,
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
-          children: [
-            Image.asset(AssetsPaths.person),
-            const Text('vs.'),
-            Image.asset(AssetsPaths.person)
-          ],
         ),
-      ),
-    );
+      );
+    });
   }
 }
 

@@ -8,25 +8,36 @@ class MyBackground extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    HomeController hCont = Get.find<HomeController>();
+    // HomeController hCont = Get.find<HomeController>();
 
     // double width = MediaQuery.of(context).size.width;
     // double height = MediaQuery.of(context).size.height;
-    return Stack(children: [
-      const MyGradient(),
-      GridView.builder(
-        itemCount: 2000,
-        padding: const EdgeInsets.all(0),
-        physics: const NeverScrollableScrollPhysics(),
-        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-          crossAxisCount: 19,
-          childAspectRatio: 1,
-        ),
-        itemBuilder: (context, index) {
-          return hCont.model.value.backgroundList[index];
-        },
-      ),
+    return const Stack(children: [
+      MyGradient(),
+      MyGridView(),
     ]);
+  }
+}
+
+class MyGridView extends StatelessWidget {
+  const MyGridView({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    HomeController hCont = Get.find<HomeController>();
+
+    return GridView.builder(
+      itemCount: 2000,
+      padding: const EdgeInsets.all(0),
+      physics: const NeverScrollableScrollPhysics(),
+      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+        crossAxisCount: 19,
+        childAspectRatio: 1,
+      ),
+      itemBuilder: (context, index) {
+        return hCont.model.value.backgroundList[index];
+      },
+    );
   }
 }
 
