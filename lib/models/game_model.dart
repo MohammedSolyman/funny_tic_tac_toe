@@ -6,5 +6,5 @@ class GameModel {
   double height = 0;
 
   //grid alignment
-  Alignment gridAlignment = Alignment.center;
+  Alignment gridAlignment = const Alignment(4, 0);
 }
