@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:funny_tic_tac_toe/controllers/audio_controller.dart';
+import 'package:funny_tic_tac_toe/controllers/dimensions_controller.dart';
 import 'package:funny_tic_tac_toe/controllers/home_controller.dart';
 import 'package:funny_tic_tac_toe/controllers/theming_controller.dart';
 import 'package:funny_tic_tac_toe/controllers/transition_controller.dart';
@@ -14,11 +15,6 @@ git push https://github.com/MohammedSolyman/funny_tic_tac_toe.git master
 
 */
 void main() {
-  Get.put(ThemingController());
-  Get.put(TransitionController());
-  Get.put(AudioController());
-  Get.put(HomeController());
-
   runApp(const MainApp());
 }
 
@@ -27,11 +23,15 @@ class MainApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    TransitionController tCont = Get.find<TransitionController>();
-    double weight = MediaQuery.of(context).size.width;
+    DimensionsController dCont = Get.put(DimensionsController());
+    double width = MediaQuery.of(context).size.width;
     double height = MediaQuery.of(context).size.height;
-    tCont.initializeTransitionList(
-        sticksNumber: 10, deviceWidth: weight, deviceHeight: height);
+    dCont.gettingDeviceDimensions(height: height, width: width);
+
+    Get.put(ThemingController());
+    Get.put(TransitionController());
+    Get.put(AudioController());
+    Get.put(HomeController());
 
     return const GetMaterialApp(
       home: HomeScreen(),

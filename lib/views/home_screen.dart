@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:funny_tic_tac_toe/controllers/home_controller.dart';
-import 'package:funny_tic_tac_toe/controllers/transition_controller.dart';
 import 'package:funny_tic_tac_toe/widgets/home_widgets/bottom_block.dart';
 import 'package:funny_tic_tac_toe/widgets/home_widgets/middle_block.dart';
 import 'package:funny_tic_tac_toe/widgets/home_widgets/my_background.dart';
@@ -14,7 +13,7 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     HomeController hCont = Get.find<HomeController>();
-    TransitionController tCont = Get.find<TransitionController>();
+    //TransitionController tCont = Get.find<TransitionController>();
 
     if (MediaQuery.of(context).orientation == Orientation.portrait) {
       hCont.toPortraitLayout();
@@ -22,7 +21,7 @@ class HomeScreen extends StatelessWidget {
       hCont.toLandscapeLayout();
     }
 
-    tCont.initializeTransitionAnimation(MediaQuery.of(context).size.height);
+    //tCont.initializeTransitionAnimation(MediaQuery.of(context).size.height);
     return const Scaffold(
         body: Stack(
       children: [

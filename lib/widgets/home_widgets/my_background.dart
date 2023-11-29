@@ -14,13 +14,13 @@ class MyBackground extends StatelessWidget {
     // double height = MediaQuery.of(context).size.height;
     return const Stack(children: [
       MyGradient(),
-      MyGridView(),
+      BackgroundGridView(),
     ]);
   }
 }
 
-class MyGridView extends StatelessWidget {
-  const MyGridView({super.key});
+class BackgroundGridView extends StatelessWidget {
+  const BackgroundGridView({super.key});
 
   @override
   Widget build(BuildContext context) {

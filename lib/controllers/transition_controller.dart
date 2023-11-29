@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:funny_tic_tac_toe/controllers/dimensions_controller.dart';
 import 'package:funny_tic_tac_toe/controllers/theming_controller.dart';
 import 'package:funny_tic_tac_toe/models/transition_model.dart';
 import 'package:funny_tic_tac_toe/widgets/transition_widgets/stick.dart';
@@ -8,16 +9,14 @@ class TransitionController extends GetxController
     with GetTickerProviderStateMixin {
   Rx<TransitionModel> model = TransitionModel().obs;
   ThemingController thCon = Get.find<ThemingController>();
-
+  DimensionsController dCont = Get.find<DimensionsController>();
   //transition animation
   late AnimationController transitionAnimationController;
   late Animation<double> animation;
 
-  void initializeTransitionList({
-    required int sticksNumber,
-    required double deviceWidth,
-    required double deviceHeight,
-  }) {
+  void initializeTransitionList({required int sticksNumber}) {
+    double deviceWidth = dCont.model.value.width;
+
     List<Stick> x = [];
     double width = deviceWidth / sticksNumber;
 
@@ -41,8 +40,9 @@ class TransitionController extends GetxController
     });
   }
 
-  void initializeTransitionAnimation(double deviceHeight) {
+  void _initializeTransitionAnimation() {
     //updating device hight
+    double deviceHeight = dCont.model.value.height;
     model.update((val) {
       val!.displacementY = deviceHeight * 1.5;
     });
@@ -75,9 +75,15 @@ class TransitionController extends GetxController
   }
 
   @override
+  void onInit() {
+    super.onInit();
+    initializeTransitionList(sticksNumber: 10);
+    _initializeTransitionAnimation();
+  }
+
+  @override
   void onClose() {
     super.onClose();
-
     transitionAnimationController.dispose();
   }
 }
