@@ -14,7 +14,7 @@ class TransitionController extends GetxController
   ThemingController thCon = Get.find<ThemingController>();
   DimensionsController dCont = Get.find<DimensionsController>();
 
-  void initializeTransitionList({required int sticksNumber}) {
+  void _initializeTransitionList({required int sticksNumber}) {
     double deviceWidth = dCont.model.value.width;
 
     List<Stick> x = [];
@@ -76,13 +76,13 @@ class TransitionController extends GetxController
   }
 
   void animateTransitionBlock() {
+    _initializeTransitionList(sticksNumber: 10);
     model.value.transitionAnimationController.forward();
   }
 
   @override
   void onInit() {
     super.onInit();
-    initializeTransitionList(sticksNumber: 10);
     _initializeTransitionAnimation();
   }
 

@@ -27,6 +27,6 @@ class GameModel {
   double progressX = 0;
 
   //big x animation
-  late AnimationController oAnimationController;
+  //late AnimationController oAnimationController;
   double progressO = 0;
 }

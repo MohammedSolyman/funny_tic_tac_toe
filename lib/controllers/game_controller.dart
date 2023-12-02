@@ -152,7 +152,7 @@ class GameController extends GetxController with GetTickerProviderStateMixin {
   @override
   void onClose() {
     super.onClose();
-    model.value.oAnimationController.dispose();
+    // model.value.oAnimationController.dispose();
     model.value.xAnimationController.dispose();
     model.value.gridAnimationController.dispose();
   }

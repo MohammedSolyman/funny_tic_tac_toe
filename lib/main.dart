@@ -24,9 +24,7 @@ class MainApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     DimensionsController dCont = Get.put(DimensionsController());
-    double width = MediaQuery.of(context).size.width;
-    double height = MediaQuery.of(context).size.height;
-    dCont.gettingDeviceDimensions(height: height, width: width);
+    dCont.gettingDeviceDimensions(MediaQuery.of(context).size);
 
     Get.put(ThemingController());
     Get.put(TransitionController());
