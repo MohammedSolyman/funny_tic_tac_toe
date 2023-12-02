@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:funny_tic_tac_toe/controllers/game_controller.dart';
+import 'package:funny_tic_tac_toe/widgets/game_widgets/big_x.dart';
 import 'package:get/get.dart';
 
 class XOLayer extends StatelessWidget {
@@ -10,7 +11,9 @@ class XOLayer extends StatelessWidget {
     GameController gCont = Get.find<GameController>();
     return Obx(() {
       return CustomPaint(
-        painter: XOLayerPainter(gCont.model.value.xoList),
+        painter: XOLayerPainter(
+            xoList: gCont.model.value.xoList,
+            progress: gCont.model.value.progressX),
         size: Size(gCont.model.value.gridWidth, gCont.model.value.gridHeight),
       );
     });
@@ -18,8 +21,9 @@ class XOLayer extends StatelessWidget {
 }
 
 class XOLayerPainter extends CustomPainter {
-  List xoList;
-  XOLayerPainter(this.xoList);
+  List<MySymbol> xoList;
+  double progress;
+  XOLayerPainter({required this.xoList, required this.progress});
   @override
   void paint(Canvas canvas, Size size) {
     if (xoList.isNotEmpty) {

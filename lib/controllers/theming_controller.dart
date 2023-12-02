@@ -2,6 +2,8 @@ import 'package:funny_tic_tac_toe/models/theming_model.dart';
 import 'package:get/get.dart';
 
 class ThemingController extends GetxController {
+  //this controller is responsible of theming of the whole app.
+
   Rx<ThemingModel> model = ThemingModel().obs;
 
   void toggleThemingMode() {

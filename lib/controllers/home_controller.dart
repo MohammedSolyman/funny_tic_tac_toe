@@ -5,9 +5,9 @@ import 'package:funny_tic_tac_toe/widgets/home_widgets/small_o.dart';
 import 'package:funny_tic_tac_toe/widgets/home_widgets/small_x.dart';
 import 'package:get/get.dart';
 
-// GetSingleTickerProviderStateMixin
-// GetTickerProviderStateMixin
 class HomeController extends GetxController with GetTickerProviderStateMixin {
+  //this controller is responsible of home screen and its animations
+
   Rx<HomeModel> model = HomeModel().obs;
   //top block animation
   late AnimationController topAnimationController;

@@ -14,10 +14,7 @@ class GameGridView extends StatelessWidget {
     return Obx(() {
       return Align(
         alignment: gCont.model.value.gridAlignment,
-        child: Container(
-          decoration: BoxDecoration(
-            border: Border.all(color: Colors.black),
-          ),
+        child: SizedBox(
           width: gCont.model.value.gridWidth,
           height: gCont.model.value.gridHeight,
           child: Stack(
@@ -35,7 +32,8 @@ class GameGridView extends StatelessWidget {
                 itemBuilder: (context, index) {
                   return InkWell(
                     onTap: () {
-                      gCont.putO(index);
+                      // gCont.putO(index);
+                      gCont.putX(index);
                     },
                     child: Container(
                       decoration: BoxDecoration(
@@ -45,8 +43,8 @@ class GameGridView extends StatelessWidget {
                   );
                 },
               ),
-              IgnorePointer(child: XOLayer()),
-              //   ConnectingWinningLayer()
+              const IgnorePointer(child: XOLayer()),
+              const IgnorePointer(child: ConnectingWinningLayer()),
             ],
           ),
         ),

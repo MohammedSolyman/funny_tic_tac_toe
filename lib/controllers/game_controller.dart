@@ -3,15 +3,15 @@ import 'package:funny_tic_tac_toe/controllers/dimensions_controller.dart';
 import 'package:funny_tic_tac_toe/controllers/transition_controller.dart';
 import 'package:funny_tic_tac_toe/models/game_model.dart';
 import 'package:funny_tic_tac_toe/widgets/game_widgets/big_o.dart';
+import 'package:funny_tic_tac_toe/widgets/game_widgets/big_x.dart';
 import 'package:get/get.dart';
 
 class GameController extends GetxController with GetTickerProviderStateMixin {
+  //this controller is responsible of game screen and its animations
+
   Rx<GameModel> model = GameModel().obs;
   TransitionController tCont = Get.find<TransitionController>();
   DimensionsController dCont = Get.find<DimensionsController>();
-
-//grid animation
-  late AnimationController gridAnimationController;
 
   void _initializeGridDimenions() {
     model.update((val) {
@@ -24,7 +24,7 @@ class GameController extends GetxController with GetTickerProviderStateMixin {
     double widthThird = model.value.gridWidth / 3;
     double heightThird = model.value.gridHeight / 3;
 
-    Offset s0 = Offset(0, 0);
+    Offset s0 = const Offset(0, 0);
     Offset s1 = Offset(widthThird, 0);
     Offset s2 = Offset(widthThird * 2, 0);
 
@@ -37,18 +37,39 @@ class GameController extends GetxController with GetTickerProviderStateMixin {
     Offset s8 = Offset(widthThird * 2, heightThird * 2);
 
     model.update((val) {
-      val!.cellsstarPoints = [s0, s1, s2, s3, s4, s5, s6, s7, s8];
+      val!.cellsStarPoints = [s0, s1, s2, s3, s4, s5, s6, s7, s8];
+    });
+  }
+
+  void _initializeCellsCentersPoints() {
+    double widthSixth = model.value.gridWidth / 6;
+    double heightSixth = model.value.gridHeight / 6;
+
+    Offset s0 = Offset(widthSixth, heightSixth);
+    Offset s1 = Offset(widthSixth * 3, heightSixth);
+    Offset s2 = Offset(widthSixth * 5, heightSixth);
+
+    Offset s3 = Offset(widthSixth, heightSixth * 3);
+    Offset s4 = Offset(widthSixth * 3, heightSixth * 3);
+    Offset s5 = Offset(widthSixth * 5, heightSixth * 3);
+
+    Offset s6 = Offset(widthSixth, heightSixth * 5);
+    Offset s7 = Offset(widthSixth * 3, heightSixth * 5);
+    Offset s8 = Offset(widthSixth * 5, heightSixth * 5);
+
+    model.update((val) {
+      val!.cellsCenterPoints = [s0, s1, s2, s3, s4, s5, s6, s7, s8];
     });
   }
 
   void _initializeGridAnimation() {
     // controler
-    gridAnimationController =
+    model.value.gridAnimationController =
         AnimationController(duration: const Duration(seconds: 2), vsync: this);
 
     //curve
     CurvedAnimation curvedAnimation = CurvedAnimation(
-        parent: gridAnimationController, curve: Curves.elasticOut);
+        parent: model.value.gridAnimationController, curve: Curves.elasticOut);
 
     // tween
     Tween<Alignment> tween = Tween<Alignment>(
@@ -58,24 +79,59 @@ class GameController extends GetxController with GetTickerProviderStateMixin {
     Animation animation = tween.animate(curvedAnimation);
 
     //updating values
-    gridAnimationController.addListener(() {
+    model.value.gridAnimationController.addListener(() {
       model.update((val) {
         val!.gridAlignment = animation.value;
       });
     });
   }
 
+  void _initializeXAnimation() {
+    // controler
+    model.value.xAnimationController =
+        AnimationController(duration: const Duration(minutes: 15), vsync: this);
+
+    // tween
+    Tween<double> tween = Tween<double>(begin: 0, end: 1);
+
+    //animation
+    Animation animation = tween.animate(model.value.xAnimationController);
+
+    //updating values
+    model.value.xAnimationController.addListener(() {
+      model.update((val) {
+        val!.progressX = animation.value;
+        for (var symbol in val.xoList) {
+          symbol.updateProgress();
+        }
+        print('${val.progressX}');
+      });
+    });
+  }
+
   Future<void> _animateGameGrid() async {
     await Future.delayed(const Duration(seconds: 3));
-    gridAnimationController.forward();
+    model.value.gridAnimationController.forward();
   }
 
   void putO(int index) {
-    Offset position = model.value.cellsstarPoints[index];
+    Offset position = model.value.cellsStarPoints[index];
     BigO o = BigO(position);
     model.update((val) {
       val!.xoList.add(o);
     });
+  }
+
+  void putX(int index) {
+    Offset position = model.value.cellsStarPoints[index];
+    BigX x = BigX(position: position);
+
+    model.update((val) {
+      val!.xoList.add(x);
+    });
+
+    //firing animation
+    model.value.xAnimationController.forward();
   }
 
   @override
@@ -84,7 +140,9 @@ class GameController extends GetxController with GetTickerProviderStateMixin {
     tCont.unCoverScreen();
     _initializeGridDimenions();
     _initializeCellsStartPoints();
+    _initializeCellsCentersPoints();
     _initializeGridAnimation();
+    _initializeXAnimation();
     _animateGameGrid();
   }
 }

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:funny_tic_tac_toe/controllers/transition_controller.dart';
-import 'package:funny_tic_tac_toe/widgets/transition_widgets/stick.dart';
+import 'package:funny_tic_tac_toe/widgets/transition_widgets/components/transition_painter.dart';
 import 'package:get/get.dart';
 
 class TransitionBlock extends StatelessWidget {
@@ -9,33 +9,14 @@ class TransitionBlock extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     TransitionController tCont = Get.find<TransitionController>();
-    //HomeController hCont = Get.find<HomeController>();
     double width = MediaQuery.of(context).size.width;
     double height = MediaQuery.of(context).size.height;
     return Obx(() {
       return CustomPaint(
-        painter: MyPainter(
+        painter: TransitionPainter(
             tCont.model.value.sticksList, tCont.model.value.displacementY),
         size: Size(width, height),
       );
     });
-  }
-}
-
-class MyPainter extends CustomPainter {
-  List<Stick> sticksList;
-  double displacement;
-
-  MyPainter(this.sticksList, this.displacement);
-  @override
-  void paint(Canvas canvas, Size size) {
-    for (var i = 0; i < sticksList.length; i++) {
-      sticksList[i].draw(canvas, size, displacement: displacement);
-    }
-  }
-
-  @override
-  bool shouldRepaint(covariant CustomPainter oldDelegate) {
-    return true;
   }
 }

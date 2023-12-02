@@ -2,11 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:funny_tic_tac_toe/controllers/dimensions_controller.dart';
 import 'package:funny_tic_tac_toe/controllers/theming_controller.dart';
 import 'package:funny_tic_tac_toe/models/transition_model.dart';
-import 'package:funny_tic_tac_toe/widgets/transition_widgets/stick.dart';
+import 'package:funny_tic_tac_toe/widgets/transition_widgets/components/stick.dart';
 import 'package:get/get.dart';
 
 class TransitionController extends GetxController
     with GetTickerProviderStateMixin {
+  //this controller is responsible of transition screen between
+  //home and game screens.
+
   Rx<TransitionModel> model = TransitionModel().obs;
   ThemingController thCon = Get.find<ThemingController>();
   DimensionsController dCont = Get.find<DimensionsController>();
