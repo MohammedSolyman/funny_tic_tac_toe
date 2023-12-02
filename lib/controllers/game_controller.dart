@@ -89,7 +89,7 @@ class GameController extends GetxController with GetTickerProviderStateMixin {
   void _initializeXAnimation() {
     // controler
     model.value.xAnimationController =
-        AnimationController(duration: const Duration(minutes: 15), vsync: this);
+        AnimationController(duration: const Duration(seconds: 2), vsync: this);
 
     // tween
     Tween<double> tween = Tween<double>(begin: 0, end: 1);
@@ -106,6 +106,12 @@ class GameController extends GetxController with GetTickerProviderStateMixin {
         }
         print('${val.progressX}');
       });
+    });
+    //updating status
+    model.value.xAnimationController.addStatusListener((status) {
+      if (status == AnimationStatus.completed) {
+        model.value.xAnimationController.reset();
+      }
     });
   }
 
@@ -144,5 +150,13 @@ class GameController extends GetxController with GetTickerProviderStateMixin {
     _initializeGridAnimation();
     _initializeXAnimation();
     _animateGameGrid();
+  }
+
+  @override
+  void onClose() {
+    super.onClose();
+    model.value.oAnimationController.dispose();
+    model.value.xAnimationController.dispose();
+    model.value.gridAnimationController.dispose();
   }
 }
