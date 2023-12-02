@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:funny_tic_tac_toe/controllers/dimensions_controller.dart';
-import 'package:funny_tic_tac_toe/controllers/transition_controller.dart';
 import 'package:funny_tic_tac_toe/models/game_model.dart';
 import 'package:funny_tic_tac_toe/widgets/game_widgets/big_o.dart';
 import 'package:funny_tic_tac_toe/widgets/game_widgets/big_x.dart';
@@ -10,7 +9,6 @@ class GameController extends GetxController with GetTickerProviderStateMixin {
   //this controller is responsible of game screen and its animations
 
   Rx<GameModel> model = GameModel().obs;
-  TransitionController tCont = Get.find<TransitionController>();
   DimensionsController dCont = Get.find<DimensionsController>();
 
   void _initializeGridDimenions() {
@@ -143,7 +141,6 @@ class GameController extends GetxController with GetTickerProviderStateMixin {
   @override
   void onInit() {
     super.onInit();
-    tCont.unCoverScreen();
     _initializeGridDimenions();
     _initializeCellsStartPoints();
     _initializeCellsCentersPoints();

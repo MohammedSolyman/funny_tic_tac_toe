@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:funny_tic_tac_toe/controllers/transition_controller.dart';
 import 'package:funny_tic_tac_toe/models/home_model.dart';
 import 'package:funny_tic_tac_toe/views/game_screen.dart';
 import 'package:funny_tic_tac_toe/widgets/home_widgets/small_o.dart';
@@ -9,11 +10,7 @@ class HomeController extends GetxController with GetTickerProviderStateMixin {
   //this controller is responsible of home screen and its animations
 
   Rx<HomeModel> model = HomeModel().obs;
-  //top block animation
-  late AnimationController topAnimationController;
-
-  //background animation
-  late AnimationController gradientAnimationController;
+  TransitionController tCont = Get.find<TransitionController>();
 
   void _initializeBackground() {
     List<Widget> x = [];
@@ -36,7 +33,7 @@ class HomeController extends GetxController with GetTickerProviderStateMixin {
 //controlPoint2y        0.3            0.2
 
     //controller
-    topAnimationController =
+    model.value.topAnimationController =
         AnimationController(duration: const Duration(seconds: 3), vsync: this);
 
     //tween
@@ -63,17 +60,17 @@ class HomeController extends GetxController with GetTickerProviderStateMixin {
     Animation<double> controlPoint2xAnimation;
     Animation<double> controlPoint2yAnimation;
 
-    p1xAnimation = p1xTween.animate(topAnimationController);
-    p1yAnimation = p1yTween.animate(topAnimationController);
+    p1xAnimation = p1xTween.animate(model.value.topAnimationController);
+    p1yAnimation = p1yTween.animate(model.value.topAnimationController);
     controlPoint1xAnimation =
-        controlPoint1xTween.animate(topAnimationController);
+        controlPoint1xTween.animate(model.value.topAnimationController);
     controlPoint2xAnimation =
-        controlPoint2xTween.animate(topAnimationController);
+        controlPoint2xTween.animate(model.value.topAnimationController);
     controlPoint2yAnimation =
-        controlPoint2yTween.animate(topAnimationController);
+        controlPoint2yTween.animate(model.value.topAnimationController);
 
     //updating vales
-    topAnimationController.addListener(() {
+    model.value.topAnimationController.addListener(() {
       model.update((val) {
         val!.p1x = p1xAnimation.value;
         val.p1y = p1yAnimation.value;
@@ -86,7 +83,7 @@ class HomeController extends GetxController with GetTickerProviderStateMixin {
 
   void _initializeGradientAnimation() {
     //controller
-    gradientAnimationController =
+    model.value.gradientAnimationController =
         AnimationController(duration: const Duration(seconds: 5), vsync: this);
 
     //tween
@@ -97,11 +94,13 @@ class HomeController extends GetxController with GetTickerProviderStateMixin {
     late Animation<double> gradientAnimation1;
     late Animation<double> gradientAnimation2;
 
-    gradientAnimation1 = tween1.animate(gradientAnimationController);
-    gradientAnimation2 = tween2.animate(gradientAnimationController);
+    gradientAnimation1 =
+        tween1.animate(model.value.gradientAnimationController);
+    gradientAnimation2 =
+        tween2.animate(model.value.gradientAnimationController);
 
     //updating vales
-    gradientAnimationController.addListener(() {
+    model.value.gradientAnimationController.addListener(() {
       model.update((val) {
         val!.grdientFactorY1 = gradientAnimation1.value;
         val.grdientFactorY2 = gradientAnimation2.value;
@@ -109,25 +108,26 @@ class HomeController extends GetxController with GetTickerProviderStateMixin {
     });
 
     //firing animation
-    gradientAnimationController.forward();
-    gradientAnimationController.addStatusListener((status) {
+    model.value.gradientAnimationController.forward();
+    model.value.gradientAnimationController.addStatusListener((status) {
       if (status == AnimationStatus.completed) {
-        gradientAnimationController.repeat();
+        model.value.gradientAnimationController.repeat();
       }
     });
   }
 
-  toLandscapeLayout() {
-    topAnimationController.forward();
+  void toLandscapeLayout() {
+    model.value.topAnimationController.forward();
   }
 
-  toPortraitLayout() {
-    topAnimationController.reverse();
+  void toPortraitLayout() {
+    model.value.topAnimationController.reverse();
   }
 
   Future<void> goToGame() async {
     //wait 3 seconds
-    await Future.delayed(const Duration(seconds: 5));
+    await Future.delayed(
+        Duration(seconds: tCont.model.value.covertingDuration));
 
     //navigate to game screen;
     Get.to(const GameScreen());
@@ -144,7 +144,7 @@ class HomeController extends GetxController with GetTickerProviderStateMixin {
   @override
   void onClose() {
     super.onClose();
-    topAnimationController.dispose();
-    gradientAnimationController.dispose();
+    model.value.topAnimationController.dispose();
+    model.value.gradientAnimationController.dispose();
   }
 }

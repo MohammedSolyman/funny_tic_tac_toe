@@ -13,9 +13,6 @@ class TransitionController extends GetxController
   Rx<TransitionModel> model = TransitionModel().obs;
   ThemingController thCon = Get.find<ThemingController>();
   DimensionsController dCont = Get.find<DimensionsController>();
-  //transition animation
-  late AnimationController transitionAnimationController;
-  late Animation<double> animation;
 
   void initializeTransitionList({required int sticksNumber}) {
     double deviceWidth = dCont.model.value.width;
@@ -51,30 +48,35 @@ class TransitionController extends GetxController
     });
 
     // controller
-    transitionAnimationController =
-        AnimationController(duration: const Duration(seconds: 3), vsync: this);
+    model.value.transitionAnimationController = AnimationController(
+        duration: Duration(seconds: model.value.covertingDuration),
+        vsync: this);
 
     //Tween
     Tween<double> tween = Tween<double>(
         begin: model.value.displacementY, end: deviceHeight * (-0.5));
 
     //animation
-    animation = tween.animate(transitionAnimationController);
+    Animation<double> animation =
+        tween.animate(model.value.transitionAnimationController);
 
     //updating values
-    transitionAnimationController.addListener(() {
+    model.value.transitionAnimationController.addListener(() {
       model.update((val) {
         val!.displacementY = animation.value;
       });
     });
+
+    //updating status
+    model.value.transitionAnimationController.addStatusListener((status) {
+      if (status == AnimationStatus.completed) {
+        model.value.transitionAnimationController.reverse();
+      }
+    });
   }
 
-  void coverScreen() {
-    transitionAnimationController.forward();
-  }
-
-  void unCoverScreen() {
-    transitionAnimationController.reverse();
+  void animateTransitionBlock() {
+    model.value.transitionAnimationController.forward();
   }
 
   @override
@@ -87,6 +89,6 @@ class TransitionController extends GetxController
   @override
   void onClose() {
     super.onClose();
-    transitionAnimationController.dispose();
+    model.value.transitionAnimationController.dispose();
   }
 }
