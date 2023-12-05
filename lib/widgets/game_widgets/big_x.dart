@@ -1,15 +1,10 @@
 import 'dart:ui';
 import 'package:flutter/material.dart';
-
-abstract class MySymbol {
-  draw(Canvas canvas, Size size);
-  updateProgress();
-}
+import 'package:funny_tic_tac_toe/widgets/game_widgets/my_symbol.dart';
 
 class BigX implements MySymbol {
   Offset position;
   double progress = 0;
-
   BigX({required this.position});
 
   @override

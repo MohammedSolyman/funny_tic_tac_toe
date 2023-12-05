@@ -1,5 +1,6 @@
+import 'dart:ui';
 import 'package:flutter/material.dart';
-import 'package:funny_tic_tac_toe/widgets/game_widgets/big_x.dart';
+import 'package:funny_tic_tac_toe/widgets/game_widgets/my_symbol.dart';
 
 class BigO implements MySymbol {
   Offset position;
@@ -327,20 +328,16 @@ class BigO implements MySymbol {
     );
 
     path = path.shift(position);
-    canvas.drawPath(path, paint);
-    //test ONLY
-    Path test = Path();
-    test.lineTo(0, size.height);
-    test.lineTo(size.width, size.height);
-    test.lineTo(size.width, 0);
-    test.lineTo(0, 0);
 
-    Paint pTest = Paint();
-    pTest.color = Colors.blue;
-    pTest.style = PaintingStyle.stroke;
-    pTest.strokeWidth = 5;
+    final pathMetrics = path.computeMetrics();
 
-    canvas.drawPath(test, pTest);
+    for (final pathMetric in pathMetrics) {
+      final length = pathMetric.length * progress;
+      for (double distance = 0; distance <= length; distance += 1) {
+        Tangent? pos = pathMetric.getTangentForOffset(distance);
+        canvas.drawCircle(pos!.position, 1, paint);
+      }
+    }
   }
 
   @override

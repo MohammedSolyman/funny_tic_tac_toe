@@ -7,10 +7,191 @@ import 'package:get/get.dart';
 
 class GameController extends GetxController with GetTickerProviderStateMixin {
   //this controller is responsible of game screen and its animations
-
   Rx<GameModel> model = GameModel().obs;
   DimensionsController dCont = Get.find<DimensionsController>();
 
+//game logic///////////////////////////////////////////////////
+  void _updateWinningCells(int i1, int i2, int i3) {
+    //this function will update the three winning cells.
+    model.update((val) {
+      val!.winningCells = [i1, i2, i3];
+    });
+  }
+
+  int getScore(List<String> b) {
+    // 1. this function will return the following
+    //x wins  => -10
+    //o wins  =>  10
+    //  tie   =>   0
+    //ongoing =>   1
+    // 2. this function will update the winning cells as well.
+
+    //Hoorizontal winning
+    for (var i = 0; i < 7; i += 3) {
+      if (b[i] != '' && b[i] == b[i + 1] && b[i] == b[i + 2]) {
+        _updateWinningCells(i, i + 1, i + 2);
+        if (b[i] == 'X') {
+          return -10;
+        } else {
+          return 10;
+        }
+      }
+    }
+
+    //Vertical winning
+    for (var i = 0; i < 3; i++) {
+      if (b[i] != '' && b[i] == b[i + 3] && b[i] == b[i + 6]) {
+        _updateWinningCells(i, i + 3, i + 6);
+        if (b[i] == 'X') {
+          return -10;
+        } else {
+          return 10;
+        }
+      }
+    }
+
+    //Diagonal winning 1
+    if ((b[0] != '' && b[0] == b[4] && b[0] == b[8])) {
+      _updateWinningCells(0, 4, 8);
+
+      if (b[4] == 'X') {
+        return -10;
+      } else {
+        return 10;
+      }
+    }
+
+    //Diagonal winning 2
+    if ((b[2] != '' && b[2] == b[4] && b[2] == b[6])) {
+      _updateWinningCells(2, 4, 6);
+
+      if (b[4] == 'X') {
+        return -10;
+      } else {
+        return 10;
+      }
+    }
+
+    if (b.contains('')) {
+      return 1;
+    } else {
+      return 0;
+    }
+  }
+
+  void xPlay(int index) {
+    //if the game is still ongoing, and the index in the grid list
+    //is empty:
+    //   1. put 'X' int the grid list
+    //   2. put 'X' with animation in xo- layer
+    if (getScore(model.value.board) == 1) {
+      if (model.value.board[index] == '') {
+        model.update((val) {
+          val!.board[index] = 'X';
+        });
+        _putX(index);
+      }
+    }
+  }
+
+  void oPlay(int index) {
+    //if the game is still ongoing, and the index in the grid list
+    //is empty:
+    //   1. put 'O' int the grid list
+    //   2. put 'O' with animation in xo- layer
+    if (getScore(model.value.board) == 1) {
+      if (model.value.board[index] == '') {
+        model.update((val) {
+          val!.board[index] = 'O';
+        });
+        _putO(index);
+      }
+    }
+  }
+
+  void aiPlay() {
+    if (getScore(model.value.board) == 1) {
+      List<String> b = model.value.board;
+      int bestMoveIndex = -1000;
+      int bestScore = -1000;
+
+      for (var i = 0; i < 9; i++) {
+        if (b[i] == '') {
+          b[i] = 'O';
+          int tempScore = miniMax(b, 100, false);
+          b[i] = '';
+          if (bestScore < tempScore) {
+            bestScore = tempScore;
+            bestMoveIndex = i;
+          }
+        }
+      }
+      model.update((val) {
+        val!.board[bestMoveIndex] = 'O';
+      });
+    }
+  }
+
+  int miniMax(List<String> b, int depth, bool isMaximizing) {
+    int score = getScore(b);
+
+    if (score != 1) {
+      return score;
+    } else {
+      if (isMaximizing) {
+        int bestScore = -1000;
+        for (var i = 0; i < 9; i++) {
+          if (b[i] == '') {
+            b[i] = 'O';
+            int tempScore = miniMax(b, ++depth, false);
+            b[i] = '';
+            if (bestScore < tempScore) {
+              bestScore = tempScore;
+            }
+          }
+        }
+        return bestScore;
+      } else {
+        int bestScore = 1000;
+        for (var i = 0; i < 9; i++) {
+          if (b[i] == '') {
+            b[i] = 'X';
+            int tempScore = miniMax(b, ++depth, true);
+            b[i] = '';
+            if (bestScore > tempScore) {
+              bestScore = tempScore;
+            }
+          }
+        }
+        return bestScore;
+      }
+    }
+  }
+
+  void _toggleXTurn() {
+    //this function updates the game turn from x-turn to NOT x-turn,
+    //and vice versa.
+    model.update((val) {
+      val!.isXTurn = !val.isXTurn;
+    });
+  }
+
+  void play({required bool withAI, required int index}) {
+    if (model.value.isXTurn) {
+      xPlay(index);
+      _toggleXTurn();
+    } else {
+      if (withAI) {
+        aiPlay();
+        _toggleXTurn();
+      } else {
+        oPlay(index);
+        _toggleXTurn();
+      }
+    }
+  }
+
+//game dimensions///////////////////////////////////////////////////
   void _initializeGridDimenions() {
     model.update((val) {
       val!.gridHeight = dCont.model.value.height * 0.33;
@@ -60,6 +241,7 @@ class GameController extends GetxController with GetTickerProviderStateMixin {
     });
   }
 
+//game animation///////////////////////////////////////////////////
   void _initializeGridAnimation() {
     // controler
     model.value.gridAnimationController =
@@ -84,31 +266,31 @@ class GameController extends GetxController with GetTickerProviderStateMixin {
     });
   }
 
-  void _initializeXAnimation() {
+  void _initializeSymbolAnimation() {
     // controler
-    model.value.xAnimationController =
+    model.value.symbolAnimation =
         AnimationController(duration: const Duration(seconds: 2), vsync: this);
 
     // tween
     Tween<double> tween = Tween<double>(begin: 0, end: 1);
 
     //animation
-    Animation animation = tween.animate(model.value.xAnimationController);
+    Animation animation = tween.animate(model.value.symbolAnimation);
 
     //updating values
-    model.value.xAnimationController.addListener(() {
+    model.value.symbolAnimation.addListener(() {
       model.update((val) {
-        val!.progressX = animation.value;
+        val!.progress = animation.value;
         for (var symbol in val.xoList) {
           symbol.updateProgress();
         }
-        print('${val.progressX}');
+        print('${val.progress}');
       });
     });
     //updating status
-    model.value.xAnimationController.addStatusListener((status) {
+    model.value.symbolAnimation.addStatusListener((status) {
       if (status == AnimationStatus.completed) {
-        model.value.xAnimationController.reset();
+        model.value.symbolAnimation.reset();
       }
     });
   }
@@ -118,15 +300,21 @@ class GameController extends GetxController with GetTickerProviderStateMixin {
     model.value.gridAnimationController.forward();
   }
 
-  void putO(int index) {
+  void _putO(int index) {
+    //this function will put 'O' symbol on the xo layer
+    //with animation
     Offset position = model.value.cellsStarPoints[index];
     BigO o = BigO(position);
     model.update((val) {
       val!.xoList.add(o);
     });
+    //firing animation
+    model.value.symbolAnimation.forward();
   }
 
-  void putX(int index) {
+  void _putX(int index) {
+    //this function will put 'X' symbol on the xo layer
+    //with animation
     Offset position = model.value.cellsStarPoints[index];
     BigX x = BigX(position: position);
 
@@ -135,7 +323,7 @@ class GameController extends GetxController with GetTickerProviderStateMixin {
     });
 
     //firing animation
-    model.value.xAnimationController.forward();
+    model.value.symbolAnimation.forward();
   }
 
   @override
@@ -145,7 +333,7 @@ class GameController extends GetxController with GetTickerProviderStateMixin {
     _initializeCellsStartPoints();
     _initializeCellsCentersPoints();
     _initializeGridAnimation();
-    _initializeXAnimation();
+    _initializeSymbolAnimation();
     _animateGameGrid();
   }
 
@@ -153,7 +341,7 @@ class GameController extends GetxController with GetTickerProviderStateMixin {
   void onClose() {
     super.onClose();
     // model.value.oAnimationController.dispose();
-    model.value.xAnimationController.dispose();
+    model.value.symbolAnimation.dispose();
     model.value.gridAnimationController.dispose();
   }
 }

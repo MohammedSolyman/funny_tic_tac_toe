@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:funny_tic_tac_toe/controllers/game_controller.dart';
-import 'package:funny_tic_tac_toe/widgets/game_widgets/big_x.dart';
+import 'package:funny_tic_tac_toe/widgets/game_widgets/my_symbol.dart';
 import 'package:get/get.dart';
 
 class XOLayer extends StatelessWidget {
@@ -13,7 +13,7 @@ class XOLayer extends StatelessWidget {
       return CustomPaint(
         painter: XOLayerPainter(
             xoList: gCont.model.value.xoList,
-            progress: gCont.model.value.progressX),
+            progress: gCont.model.value.progress),
         size: Size(gCont.model.value.gridWidth, gCont.model.value.gridHeight),
       );
     });
