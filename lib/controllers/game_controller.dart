@@ -206,45 +206,47 @@ class GameController extends GetxController with GetTickerProviderStateMixin {
     });
   }
 
-  void _initializeCellsStartPoints() {
-    double widthThird = model.value.gridWidth / 3;
-    double heightThird = model.value.gridHeight / 3;
+  void _initializeGridPoints() {
+    double w = model.value.gridWidth;
+    double h = model.value.gridHeight;
 
     Offset s0 = const Offset(0, 0);
-    Offset s1 = Offset(widthThird, 0);
-    Offset s2 = Offset(widthThird * 2, 0);
+    Offset s1 = Offset(w / 3, 0);
+    Offset s2 = Offset(w / 3 * 2, 0);
 
-    Offset s3 = Offset(0, heightThird);
-    Offset s4 = Offset(widthThird, heightThird);
-    Offset s5 = Offset(widthThird * 2, heightThird);
+    Offset s3 = Offset(0, h / 3);
+    Offset s4 = Offset(w / 3, h / 3);
+    Offset s5 = Offset(w / 3 * 2, h / 3);
 
-    Offset s6 = Offset(0, heightThird * 2);
-    Offset s7 = Offset(widthThird, heightThird * 2);
-    Offset s8 = Offset(widthThird * 2, heightThird * 2);
-
-    model.update((val) {
-      val!.cellsStarPoints = [s0, s1, s2, s3, s4, s5, s6, s7, s8];
-    });
-  }
-
-  void _initializeCellsCentersPoints() {
-    double widthSixth = model.value.gridWidth / 6;
-    double heightSixth = model.value.gridHeight / 6;
-
-    Offset s0 = Offset(widthSixth, heightSixth);
-    Offset s1 = Offset(widthSixth * 3, heightSixth);
-    Offset s2 = Offset(widthSixth * 5, heightSixth);
-
-    Offset s3 = Offset(widthSixth, heightSixth * 3);
-    Offset s4 = Offset(widthSixth * 3, heightSixth * 3);
-    Offset s5 = Offset(widthSixth * 5, heightSixth * 3);
-
-    Offset s6 = Offset(widthSixth, heightSixth * 5);
-    Offset s7 = Offset(widthSixth * 3, heightSixth * 5);
-    Offset s8 = Offset(widthSixth * 5, heightSixth * 5);
+    Offset s6 = Offset(0, h / 3 * 2);
+    Offset s7 = Offset(w / 3, h / 3 * 2);
+    Offset s8 = Offset(w / 3 * 2, h / 3 * 2);
 
     model.update((val) {
-      val!.cellsCenterPoints = [s0, s1, s2, s3, s4, s5, s6, s7, s8];
+      //1. initialize start points
+      val!.gridPoints.startPoints = [s0, s1, s2, s3, s4, s5, s6, s7, s8];
+
+      //2. initialize center points
+      val.gridPoints.c1 = const Offset(0, 0);
+      val.gridPoints.c2 = Offset(w, 0);
+      val.gridPoints.c3 = Offset(w, h);
+      val.gridPoints.c4 = Offset(0, h);
+
+      //3. initialize vertical points
+      val.gridPoints.v1 = Offset(1 * w / 6, 0);
+      val.gridPoints.v2 = Offset(3 * w / 6, 0);
+      val.gridPoints.v3 = Offset(5 * w / 6, 0);
+      val.gridPoints.v4 = Offset(1 * w / 6, h);
+      val.gridPoints.v5 = Offset(3 * w / 6, h);
+      val.gridPoints.v6 = Offset(5 * w / 6, h);
+
+      //2. initialize horizontal points
+      val.gridPoints.h1 = Offset(0, 1 * h / 6);
+      val.gridPoints.h2 = Offset(0, 3 * h / 6);
+      val.gridPoints.h3 = Offset(0, 5 * h / 6);
+      val.gridPoints.h4 = Offset(w, 1 * h / 6);
+      val.gridPoints.h5 = Offset(w, 3 * h / 6);
+      val.gridPoints.h6 = Offset(w, 5 * h / 6);
     });
   }
 
@@ -310,7 +312,7 @@ class GameController extends GetxController with GetTickerProviderStateMixin {
   void _putO(int index) {
     //this function will put 'O' symbol on the xo layer
     //with animation
-    Offset position = model.value.cellsStarPoints[index];
+    Offset position = model.value.gridPoints.startPoints[index];
     BigO o = BigO(position);
     model.update((val) {
       val!.xoList.add(o);
@@ -322,7 +324,7 @@ class GameController extends GetxController with GetTickerProviderStateMixin {
   void _putX(int index) {
     //this function will put 'X' symbol on the xo layer
     //with animation
-    Offset position = model.value.cellsStarPoints[index];
+    Offset position = model.value.gridPoints.startPoints[index];
     BigX x = BigX(position: position);
 
     model.update((val) {
@@ -337,8 +339,7 @@ class GameController extends GetxController with GetTickerProviderStateMixin {
   void onInit() {
     super.onInit();
     _initializeGridDimenions();
-    _initializeCellsStartPoints();
-    _initializeCellsCentersPoints();
+    _initializeGridPoints();
     _initializeGridAnimation();
     _initializeSymbolAnimation();
     _animateGameGrid();

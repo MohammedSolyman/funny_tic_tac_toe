@@ -10,9 +10,8 @@ class GameModel {
   //grid alignment
   Alignment gridAlignment = const Alignment(4, 0);
 
-  //cells start points: the upper left corner of each cell is the
-  //start point of this cell.
-  List<Offset> cellsStarPoints = [];
+  //grid points
+  GridPoints gridPoints = GridPoints();
 
   //cells center points: the center of each cell.
   List<Offset> cellsCenterPoints = [];
@@ -41,4 +40,32 @@ class GameModel {
   //big x animation
   //late AnimationController oAnimationController;
   double progressO = 0;
+}
+
+class GridPoints {
+  //cells start points list: the upper left corner of each cell is the
+  //start point of this cell.
+  List<Offset> startPoints = [];
+
+  //cells corners points:
+  Offset c1 = Offset.zero;
+  Offset c2 = Offset.zero;
+  Offset c3 = Offset.zero;
+  Offset c4 = Offset.zero;
+
+  //cells vertical points:
+  Offset v1 = Offset.zero;
+  Offset v2 = Offset.zero;
+  Offset v3 = Offset.zero;
+  Offset v4 = Offset.zero;
+  Offset v5 = Offset.zero;
+  Offset v6 = Offset.zero;
+
+  //cells horizontal points:
+  Offset h1 = Offset.zero;
+  Offset h2 = Offset.zero;
+  Offset h3 = Offset.zero;
+  Offset h4 = Offset.zero;
+  Offset h5 = Offset.zero;
+  Offset h6 = Offset.zero;
 }

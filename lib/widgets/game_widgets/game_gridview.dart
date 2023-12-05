@@ -22,7 +22,7 @@ class GameGridView extends StatelessWidget {
             children: [
               BoardLayer(),
               IgnorePointer(child: XOLayer()),
-              IgnorePointer(child: ConnectingWinningLayer()),
+              //   IgnorePointer(child: ConnectingWinningLayer()),
             ],
           ),
         ),
