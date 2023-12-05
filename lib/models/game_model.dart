@@ -13,15 +13,15 @@ class GameModel {
   //grid points
   GridPoints gridPoints = GridPoints();
 
-  //cells center points: the center of each cell.
-  List<Offset> cellsCenterPoints = [];
-
   //2. game logic////////////////////////////////////////////////////
   //xo board, used in logic
   List<String> board = ['', '', '', '', '', '', '', '', ''];
 
   //the three winning cells
   List<int> winningCells = [];
+
+//the two points to be connedted when winning
+  List<Offset> winningPoints = [];
 
   bool isXTurn = true;
 
@@ -34,12 +34,12 @@ class GameModel {
   late AnimationController gridAnimationController;
 
   //my symbol (big x and big o) animation
-  late AnimationController symbolAnimation;
-  double progress = 0;
+  late AnimationController symbolAnimationController;
+  double symbolProgress = 0;
 
-  //big x animation
-  //late AnimationController oAnimationController;
-  double progressO = 0;
+  //winngin connecting line animation
+  late AnimationController winningAnimationController;
+  double winnginLineProgress = 0;
 }
 
 class GridPoints {

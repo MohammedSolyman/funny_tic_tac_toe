@@ -9,11 +9,17 @@ class ConnectingWinningLayer extends StatelessWidget {
   Widget build(BuildContext context) {
     GameController gCont = Get.find<GameController>();
     return Obx(() {
-      return CustomPaint(
-        painter: WinningLayerPainter(gCont.model.value.cellsCenterPoints[0],
-            gCont.model.value.cellsCenterPoints[8], 1),
-        size: Size(gCont.model.value.gridWidth, gCont.model.value.gridHeight),
-      );
+      if (gCont.model.value.winningPoints.isEmpty) {
+        return Container();
+      } else {
+        return CustomPaint(
+          painter: WinningLayerPainter(
+              gCont.model.value.winningPoints[0],
+              gCont.model.value.winningPoints[1],
+              gCont.model.value.winnginLineProgress),
+          size: Size(gCont.model.value.gridWidth, gCont.model.value.gridHeight),
+        );
+      }
     });
   }
 }
@@ -30,7 +36,7 @@ class WinningLayerPainter extends CustomPainter {
     double a = p2.dx - p1.dx;
     double b = p2.dy - p1.dy;
 
-    Offset p = Offset((p1.dx + a) * fraction, (p1.dy + b) * fraction);
+    Offset p = Offset(p1.dx + (a * fraction), p1.dy + (b * fraction));
 //paint
     Paint paint = Paint();
     paint.color = Colors.blue;

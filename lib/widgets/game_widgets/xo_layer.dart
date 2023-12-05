@@ -13,7 +13,7 @@ class XOLayer extends StatelessWidget {
       return CustomPaint(
         painter: XOLayerPainter(
             xoList: gCont.model.value.xoList,
-            progress: gCont.model.value.progress),
+            progress: gCont.model.value.symbolProgress),
         size: Size(gCont.model.value.gridWidth, gCont.model.value.gridHeight),
       );
     });

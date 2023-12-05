@@ -19,11 +19,32 @@ class GameScreen extends StatelessWidget {
           MyBackground(),
           TopBlock(),
           GameGridView(),
+          ResetIcon(),
           IgnorePointer(
             child: TransitionBlock(),
           )
         ],
       )),
     );
+  }
+}
+
+class ResetIcon extends StatelessWidget {
+  const ResetIcon({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    GameController gCont = Get.find<GameController>();
+
+    return Positioned(
+        left: 50,
+        bottom: 50,
+        child: IconButton(
+            onPressed: () {
+              gCont.reset();
+            },
+            icon: const Icon(Icons.rotate_left_outlined)));
   }
 }
