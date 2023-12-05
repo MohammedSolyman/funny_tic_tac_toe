@@ -82,7 +82,7 @@ class GameController extends GetxController with GetTickerProviderStateMixin {
   void xPlay(int index) {
     //if the game is still ongoing, and the index in the grid list
     //is empty:
-    //   1. put 'X' int the grid list
+    //   1. put 'X' int the board list
     //   2. put 'X' with animation in xo- layer
     if (getScore(model.value.board) == 1) {
       if (model.value.board[index] == '') {
@@ -97,7 +97,7 @@ class GameController extends GetxController with GetTickerProviderStateMixin {
   void oPlay(int index) {
     //if the game is still ongoing, and the index in the grid list
     //is empty:
-    //   1. put 'O' int the grid list
+    //   1. put 'O' int the board list
     //   2. put 'O' with animation in xo- layer
     if (getScore(model.value.board) == 1) {
       if (model.value.board[index] == '') {
@@ -126,9 +126,13 @@ class GameController extends GetxController with GetTickerProviderStateMixin {
           }
         }
       }
+
+      //   1. put 'O' int the board list
       model.update((val) {
         val!.board[bestMoveIndex] = 'O';
       });
+      //   2. put 'O' with animation in xo- layer
+      _putO(bestMoveIndex);
     }
   }
 
@@ -176,13 +180,16 @@ class GameController extends GetxController with GetTickerProviderStateMixin {
     });
   }
 
-  void play({required bool withAI, required int index}) {
-    if (model.value.isXTurn) {
+  void play({required bool withAI, required int index}) async {
+    if (withAI) {
       xPlay(index);
       _toggleXTurn();
+      await Future.delayed(const Duration(seconds: 1));
+      aiPlay();
+      _toggleXTurn();
     } else {
-      if (withAI) {
-        aiPlay();
+      if (model.value.isXTurn) {
+        xPlay(index);
         _toggleXTurn();
       } else {
         oPlay(index);

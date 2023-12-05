@@ -21,7 +21,7 @@ class BoardLayer extends StatelessWidget {
       itemBuilder: (context, index) {
         return InkWell(
           onTap: () {
-            gCont.play(withAI: false, index: index);
+            gCont.play(withAI: true, index: index);
           },
           child: Container(
             decoration: BoxDecoration(
