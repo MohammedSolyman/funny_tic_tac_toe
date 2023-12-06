@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:funny_tic_tac_toe/controllers/transition_controller.dart';
 import 'package:funny_tic_tac_toe/models/home_model.dart';
 import 'package:funny_tic_tac_toe/views/game_screen.dart';
-import 'package:funny_tic_tac_toe/widgets/home_widgets/small_o.dart';
-import 'package:funny_tic_tac_toe/widgets/home_widgets/small_x.dart';
+import 'package:funny_tic_tac_toe/widgets/my_background/components/small_o.dart';
+import 'package:funny_tic_tac_toe/widgets/my_background/components/small_x.dart';
 import 'package:get/get.dart';
 
 class HomeController extends GetxController with GetTickerProviderStateMixin {

@@ -15,7 +15,7 @@ class BigO implements MySymbol {
     Paint paint = Paint();
     paint.color = oBorderColor;
     paint.style = PaintingStyle.stroke;
-    paint.strokeWidth = 2;
+    paint.strokeWidth = 0.5;
 
     //body paint
     Paint paint2 = Paint();
@@ -344,7 +344,7 @@ class BigO implements MySymbol {
       final length = pathMetric.length * progress;
       for (double distance = 0; distance <= length; distance += 1) {
         Tangent? pos = pathMetric.getTangentForOffset(distance);
-        canvas.drawCircle(pos!.position, 1, paint);
+        canvas.drawCircle(pos!.position, 0.5, paint);
       }
     }
   }

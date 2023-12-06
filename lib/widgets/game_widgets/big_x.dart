@@ -13,13 +13,12 @@ class BigX implements MySymbol {
     Paint paint = Paint();
     paint.color = xBorderColor;
     paint.style = PaintingStyle.stroke;
-    paint.strokeWidth = 2;
+    paint.strokeWidth = 0.5;
 
     //body paint
     Paint paint2 = Paint();
     paint2.color = xBodyColor;
     paint2.style = PaintingStyle.fill;
-    paint2.strokeWidth = 2;
 
     Path path = Path();
     final double xScaling = size.width / 1000;
@@ -454,7 +453,7 @@ class BigX implements MySymbol {
       final length = pathMetric.length * progress;
       for (double distance = 0; distance <= length; distance += 1) {
         Tangent? pos = pathMetric.getTangentForOffset(distance);
-        canvas.drawCircle(pos!.position, 1, paint);
+        canvas.drawCircle(pos!.position, 0.5, paint);
       }
     }
   }

@@ -19,7 +19,7 @@ class MyGradient extends StatelessWidget {
             gradient: LinearGradient(
                 colors: [
               thCont.model.value.myTheme.bgColor2,
-              Colors.white,
+              thCont.model.value.myTheme.lightBackgroundGradient,
               thCont.model.value.myTheme.bgColor2,
             ],
                 begin: Alignment(0, hCont.model.value.grdientFactorY1),

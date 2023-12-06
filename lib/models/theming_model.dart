@@ -23,6 +23,8 @@ class MyTheme {
   //big o
   late Color bigOborderColor;
   late Color bigObodyColor;
+  //background gradients
+  late Color lightBackgroundGradient;
 }
 
 class MyLightTheme implements MyTheme {
@@ -58,11 +60,14 @@ class MyLightTheme implements MyTheme {
 
   @override
   Color bigXborderColor = Colors.blue.shade300;
+
+  @override
+  Color lightBackgroundGradient = Colors.white;
 }
 
 class MyDarkTheme implements MyTheme {
   @override
-  Color bgColor1 = Colors.grey.shade800;
+  Color bgColor1 = const Color.fromARGB(255, 34, 33, 33);
 
   @override
   Color bgColor2 = Colors.black;
@@ -91,4 +96,7 @@ class MyDarkTheme implements MyTheme {
 
   @override
   Color bigXborderColor = Colors.blue.shade300;
+
+  @override
+  Color lightBackgroundGradient = Colors.grey.shade700;
 }
