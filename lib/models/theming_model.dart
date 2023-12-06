@@ -50,16 +50,16 @@ class MyLightTheme implements MyTheme {
   Color outerWinningLineColor = Colors.red;
 
   @override
-  Color bigObodyColor = Colors.red;
+  Color bigObodyColor = Colors.red.shade300;
 
   @override
-  Color bigOborderColor = Colors.red.shade300;
+  Color bigOborderColor = Colors.red;
 
   @override
-  Color bigXbodyColor = Colors.blue;
+  Color bigXbodyColor = Colors.blue.shade300;
 
   @override
-  Color bigXborderColor = Colors.blue.shade300;
+  Color bigXborderColor = Colors.blue;
 
   @override
   Color lightBackgroundGradient = Colors.white;
@@ -86,16 +86,16 @@ class MyDarkTheme implements MyTheme {
   @override
   Color outerWinningLineColor = Colors.grey;
   @override
-  Color bigObodyColor = Colors.red;
+  Color bigObodyColor = Colors.red.shade300;
 
   @override
-  Color bigOborderColor = Colors.red.shade300;
+  Color bigOborderColor = Colors.red;
 
   @override
-  Color bigXbodyColor = Colors.blue;
+  Color bigXbodyColor = Colors.blue.shade300;
 
   @override
-  Color bigXborderColor = Colors.blue.shade300;
+  Color bigXborderColor = Colors.blue;
 
   @override
   Color lightBackgroundGradient = Colors.grey.shade700;
