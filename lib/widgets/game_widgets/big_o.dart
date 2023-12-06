@@ -1,18 +1,27 @@
 import 'dart:ui';
-import 'package:flutter/material.dart';
 import 'package:funny_tic_tac_toe/widgets/game_widgets/my_symbol.dart';
 
 class BigO implements MySymbol {
   Offset position;
   double progress = 0;
-  BigO(this.position);
+  BigO(
+    this.position,
+  );
 
   @override
-  void draw(Canvas canvas, Size size) {
+  void draw(Canvas canvas, Size size, Color xBorderColor, Color xBodyColor,
+      Color oBorderColor, Color oBodyColor) {
+    //border paint
     Paint paint = Paint();
-    paint.color = Colors.red;
+    paint.color = oBorderColor;
     paint.style = PaintingStyle.stroke;
     paint.strokeWidth = 2;
+
+    //body paint
+    Paint paint2 = Paint();
+    paint2.color = oBodyColor;
+    paint2.style = PaintingStyle.fill;
+    paint2.strokeWidth = 2;
 
     Path path = Path();
     final double xScaling = size.width / 1000;

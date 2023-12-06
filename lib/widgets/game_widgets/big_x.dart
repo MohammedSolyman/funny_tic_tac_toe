@@ -1,5 +1,4 @@
 import 'dart:ui';
-import 'package:flutter/material.dart';
 import 'package:funny_tic_tac_toe/widgets/game_widgets/my_symbol.dart';
 
 class BigX implements MySymbol {
@@ -8,11 +7,19 @@ class BigX implements MySymbol {
   BigX({required this.position});
 
   @override
-  void draw(Canvas canvas, Size size) {
+  void draw(Canvas canvas, Size size, Color xBorderColor, Color xBodyColor,
+      Color oBorderColor, Color oBodyColor) {
+    //border paint
     Paint paint = Paint();
-    paint.color = Colors.red;
+    paint.color = xBorderColor;
     paint.style = PaintingStyle.stroke;
-    paint.strokeWidth = 1;
+    paint.strokeWidth = 2;
+
+    //body paint
+    Paint paint2 = Paint();
+    paint2.color = xBodyColor;
+    paint2.style = PaintingStyle.fill;
+    paint2.strokeWidth = 2;
 
     Path path = Path();
     final double xScaling = size.width / 1000;
