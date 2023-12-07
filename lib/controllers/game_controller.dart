@@ -80,20 +80,28 @@ class GameController extends GetxController with GetTickerProviderStateMixin {
   }
 
   void xPlay(int index) {
-    //1. if the game is still ongoing, and the index in the grid list
-    //is empty:
-    //   1. put 'X' int the board list
-    //   2. put 'X' with animation in xo-layer
-    if (getScore(model.value.board) == 1) {
-      if (model.value.board[index] == '') {
-        model.update((val) {
-          val!.board[index] = 'X';
-        });
-        _fireXAnimation(index);
+    //if the following:
+    //1. if the game is still ongoing, and
+    //2. the index in the grid list is empty, and
+    //3. the playing is allowed (o-player is NOT playing now)
 
-        //2. check if someone won
-        checkWinning();
-      }
+    //do the following:
+    //   1. prevent playing during symbol animation
+    //   2. put 'X' int the board list
+    //   3. put 'X' with animation in xo-layer
+    //   4. give game trun to 'O'
+    //   5. check if someone won
+    if (getScore(model.value.board) == 1 &&
+        model.value.board[index] == '' &&
+        model.value.isPlayAllowed) {
+      _preventPlayingDuringAnimation();
+      model.update((val) {
+        val!.board[index] = 'X';
+        val.isXTurn = false;
+      });
+      _fireXAnimation(index);
+
+      checkWinning();
     }
   }
 
@@ -105,24 +113,47 @@ class GameController extends GetxController with GetTickerProviderStateMixin {
   }
 
   void oPlay(int index) {
-    //if the game is still ongoing, and the index in the grid list
-    //is empty:
-    //   1. put 'O' int the board list
-    //   2. put 'O' with animation in xo- layer
-    if (getScore(model.value.board) == 1) {
-      if (model.value.board[index] == '') {
-        model.update((val) {
-          val!.board[index] = 'O';
-        });
-        _fireOAnimation(index);
-        //2. check if someone won
-        checkWinning();
-      }
+    //if the following:
+    //1. if the game is still ongoing, and
+    //2. the index in the grid list is empty, and
+    //3. the playing is allowed (x-player is NOT playing now)
+
+    //do the following:
+    //   1. prevent playing during symbol animation
+    //   2. put 'O' int the board list
+    //   3. put 'O' with animation in xo-layer
+    //   4. give game trun to 'X'
+    //   5. check if someone won
+
+    if (getScore(model.value.board) == 1 &&
+        model.value.board[index] == '' &&
+        model.value.isPlayAllowed) {
+      _preventPlayingDuringAnimation();
+      model.update((val) {
+        val!.board[index] = 'O';
+        val.isXTurn = true;
+      });
+      _fireOAnimation(index);
+      checkWinning();
     }
   }
 
   void aiPlay() {
-    if (getScore(model.value.board) == 1) {
+    //if the following:
+    //1. if the game is still ongoing, and
+    //2. the index in the grid list is empty, and
+    //3. the playing is allowed (x-player is NOT playing now)
+
+    //do the following:
+    //   1. prevent playing during symbol animation
+    //   2. put 'O' int the board list
+    //   3. put 'O' with animation in xo-layer
+    //   4. give game trun to 'X'
+    //   5. check if someone won
+
+    if (getScore(model.value.board) == 1 && model.value.isPlayAllowed) {
+      _preventPlayingDuringAnimation();
+
       List<String> b = model.value.board;
       int bestMoveIndex = -1000;
       int bestScore = -1000;
@@ -146,7 +177,11 @@ class GameController extends GetxController with GetTickerProviderStateMixin {
       //   2. put 'O' with animation in xo- layer
       _fireOAnimation(bestMoveIndex);
 
-      //2. check if someone won
+      //   3. give game trun to 'X'
+      model.update((val) {
+        val!.isXTurn = true;
+      });
+      //   4. check if someone won
       checkWinning();
     }
   }
@@ -187,33 +222,28 @@ class GameController extends GetxController with GetTickerProviderStateMixin {
     }
   }
 
-  void _toggleXTurn() {
-    //this function updates the game turn from x-turn to NOT x-turn,
-    //and vice versa.
-    model.update((val) {
-      val!.isXTurn = !val.isXTurn;
-    });
-  }
-
-  Future<void> _waitSymbolAnimationThenToggleTurn() async {
+  Future<void> _waitSymbolAnimation() async {
     await Future.delayed(
         Duration(milliseconds: model.value.symbolAnimationDuration));
-    _toggleXTurn();
   }
 
   void play({required bool withAI, required int index}) async {
     if (withAI) {
+      // always 'X' player plays first.
       xPlay(index);
-      await _waitSymbolAnimationThenToggleTurn();
-      aiPlay();
-      await _waitSymbolAnimationThenToggleTurn();
+      await _waitSymbolAnimation();
+      if (!model.value.isXTurn) {
+        // if x-player plays successfully, ai-player will play
+        aiPlay();
+        await _waitSymbolAnimation();
+      }
     } else {
       if (model.value.isXTurn) {
         xPlay(index);
-        await _waitSymbolAnimationThenToggleTurn();
+        await _waitSymbolAnimation();
       } else {
         oPlay(index);
-        await _waitSymbolAnimationThenToggleTurn();
+        await _waitSymbolAnimation();
       }
     }
   }
@@ -226,6 +256,17 @@ class GameController extends GetxController with GetTickerProviderStateMixin {
       val.winningCells = [];
       val.winningPoints = [];
       val.xoList = [];
+    });
+  }
+
+  Future<void> _preventPlayingDuringAnimation() async {
+    model.update((val) {
+      val!.isPlayAllowed = false;
+    });
+    await Future.delayed(
+        Duration(milliseconds: model.value.symbolAnimationDuration));
+    model.update((val) {
+      val!.isPlayAllowed = true;
     });
   }
 
@@ -316,7 +357,6 @@ class GameController extends GetxController with GetTickerProviderStateMixin {
     //updating values
     model.value.symbolAnimationController.addListener(() {
       model.update((val) {
-        print(model.value.symbolAnimationController.value);
         for (var symbol in val!.xoList) {
           symbol.updateProgress();
         }
@@ -326,7 +366,6 @@ class GameController extends GetxController with GetTickerProviderStateMixin {
     model.value.symbolAnimationController.addStatusListener((status) {
       if (status == AnimationStatus.completed) {
         model.value.symbolAnimationController.repeat();
-        print('controller is repeated');
       }
     });
   }
@@ -362,7 +401,6 @@ class GameController extends GetxController with GetTickerProviderStateMixin {
     await Future.delayed(
         Duration(milliseconds: model.value.gridAniamteAfterPeriod));
     model.value.gridAnimationController.forward();
-    print('gird animation was fired');
   }
 
   void _fireOAnimation(int index) {
@@ -375,7 +413,6 @@ class GameController extends GetxController with GetTickerProviderStateMixin {
     });
     //firing animation
     model.value.symbolAnimationController.forward();
-    print('o animation was fired');
   }
 
   void _fireXAnimation(int index) {
@@ -390,7 +427,6 @@ class GameController extends GetxController with GetTickerProviderStateMixin {
 
     //firing animation
     model.value.symbolAnimationController.forward();
-    print('x animation was fired');
   }
 
   void _fireWinningConnection() {
@@ -453,7 +489,6 @@ class GameController extends GetxController with GetTickerProviderStateMixin {
     model.value.symbolAnimationController.dispose();
     model.value.gridAnimationController.dispose();
     model.value.winningAnimationController.dispose();
-    print('controllers were disposed------------------------');
     super.onClose();
   }
 }

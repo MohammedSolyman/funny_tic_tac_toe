@@ -15,6 +15,7 @@ class GameModel {
   //2. game logic////////////////////////////////////////////////////
   List<String> board = ['', '', '', '', '', '', '', '', ''];
   bool isXTurn = true;
+  bool isPlayAllowed = true;
 
   //3. xo-layer////////////////////////////////////////////////////
   List<MySymbol> xoList = []; //xo objects in xo layer,used in animation
