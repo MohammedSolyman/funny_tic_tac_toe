@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:funny_tic_tac_toe/controllers/game_controller.dart';
-import 'package:funny_tic_tac_toe/controllers/theming_controller.dart';
+import 'package:funny_tic_tac_toe/widgets/game_widgets/game_cell.dart';
 import 'package:get/get.dart';
 
 class BoardLayer extends StatelessWidget {
@@ -22,31 +22,10 @@ class BoardLayer extends StatelessWidget {
         shrinkWrap: true,
         physics: const NeverScrollableScrollPhysics(),
         itemBuilder: (context, index) {
-          return InkWell(
-            onTap: () {
-              gCont.play(withAI: true, index: index);
-            },
-            child: const GameCell(),
+          return GameCell(
+            index: index,
           );
         },
-      );
-    });
-  }
-}
-
-class GameCell extends StatelessWidget {
-  const GameCell({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    ThemingController thCont = Get.find<ThemingController>();
-
-    return Obx(() {
-      return Container(
-        decoration: BoxDecoration(
-            border: Border.all(color: thCont.model.value.myTheme.borderColor),
-            color: thCont.model.value.myTheme.bgColor2,
-            borderRadius: BorderRadius.circular(15)),
       );
     });
   }

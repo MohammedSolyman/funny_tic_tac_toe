@@ -83,7 +83,7 @@ class GameController extends GetxController with GetTickerProviderStateMixin {
     //1. if the game is still ongoing, and the index in the grid list
     //is empty:
     //   1. put 'X' int the board list
-    //   2. put 'X' with animation in xo- layer
+    //   2. put 'X' with animation in xo-layer
     if (getScore(model.value.board) == 1) {
       if (model.value.board[index] == '') {
         model.update((val) {
@@ -195,20 +195,25 @@ class GameController extends GetxController with GetTickerProviderStateMixin {
     });
   }
 
+  Future<void> _waitSymbolAnimationThenToggleTurn() async {
+    await Future.delayed(
+        Duration(milliseconds: model.value.symbolAnimationDuration + 100));
+    _toggleXTurn();
+  }
+
   void play({required bool withAI, required int index}) async {
     if (withAI) {
       xPlay(index);
-      _toggleXTurn();
-      await Future.delayed(const Duration(seconds: 1));
+      await _waitSymbolAnimationThenToggleTurn();
       aiPlay();
-      _toggleXTurn();
+      await _waitSymbolAnimationThenToggleTurn();
     } else {
       if (model.value.isXTurn) {
         xPlay(index);
-        _toggleXTurn();
+        await _waitSymbolAnimationThenToggleTurn();
       } else {
         oPlay(index);
-        _toggleXTurn();
+        await _waitSymbolAnimationThenToggleTurn();
       }
     }
   }
@@ -279,8 +284,8 @@ class GameController extends GetxController with GetTickerProviderStateMixin {
 //game animation///////////////////////////////////////////////////
   void _initializeGridAnimation() {
     // controler
-    model.value.gridAnimationController =
-        AnimationController(duration: const Duration(seconds: 2), vsync: this);
+    model.value.gridAnimationController = AnimationController(
+        duration: const Duration(milliseconds: 2), vsync: this);
 
     //curve
     CurvedAnimation curvedAnimation = CurvedAnimation(
@@ -303,20 +308,22 @@ class GameController extends GetxController with GetTickerProviderStateMixin {
 
   void _initializeSymbolAnimation() {
     // controler
-    model.value.symbolAnimationController =
-        AnimationController(duration: const Duration(seconds: 2), vsync: this);
+    model.value.symbolAnimationController = AnimationController(
+        duration: Duration(milliseconds: model.value.symbolAnimationDuration),
+        vsync: this);
 
     // tween
-    Tween<double> tween = Tween<double>(begin: 0, end: 1);
+    //Tween<double> tween = Tween<double>(begin: 0, end: 1);
 
     //animation
-    Animation animation = tween.animate(model.value.symbolAnimationController);
+    // Animation animation = tween.animate(model.value.symbolAnimationController);
 
     //updating values
     model.value.symbolAnimationController.addListener(() {
       model.update((val) {
-        val!.symbolProgress = animation.value;
-        for (var symbol in val.xoList) {
+        // val!.symbolProgress = animation.value;
+        print(model.value.symbolAnimationController.value);
+        for (var symbol in val!.xoList) {
           symbol.updateProgress();
         }
       });
@@ -325,14 +332,16 @@ class GameController extends GetxController with GetTickerProviderStateMixin {
     model.value.symbolAnimationController.addStatusListener((status) {
       if (status == AnimationStatus.completed) {
         model.value.symbolAnimationController.reset();
+        print('controller is reseted');
       }
     });
   }
 
   void _initializeWinningLineAnimation() {
     // controler
-    model.value.winningAnimationController =
-        AnimationController(duration: const Duration(seconds: 2), vsync: this);
+    model.value.winningAnimationController = AnimationController(
+        duration: Duration(milliseconds: model.value.winningLineDuration),
+        vsync: this);
 
     // tween
     Tween<double> tween = Tween<double>(begin: 0, end: 1);
@@ -356,8 +365,9 @@ class GameController extends GetxController with GetTickerProviderStateMixin {
   }
 
   Future<void> _fireGridAnimation() async {
-    await Future.delayed(const Duration(seconds: 3));
+    await Future.delayed(Duration(seconds: model.value.gridAniamteAfterPeriod));
     model.value.gridAnimationController.forward();
+    print('gird animation was fired');
   }
 
   void _fireOAnimation(int index) {
@@ -370,6 +380,7 @@ class GameController extends GetxController with GetTickerProviderStateMixin {
     });
     //firing animation
     model.value.symbolAnimationController.forward();
+    print('o animation was fired');
   }
 
   void _fireXAnimation(int index) {
@@ -384,6 +395,7 @@ class GameController extends GetxController with GetTickerProviderStateMixin {
 
     //firing animation
     model.value.symbolAnimationController.forward();
+    print('x animation was fired');
   }
 
   void _fireWinningConnection() {

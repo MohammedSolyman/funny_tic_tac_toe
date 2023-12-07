@@ -2,44 +2,31 @@ import 'package:flutter/material.dart';
 import 'package:funny_tic_tac_toe/widgets/game_widgets/my_symbol.dart';
 
 class GameModel {
-  //1. dimensions/////////////////////////////////////////////////
-  //grid dimensions
+  //1. grid ////////////////////////////////////////////////////////
   double gridWidth = 0;
   double gridHeight = 0;
-
-  //grid alignment
   Alignment gridAlignment = const Alignment(4, 0);
-
-  //grid points
   GridPoints gridPoints = GridPoints();
-
-  //2. game logic////////////////////////////////////////////////////
-  //xo board, used in logic
-  List<String> board = ['', '', '', '', '', '', '', '', ''];
-
-  //the three winning cells
-  List<int> winningCells = [];
-
-//the two points to be connedted when winning
-  List<Offset> winningPoints = [];
-
-  bool isXTurn = true;
-
-  //3. animation ////////////////////////////////////////////////////
-
-  //xo objects in xo layer,used in animation
-  List<MySymbol> xoList = [];
-
-  //grid animation
+  final int gridAniamteAfterPeriod =
+      3; //period to be waited before animating the grid.
   late AnimationController gridAnimationController;
 
-  //my symbol (big x and big o) animation
-  late AnimationController symbolAnimationController;
-  double symbolProgress = 0;
+  //2. game logic////////////////////////////////////////////////////
+  List<String> board = ['', '', '', '', '', '', '', '', ''];
+  bool isXTurn = true;
 
-  //winngin connecting line animation
+  //3. xo-layer////////////////////////////////////////////////////
+  List<MySymbol> xoList = []; //xo objects in xo layer,used in animation
+  late AnimationController symbolAnimationController;
+  //double symbolProgress = 0;
+  int symbolAnimationDuration = 2000;
+
+  //4. winning line layer////////////////////////////////////////////////////
+  List<int> winningCells = []; //the three winning cells
+  List<Offset> winningPoints = []; //the two points to be connedted when winning
   late AnimationController winningAnimationController;
   double winnginLineProgress = 0;
+  final int winningLineDuration = 2000;
 }
 
 class GridPoints {
