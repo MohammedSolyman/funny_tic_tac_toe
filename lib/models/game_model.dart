@@ -5,12 +5,29 @@ class GameModel {
   //1. grid ////////////////////////////////////////////////////////
   double gridWidth = 0;
   double gridHeight = 0;
-  Alignment gridAlignment = const Alignment(4, 0);
+
+  Alignment gridAlignmentStart = const Alignment(4, 0.2);
+  Alignment gridAlignmentEnd = const Alignment(0, 0.2);
+  Alignment gridAlignment = const Alignment(4, 0.2);
+
   GridPoints gridPoints = GridPoints();
   final int gridAniamteDuration = 3000;
   final int gridAniamteAfterPeriod =
       4000; //period to be waited before animating the grid.
   late AnimationController gridAnimationController;
+
+// 2. panel////////////////////////////////////////////////////
+  double panelWidth = 0;
+  double panelHeight = 0;
+
+  Alignment panelAlignmentStart = const Alignment(4, -0.4);
+  Alignment panelAlignmentEnd = const Alignment(0, -0.4);
+  Alignment panelAlignment = const Alignment(4, -0.4);
+
+  final int panelAniamteDuration = 3000;
+  final int panelAniamteAfterPeriod =
+      4000; //period to be waited before animating the panel.
+  late AnimationController panelAnimationController;
 
   //2. game logic////////////////////////////////////////////////////
   List<String> board = ['', '', '', '', '', '', '', '', ''];

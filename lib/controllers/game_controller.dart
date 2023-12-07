@@ -278,6 +278,13 @@ class GameController extends GetxController with GetTickerProviderStateMixin {
     });
   }
 
+  void _initializePanelDimenions() {
+    model.update((val) {
+      val!.panelHeight = dCont.model.value.height * 0.1;
+      val.panelWidth = dCont.model.value.width * 0.6;
+    });
+  }
+
   void _initializeGridPoints() {
     double w = model.value.gridWidth;
     double h = model.value.gridHeight;
@@ -335,7 +342,8 @@ class GameController extends GetxController with GetTickerProviderStateMixin {
 
     // tween
     Tween<Alignment> tween = Tween<Alignment>(
-        begin: model.value.gridAlignment, end: const Alignment(0, 0));
+        begin: model.value.gridAlignmentStart,
+        end: model.value.gridAlignmentEnd);
 
     //animation
     Animation animation = tween.animate(curvedAnimation);
@@ -344,6 +352,32 @@ class GameController extends GetxController with GetTickerProviderStateMixin {
     model.value.gridAnimationController.addListener(() {
       model.update((val) {
         val!.gridAlignment = animation.value;
+      });
+    });
+  }
+
+  void _initializePanelAnimation() {
+    // controler
+    model.value.panelAnimationController = AnimationController(
+        duration: Duration(milliseconds: model.value.panelAniamteDuration),
+        vsync: this);
+
+    //curve
+    CurvedAnimation curvedAnimation = CurvedAnimation(
+        parent: model.value.gridAnimationController, curve: Curves.elasticOut);
+
+    // tween
+    Tween<Alignment> tween = Tween<Alignment>(
+        begin: model.value.panelAlignmentStart,
+        end: model.value.panelAlignmentEnd);
+
+    //animation
+    Animation animation = tween.animate(curvedAnimation);
+
+    //updating values
+    model.value.panelAnimationController.addListener(() {
+      model.update((val) {
+        val!.panelAlignment = animation.value;
       });
     });
   }
@@ -401,6 +435,12 @@ class GameController extends GetxController with GetTickerProviderStateMixin {
     await Future.delayed(
         Duration(milliseconds: model.value.gridAniamteAfterPeriod));
     model.value.gridAnimationController.forward();
+  }
+
+  Future<void> _firePanelAnimation() async {
+    await Future.delayed(
+        Duration(milliseconds: model.value.panelAniamteAfterPeriod));
+    model.value.panelAnimationController.forward();
   }
 
   void _fireOAnimation(int index) {
@@ -475,13 +515,19 @@ class GameController extends GetxController with GetTickerProviderStateMixin {
 
   @override
   void onInit() {
-    super.onInit();
+    //initialize dimensions
     _initializeGridDimenions();
     _initializeGridPoints();
+    _initializePanelDimenions();
+    //initialize animations
     _initializeGridAnimation();
     _initializeSymbolAnimation();
     _initializeWinningLineAnimation();
+    _initializePanelAnimation();
+    //firing animations
     _fireGridAnimation();
+    _firePanelAnimation();
+    super.onInit();
   }
 
   @override
@@ -489,6 +535,7 @@ class GameController extends GetxController with GetTickerProviderStateMixin {
     model.value.symbolAnimationController.dispose();
     model.value.gridAnimationController.dispose();
     model.value.winningAnimationController.dispose();
+    model.value.panelAnimationController.dispose();
     super.onClose();
   }
 }
