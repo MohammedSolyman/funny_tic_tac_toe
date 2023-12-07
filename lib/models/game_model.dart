@@ -7,8 +7,9 @@ class GameModel {
   double gridHeight = 0;
   Alignment gridAlignment = const Alignment(4, 0);
   GridPoints gridPoints = GridPoints();
+  final int gridAniamteDuration = 3000;
   final int gridAniamteAfterPeriod =
-      3; //period to be waited before animating the grid.
+      4000; //period to be waited before animating the grid.
   late AnimationController gridAnimationController;
 
   //2. game logic////////////////////////////////////////////////////

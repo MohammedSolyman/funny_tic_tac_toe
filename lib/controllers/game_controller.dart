@@ -197,7 +197,7 @@ class GameController extends GetxController with GetTickerProviderStateMixin {
 
   Future<void> _waitSymbolAnimationThenToggleTurn() async {
     await Future.delayed(
-        Duration(milliseconds: model.value.symbolAnimationDuration + 100));
+        Duration(milliseconds: model.value.symbolAnimationDuration));
     _toggleXTurn();
   }
 
@@ -285,7 +285,8 @@ class GameController extends GetxController with GetTickerProviderStateMixin {
   void _initializeGridAnimation() {
     // controler
     model.value.gridAnimationController = AnimationController(
-        duration: const Duration(milliseconds: 2), vsync: this);
+        duration: Duration(milliseconds: model.value.gridAniamteDuration),
+        vsync: this);
 
     //curve
     CurvedAnimation curvedAnimation = CurvedAnimation(
@@ -312,16 +313,9 @@ class GameController extends GetxController with GetTickerProviderStateMixin {
         duration: Duration(milliseconds: model.value.symbolAnimationDuration),
         vsync: this);
 
-    // tween
-    //Tween<double> tween = Tween<double>(begin: 0, end: 1);
-
-    //animation
-    // Animation animation = tween.animate(model.value.symbolAnimationController);
-
     //updating values
     model.value.symbolAnimationController.addListener(() {
       model.update((val) {
-        // val!.symbolProgress = animation.value;
         print(model.value.symbolAnimationController.value);
         for (var symbol in val!.xoList) {
           symbol.updateProgress();
@@ -331,8 +325,8 @@ class GameController extends GetxController with GetTickerProviderStateMixin {
     //updating status
     model.value.symbolAnimationController.addStatusListener((status) {
       if (status == AnimationStatus.completed) {
-        model.value.symbolAnimationController.reset();
-        print('controller is reseted');
+        model.value.symbolAnimationController.repeat();
+        print('controller is repeated');
       }
     });
   }
@@ -365,7 +359,8 @@ class GameController extends GetxController with GetTickerProviderStateMixin {
   }
 
   Future<void> _fireGridAnimation() async {
-    await Future.delayed(Duration(seconds: model.value.gridAniamteAfterPeriod));
+    await Future.delayed(
+        Duration(milliseconds: model.value.gridAniamteAfterPeriod));
     model.value.gridAnimationController.forward();
     print('gird animation was fired');
   }
@@ -455,10 +450,11 @@ class GameController extends GetxController with GetTickerProviderStateMixin {
 
   @override
   void onClose() {
-    super.onClose();
-    // model.value.oAnimationController.dispose();
     model.value.symbolAnimationController.dispose();
     model.value.gridAnimationController.dispose();
+    model.value.winningAnimationController.dispose();
+    print('controllers were disposed------------------------');
+    super.onClose();
   }
 }
 
