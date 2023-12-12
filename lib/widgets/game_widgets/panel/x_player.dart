@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:funny_tic_tac_toe/controllers/game_controller.dart';
 import 'dart:ui' as ui;
 
 import 'package:funny_tic_tac_toe/controllers/theming_controller.dart';
@@ -9,16 +10,20 @@ class XPlayer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    GameController gCont = Get.find<GameController>();
     ThemingController thCont = Get.find<ThemingController>();
 
-    Paint borderPaint = Paint();
-    borderPaint.color = thCont.model.value.myTheme.xPlyaerBorder;
-    borderPaint.style = PaintingStyle.stroke;
-    borderPaint.strokeWidth = 3;
-
     return Obx(() {
+      Paint borderPaint = Paint();
+      borderPaint.color = gCont.model.value.isXTurn
+          ? thCont.model.value.myTheme.xPlyaerBorder
+          : Colors.grey.shade700;
+      borderPaint.style = PaintingStyle.stroke;
+      borderPaint.strokeWidth = 3;
+
       return Stack(
         children: [
+          //border
           Text('X player',
               style: TextStyle(
                   foreground: borderPaint,
@@ -30,24 +35,28 @@ class XPlayer extends StatelessWidget {
                         color: thCont.model.value.myTheme.panelShadowColor,
                         offset: const Offset(3, 3))
                   ])),
-          ColorFiltered(
-            colorFilter:
-                const ColorFilter.mode(Colors.transparent, BlendMode.srcATop),
-            child: ShaderMask(
-                shaderCallback: (Rect bounds) {
-                  return ui.Gradient.linear(
-                      bounds.topLeft, bounds.bottomRight, [
-                    thCont.model.value.myTheme.xPlyaerBody1,
-                    thCont.model.value.myTheme.xPlyaerBody2,
-                  ]);
-                },
-                blendMode: BlendMode.srcIn,
-                child: const Text('X player',
-                    style: TextStyle(
-                      fontSize: 30,
-                      fontWeight: FontWeight.bold,
-                    ))),
-          ),
+          //body
+          ShaderMask(
+              shaderCallback: (Rect bounds) {
+                return ui.Gradient.linear(
+                    bounds.topLeft,
+                    bounds.bottomRight,
+                    gCont.model.value.isXTurn
+                        ? [
+                            thCont.model.value.myTheme.xPlyaerBody1,
+                            thCont.model.value.myTheme.xPlyaerBody2,
+                          ]
+                        : [
+                            Colors.grey.shade400,
+                            Colors.grey.shade400,
+                          ]);
+              },
+              blendMode: BlendMode.srcIn,
+              child: const Text('X player',
+                  style: TextStyle(
+                    fontSize: 30,
+                    fontWeight: FontWeight.bold,
+                  ))),
         ],
       );
     });

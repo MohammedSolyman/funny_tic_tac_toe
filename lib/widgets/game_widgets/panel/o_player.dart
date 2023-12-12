@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:funny_tic_tac_toe/controllers/game_controller.dart';
 import 'dart:ui' as ui;
 import 'package:funny_tic_tac_toe/controllers/theming_controller.dart';
 import 'package:get/get.dart';
@@ -8,14 +9,17 @@ class OPlayer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    GameController gCont = Get.find<GameController>();
     ThemingController thCont = Get.find<ThemingController>();
 
-    Paint borderPaint = Paint();
-    borderPaint.color = thCont.model.value.myTheme.oPlyaerBorder;
-    borderPaint.style = PaintingStyle.stroke;
-    borderPaint.strokeWidth = 3;
-
     return Obx(() {
+      Paint borderPaint = Paint();
+      borderPaint.color = gCont.model.value.isXTurn
+          ? Colors.grey.shade700
+          : thCont.model.value.myTheme.oPlyaerBorder;
+      borderPaint.style = PaintingStyle.stroke;
+      borderPaint.strokeWidth = 3;
+
       return Stack(
         children: [
           Text('O player',
@@ -30,8 +34,9 @@ class OPlayer extends StatelessWidget {
                         offset: const Offset(3, 3))
                   ])),
           ColorFiltered(
-            colorFilter:
-                const ColorFilter.mode(Colors.transparent, BlendMode.srcATop),
+            colorFilter: ColorFilter.mode(
+                gCont.model.value.isXTurn ? Colors.grey : Colors.transparent,
+                BlendMode.srcATop),
             child: ShaderMask(
                 shaderCallback: (Rect bounds) {
                   return ui.Gradient.linear(
