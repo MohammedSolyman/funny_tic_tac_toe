@@ -15,7 +15,6 @@ class XOLayer extends StatelessWidget {
       return CustomPaint(
         painter: XOLayerPainter(
             xoList: gCont.model.value.xoList,
-            //  progress: gCont.model.value.symbolProgress,
             oBodyColor: thCont.model.value.myTheme.bigObodyColor,
             oBorderColor: thCont.model.value.myTheme.bigOborderColor,
             xBodyColor: thCont.model.value.myTheme.bigXbodyColor,

@@ -10,7 +10,7 @@ class GameController extends GetxController with GetTickerProviderStateMixin {
   Rx<GameModel> model = GameModel().obs;
   DimensionsController dCont = Get.find<DimensionsController>();
 
-//game logic///////////////////////////////////////////////////
+//game logic////////////////////////////////////////////////////////////////
   void _updateWinningCells(int i1, int i2, int i3) {
     //this function will update the three winning cells.
     model.update((val) {
@@ -106,8 +106,18 @@ class GameController extends GetxController with GetTickerProviderStateMixin {
   }
 
   void checkWinning() {
-    if (getScore(model.value.board) == 10 ||
-        getScore(model.value.board) == -10) {
+    //1. in case o player wins, increments o-score and fire the wining line.
+    if (getScore(model.value.board) == 10) {
+      model.update((val) {
+        val!.oScore++;
+      });
+      _fireWinningConnection();
+    }
+    //2. in case x player wins, increments x-score and fire the wining line.
+    if (getScore(model.value.board) == -10) {
+      model.update((val) {
+        val!.xScore++;
+      });
       _fireWinningConnection();
     }
   }
@@ -270,18 +280,21 @@ class GameController extends GetxController with GetTickerProviderStateMixin {
     });
   }
 
-//game dimensions///////////////////////////////////////////////////
-  void _initializeGridDimenions() {
-    model.update((val) {
-      val!.gridHeight = dCont.model.value.height * 0.33;
-      val.gridWidth = dCont.model.value.width * 0.5;
-    });
-  }
+//game dimensions///////////////////////////////////////////////////////
 
   void _initializePanelDimenions() {
     model.update((val) {
       val!.panelHeight = dCont.model.value.height * 0.1;
       val.panelWidth = dCont.model.value.width * 0.6;
+    });
+  }
+
+//grid ////////////////////////////////////////////////////////////////
+
+  void _initializeGridDimenions() {
+    model.update((val) {
+      val!.gridHeight = dCont.model.value.height * 0.33;
+      val.gridWidth = dCont.model.value.width * 0.5;
     });
   }
 
@@ -329,7 +342,6 @@ class GameController extends GetxController with GetTickerProviderStateMixin {
     });
   }
 
-//game animation///////////////////////////////////////////////////
   void _initializeGridAnimation() {
     // controler
     model.value.gridAnimationController = AnimationController(
@@ -355,6 +367,14 @@ class GameController extends GetxController with GetTickerProviderStateMixin {
       });
     });
   }
+
+  Future<void> _fireGridAnimation() async {
+    await Future.delayed(
+        Duration(milliseconds: model.value.gridAniamteAfterPeriod));
+    model.value.gridAnimationController.forward();
+  }
+
+// panel //////////////////////////////////////////////////////////////////////
 
   void _initializePanelAnimation() {
     // controler
@@ -382,6 +402,14 @@ class GameController extends GetxController with GetTickerProviderStateMixin {
     });
   }
 
+  Future<void> _firePanelAnimation() async {
+    await Future.delayed(
+        Duration(milliseconds: model.value.panelAniamteAfterPeriod));
+    model.value.panelAnimationController.forward();
+  }
+
+// xo layer //////////////////////////////////////////////////////////////////////
+
   void _initializeSymbolAnimation() {
     // controler
     model.value.symbolAnimationController = AnimationController(
@@ -402,45 +430,6 @@ class GameController extends GetxController with GetTickerProviderStateMixin {
         model.value.symbolAnimationController.repeat();
       }
     });
-  }
-
-  void _initializeWinningLineAnimation() {
-    // controler
-    model.value.winningAnimationController = AnimationController(
-        duration: Duration(milliseconds: model.value.winningLineDuration),
-        vsync: this);
-
-    // tween
-    Tween<double> tween = Tween<double>(begin: 0, end: 1);
-
-    //animation
-    Animation animation = tween.animate(model.value.winningAnimationController);
-
-    //updating values
-    model.value.winningAnimationController.addListener(() {
-      model.update((val) {
-        val!.winnginLineProgress = animation.value;
-      });
-    });
-
-    // //updating status
-    // model.value.winningAnimationController.addStatusListener((status) {
-    //   if (status == AnimationStatus.completed) {
-    //     model.value.winningAnimationController.reset();
-    //   }
-    // });
-  }
-
-  Future<void> _fireGridAnimation() async {
-    await Future.delayed(
-        Duration(milliseconds: model.value.gridAniamteAfterPeriod));
-    model.value.gridAnimationController.forward();
-  }
-
-  Future<void> _firePanelAnimation() async {
-    await Future.delayed(
-        Duration(milliseconds: model.value.panelAniamteAfterPeriod));
-    model.value.panelAnimationController.forward();
   }
 
   void _fireOAnimation(int index) {
@@ -467,6 +456,35 @@ class GameController extends GetxController with GetTickerProviderStateMixin {
 
     //firing animation
     model.value.symbolAnimationController.forward();
+  }
+
+// winning line ////////////////////////////////////////////////////////////////////
+
+  void _initializeWinningLineAnimation() {
+    // controler
+    model.value.winningAnimationController = AnimationController(
+        duration: Duration(milliseconds: model.value.winningLineDuration),
+        vsync: this);
+
+    // tween
+    Tween<double> tween = Tween<double>(begin: 0, end: 1);
+
+    //animation
+    Animation animation = tween.animate(model.value.winningAnimationController);
+
+    //updating values
+    model.value.winningAnimationController.addListener(() {
+      model.update((val) {
+        val!.winnginLineProgress = animation.value;
+      });
+    });
+
+    // //updating status
+    // model.value.winningAnimationController.addStatusListener((status) {
+    //   if (status == AnimationStatus.completed) {
+    //     model.value.winningAnimationController.reset();
+    //   }
+    // });
   }
 
   void _fireWinningConnection() {

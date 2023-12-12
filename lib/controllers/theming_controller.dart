@@ -1,4 +1,6 @@
-import 'package:funny_tic_tac_toe/models/theming_model.dart';
+import 'package:funny_tic_tac_toe/models/theming_model/my_dark_theme.dart';
+import 'package:funny_tic_tac_toe/models/theming_model/my_light_theme.dart';
+import 'package:funny_tic_tac_toe/models/theming_model/theming_model.dart';
 import 'package:get/get.dart';
 
 class ThemingController extends GetxController {

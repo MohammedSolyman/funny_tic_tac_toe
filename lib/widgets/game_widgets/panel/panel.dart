@@ -1,5 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:funny_tic_tac_toe/controllers/game_controller.dart';
+import 'package:funny_tic_tac_toe/widgets/game_widgets/panel/dots.dart';
+import 'package:funny_tic_tac_toe/widgets/game_widgets/panel/o_player.dart';
+import 'package:funny_tic_tac_toe/widgets/game_widgets/panel/o_score.dart';
+import 'package:funny_tic_tac_toe/widgets/game_widgets/panel/x_score.dart';
+import 'package:funny_tic_tac_toe/widgets/game_widgets/panel/x_player.dart';
 import 'package:get/get.dart';
 
 class Panel extends StatelessWidget {
@@ -18,9 +23,15 @@ class Panel extends StatelessWidget {
           child: const Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Icon(Icons.abc),
-              Icon(Icons.abc),
-              Icon(Icons.abc),
+              XPlayer(),
+              Row(
+                children: [
+                  XScore(),
+                  Dots(),
+                  OScore(),
+                ],
+              ),
+              OPlayer(),
             ],
           ),
         ),

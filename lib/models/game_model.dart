@@ -19,6 +19,8 @@ class GameModel {
 // 2. panel////////////////////////////////////////////////////
   double panelWidth = 0;
   double panelHeight = 0;
+  int xScore = 0;
+  int oScore = 0;
 
   Alignment panelAlignmentStart = const Alignment(4, -0.4);
   Alignment panelAlignmentEnd = const Alignment(0, -0.4);
