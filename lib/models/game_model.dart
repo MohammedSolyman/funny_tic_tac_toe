@@ -16,7 +16,7 @@ class GameModel {
       4000; //period to be waited before animating the grid.
   late AnimationController gridAnimationController;
 
-// 2. panel////////////////////////////////////////////////////
+  // 2. panel////////////////////////////////////////////////////
   double panelWidth = 0;
   double panelHeight = 0;
   int xScore = 0;
@@ -31,18 +31,23 @@ class GameModel {
       4000; //period to be waited before animating the panel.
   late AnimationController panelAnimationController;
 
-  //2. game logic////////////////////////////////////////////////////
+  //3. moving dash
+  double movingDashFraction = 0;
+  final int movingDashAniamteDuration = 300; //millisec
+  late AnimationController movingDashAnimationController;
+
+  //4. game logic////////////////////////////////////////////////////
   List<String> board = ['', '', '', '', '', '', '', '', ''];
   bool isXTurn = true;
   bool isPlayAllowed = true;
 
-  //3. xo-layer////////////////////////////////////////////////////
+  //5. xo-layer////////////////////////////////////////////////////
   List<MySymbol> xoList = []; //xo objects in xo layer,used in animation
   late AnimationController symbolAnimationController;
   //double symbolProgress = 0;
   int symbolAnimationDuration = 2000;
 
-  //4. winning line layer////////////////////////////////////////////////////
+  //6. winning line layer////////////////////////////////////////////////////
   List<int> winningCells = []; //the three winning cells
   List<Offset> winningPoints = []; //the two points to be connedted when winning
   late AnimationController winningAnimationController;

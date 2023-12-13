@@ -10,7 +10,7 @@ class GameController extends GetxController with GetTickerProviderStateMixin {
   Rx<GameModel> model = GameModel().obs;
   DimensionsController dCont = Get.find<DimensionsController>();
 
-//game logic////////////////////////////////////////////////////////////////
+//1. game logic////////////////////////////////////////////////////////////////
   void _updateWinningCells(int i1, int i2, int i3) {
     //this function will update the three winning cells.
     model.update((val) {
@@ -90,7 +90,8 @@ class GameController extends GetxController with GetTickerProviderStateMixin {
     //   2. put 'X' int the board list
     //   3. put 'X' with animation in xo-layer
     //   4. give game trun to 'O'
-    //   5. check if someone won
+    //   5. move the moving dash
+    //   6. check if someone won
     if (getScore(model.value.board) == 1 &&
         model.value.board[index] == '' &&
         model.value.isPlayAllowed) {
@@ -98,6 +99,7 @@ class GameController extends GetxController with GetTickerProviderStateMixin {
       model.update((val) {
         val!.board[index] = 'X';
         val.isXTurn = false;
+        _fireMovingDashAnimation();
       });
       _fireXAnimation(index);
 
@@ -133,7 +135,8 @@ class GameController extends GetxController with GetTickerProviderStateMixin {
     //   2. put 'O' int the board list
     //   3. put 'O' with animation in xo-layer
     //   4. give game trun to 'X'
-    //   5. check if someone won
+    //   5. move the moving dash
+    //   6. check if someone won
 
     if (getScore(model.value.board) == 1 &&
         model.value.board[index] == '' &&
@@ -142,6 +145,7 @@ class GameController extends GetxController with GetTickerProviderStateMixin {
       model.update((val) {
         val!.board[index] = 'O';
         val.isXTurn = true;
+        _fireMovingDashAnimation();
       });
       _fireOAnimation(index);
       checkWinning();
@@ -159,6 +163,7 @@ class GameController extends GetxController with GetTickerProviderStateMixin {
     //   2. put 'O' int the board list
     //   3. put 'O' with animation in xo-layer
     //   4. give game trun to 'X'
+    //   5. move the moving dash
     //   5. check if someone won
 
     if (getScore(model.value.board) == 1 && model.value.isPlayAllowed) {
@@ -191,7 +196,10 @@ class GameController extends GetxController with GetTickerProviderStateMixin {
       model.update((val) {
         val!.isXTurn = true;
       });
-      //   4. check if someone won
+      //   4. move the moving dash
+      _fireMovingDashAnimation();
+
+      //   5. check if someone won
       checkWinning();
     }
   }
@@ -280,7 +288,7 @@ class GameController extends GetxController with GetTickerProviderStateMixin {
     });
   }
 
-//game dimensions///////////////////////////////////////////////////////
+//2. game dimensions///////////////////////////////////////////////////////
 
   void _initializePanelDimenions() {
     model.update((val) {
@@ -289,7 +297,7 @@ class GameController extends GetxController with GetTickerProviderStateMixin {
     });
   }
 
-//grid ////////////////////////////////////////////////////////////////
+//3. grid ////////////////////////////////////////////////////////////////
 
   void _initializeGridDimenions() {
     model.update((val) {
@@ -374,7 +382,7 @@ class GameController extends GetxController with GetTickerProviderStateMixin {
     model.value.gridAnimationController.forward();
   }
 
-// panel //////////////////////////////////////////////////////////////////////
+//4.  panel //////////////////////////////////////////////////////////////////////
 
   void _initializePanelAnimation() {
     // controler
@@ -408,7 +416,53 @@ class GameController extends GetxController with GetTickerProviderStateMixin {
     model.value.panelAnimationController.forward();
   }
 
-// xo layer //////////////////////////////////////////////////////////////////////
+//5. moving dash
+
+  void _initializeMovingDashAnimation() {
+    // controler
+    model.value.movingDashAnimationController = AnimationController(
+        duration: Duration(milliseconds: model.value.movingDashAniamteDuration),
+        vsync: this);
+
+    //curve
+    CurvedAnimation curvedAnimation = CurvedAnimation(
+        parent: model.value.movingDashAnimationController,
+        curve: Curves.easeIn);
+
+    // tween
+    Tween<double> tween = Tween<double>(begin: 0, end: 1);
+
+    //animation
+    Animation animation = tween.animate(curvedAnimation);
+
+    //updating values
+    model.value.movingDashAnimationController.addListener(() {
+      model.update((val) {
+        val!.movingDashFraction = animation.value;
+        print('${val.movingDashFraction}');
+      });
+    });
+  }
+
+  void _fireMovingDashAnimation() {
+    print('_fireMovingDashAnimation -----------');
+    print('status');
+    print('${model.value.movingDashAnimationController.status}');
+    // model.value.movingDashAnimationController.forward();
+
+    if (model.value.movingDashAnimationController.status ==
+        AnimationStatus.dismissed) {
+      model.value.movingDashAnimationController.forward();
+      print('forward');
+    }
+    if (model.value.movingDashAnimationController.status ==
+        AnimationStatus.completed) {
+      model.value.movingDashAnimationController.reverse();
+      print('reversed');
+    }
+  }
+
+//6. xo layer //////////////////////////////////////////////////////////////////////
 
   void _initializeSymbolAnimation() {
     // controler
@@ -458,7 +512,7 @@ class GameController extends GetxController with GetTickerProviderStateMixin {
     model.value.symbolAnimationController.forward();
   }
 
-// winning line ////////////////////////////////////////////////////////////////////
+//7. winning line ////////////////////////////////////////////////////////////////////
 
   void _initializeWinningLineAnimation() {
     // controler
@@ -541,6 +595,7 @@ class GameController extends GetxController with GetTickerProviderStateMixin {
     _initializeGridAnimation();
     _initializeSymbolAnimation();
     _initializeWinningLineAnimation();
+    _initializeMovingDashAnimation();
     _initializePanelAnimation();
     //firing animations
     _fireGridAnimation();
@@ -554,6 +609,7 @@ class GameController extends GetxController with GetTickerProviderStateMixin {
     model.value.gridAnimationController.dispose();
     model.value.winningAnimationController.dispose();
     model.value.panelAnimationController.dispose();
+    model.value.movingDashAnimationController.dispose();
     super.onClose();
   }
 }

@@ -27,7 +27,7 @@ class Dots extends StatelessWidget {
                     Shadow(
                         blurRadius: 5,
                         color: thCont.model.value.myTheme.panelShadowColor,
-                        offset: const Offset(3, 3))
+                        offset: const Offset(2, 2))
                   ])),
           ColorFiltered(
             colorFilter:
