@@ -32,7 +32,8 @@ class Panel extends StatelessWidget {
                     ],
                   ),
                 ),
-                MovingDash()
+                MovingDash(),
+               
               ],
             ),
           ),

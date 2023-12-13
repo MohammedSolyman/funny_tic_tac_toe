@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:funny_tic_tac_toe/controllers/dimensions_controller.dart';
 import 'package:funny_tic_tac_toe/models/game_model.dart';
-import 'package:funny_tic_tac_toe/widgets/game_widgets/big_o.dart';
-import 'package:funny_tic_tac_toe/widgets/game_widgets/big_x.dart';
+import 'package:funny_tic_tac_toe/widgets/game_widgets/my_dialog/my_dialog.dart';
+import 'package:funny_tic_tac_toe/widgets/game_widgets/xo_layer/big_o.dart';
+import 'package:funny_tic_tac_toe/widgets/game_widgets/xo_layer/big_x.dart';
 import 'package:get/get.dart';
 
 class GameController extends GetxController with GetTickerProviderStateMixin {
@@ -439,26 +440,18 @@ class GameController extends GetxController with GetTickerProviderStateMixin {
     model.value.movingDashAnimationController.addListener(() {
       model.update((val) {
         val!.movingDashFraction = animation.value;
-        print('${val.movingDashFraction}');
       });
     });
   }
 
   void _fireMovingDashAnimation() {
-    print('_fireMovingDashAnimation -----------');
-    print('status');
-    print('${model.value.movingDashAnimationController.status}');
-    // model.value.movingDashAnimationController.forward();
-
     if (model.value.movingDashAnimationController.status ==
         AnimationStatus.dismissed) {
       model.value.movingDashAnimationController.forward();
-      print('forward');
     }
     if (model.value.movingDashAnimationController.status ==
         AnimationStatus.completed) {
       model.value.movingDashAnimationController.reverse();
-      print('reversed');
     }
   }
 
@@ -583,6 +576,12 @@ class GameController extends GetxController with GetTickerProviderStateMixin {
     //firiing connceting line
 
     model.value.winningAnimationController.forward();
+  }
+
+//8. dialog
+
+  void showDialog() {
+    Get.dialog(const MyDialog());
   }
 
   @override

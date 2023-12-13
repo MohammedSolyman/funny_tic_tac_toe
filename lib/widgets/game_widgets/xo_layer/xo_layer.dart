@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:funny_tic_tac_toe/controllers/game_controller.dart';
 import 'package:funny_tic_tac_toe/controllers/theming_controller.dart';
-import 'package:funny_tic_tac_toe/widgets/game_widgets/my_symbol.dart';
+import 'package:funny_tic_tac_toe/widgets/game_widgets/xo_layer/my_symbol.dart';
 import 'package:get/get.dart';
 
 class XOLayer extends StatelessWidget {

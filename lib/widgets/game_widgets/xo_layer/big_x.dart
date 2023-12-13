@@ -1,5 +1,5 @@
 import 'dart:ui';
-import 'package:funny_tic_tac_toe/widgets/game_widgets/my_symbol.dart';
+import 'package:funny_tic_tac_toe/widgets/game_widgets/xo_layer/my_symbol.dart';
 
 class BigX implements MySymbol {
   Offset position;

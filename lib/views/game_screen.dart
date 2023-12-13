@@ -21,7 +21,7 @@ class GameScreen extends StatelessWidget {
           TopBlock(),
           Panel(),
           GameGridView(),
-          ResetIcon(),
+          ResetIcon(), //for debuging purpose only
           IgnorePointer(
             child: TransitionBlock(),
           )
@@ -45,7 +45,8 @@ class ResetIcon extends StatelessWidget {
         bottom: 50,
         child: IconButton(
             onPressed: () {
-              gCont.reset();
+              //   gCont.reset();
+              gCont.showDialog();
             },
             icon: const Icon(Icons.rotate_left_outlined)));
   }

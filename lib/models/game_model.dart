@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:funny_tic_tac_toe/widgets/game_widgets/my_symbol.dart';
+import 'package:funny_tic_tac_toe/widgets/game_widgets/xo_layer/my_symbol.dart';
 
 class GameModel {
   //1. grid ////////////////////////////////////////////////////////

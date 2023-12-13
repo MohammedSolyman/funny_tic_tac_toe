@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:funny_tic_tac_toe/controllers/game_controller.dart';
-import 'package:funny_tic_tac_toe/widgets/game_widgets/game_cell.dart';
+import 'package:funny_tic_tac_toe/widgets/game_widgets/board_layer/game_cell.dart';
 import 'package:get/get.dart';
 
 class BoardLayer extends StatelessWidget {

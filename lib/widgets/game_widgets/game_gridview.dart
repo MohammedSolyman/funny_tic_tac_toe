@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:funny_tic_tac_toe/controllers/game_controller.dart';
-import 'package:funny_tic_tac_toe/widgets/game_widgets/connecting_winning_layer.dart';
-import 'package:funny_tic_tac_toe/widgets/game_widgets/board_layer.dart';
-import 'package:funny_tic_tac_toe/widgets/game_widgets/xo_layer.dart';
+import 'package:funny_tic_tac_toe/widgets/game_widgets/connecting_winning_layer/connecting_winning_layer.dart';
+import 'package:funny_tic_tac_toe/widgets/game_widgets/board_layer/board_layer.dart';
+import 'package:funny_tic_tac_toe/widgets/game_widgets/xo_layer/xo_layer.dart';
 import 'package:get/get.dart';
 
 class GameGridView extends StatelessWidget {
