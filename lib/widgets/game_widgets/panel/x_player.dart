@@ -48,7 +48,7 @@ class XPlayer extends StatelessWidget {
                           ]
                         : [
                             Colors.grey.shade400,
-                            Colors.grey.shade400,
+                            Colors.grey.shade500,
                           ]);
               },
               blendMode: BlendMode.srcIn,
