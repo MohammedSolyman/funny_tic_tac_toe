@@ -22,9 +22,7 @@ class GameScreen extends StatelessWidget {
           Panel(),
           GameGridView(),
           ResetIcon(), //for debuging purpose only
-          IgnorePointer(
-            child: TransitionBlock(),
-          )
+          IgnorePointer(child: TransitionBlock())
         ],
       )),
     );

@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:funny_tic_tac_toe/controllers/dimensions_controller.dart';
 import 'package:funny_tic_tac_toe/models/game_model.dart';
-import 'package:funny_tic_tac_toe/widgets/game_widgets/my_dialog/my_dialog.dart';
 import 'package:funny_tic_tac_toe/widgets/game_widgets/xo_layer/big_o.dart';
 import 'package:funny_tic_tac_toe/widgets/game_widgets/xo_layer/big_x.dart';
 import 'package:get/get.dart';
@@ -580,9 +579,7 @@ class GameController extends GetxController with GetTickerProviderStateMixin {
 
 //8. dialog
 
-  void showDialog() {
-    Get.dialog(const MyDialog());
-  }
+  void showDialog() {}
 
   @override
   void onInit() {
