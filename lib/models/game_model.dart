@@ -31,7 +31,7 @@ class GameModel {
       4000; //period to be waited before animating the panel.
   late AnimationController panelAnimationController;
 
-  //3. moving dash
+  //3. moving dash //////////////////////////////////////////////////////////////
   double movingDashFraction = 0;
   final int movingDashAniamteDuration = 300; //millisec
   late AnimationController movingDashAnimationController;
@@ -53,6 +53,14 @@ class GameModel {
   late AnimationController winningAnimationController;
   double winnginLineProgress = 0;
   final int winningLineDuration = 2000;
+
+  //7. dialog////////////////////////////////////////////////////
+  double dialogWidth = 0;
+  double dialogHeight = 0;
+
+  Alignment dialogAlignmentStart = const Alignment(4, 0.2);
+  Alignment dialogAlignmentEnd = const Alignment(0, 0.2);
+  Alignment dialogAlignment = const Alignment(4, 0.2);
 }
 
 class GridPoints {

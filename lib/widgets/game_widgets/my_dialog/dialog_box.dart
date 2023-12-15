@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:funny_tic_tac_toe/controllers/dimensions_controller.dart';
+import 'package:funny_tic_tac_toe/controllers/game_controller.dart';
 import 'package:funny_tic_tac_toe/controllers/theming_controller.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -9,7 +9,8 @@ class DialogBox extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    DimensionsController dCont = Get.find<DimensionsController>();
+    // DimensionsController dCont = Get.find<DimensionsController>();
+    GameController gCont = Get.find<GameController>();
     ThemingController thCont = Get.find<ThemingController>();
     return Obx(
       () {
@@ -22,7 +23,8 @@ class DialogBox extends StatelessWidget {
                 bubbleBorderColor: Colors.red,
                 textColor: Colors.yellow,
                 text: 'x wins'),
-            size: Size(dCont.model.value.width, dCont.model.value.height),
+            size: Size(
+                gCont.model.value.dialogWidth, gCont.model.value.dialogHeight),
           ),
         );
       },
@@ -49,23 +51,23 @@ class DialogBoxPaint extends CustomPainter {
   @override
   void paint(Canvas canvas, Size size) {
     //dimensions
-    double widthUnit = size.width / 100;
-    double heightUnit = size.height / 100;
+    double width = size.width;
+    double height = size.height;
 
     //first line
     Offset a1 = const Offset(0, 0);
-    Offset b1 = Offset(widthUnit * 100, heightUnit * 2.5);
+    Offset b1 = Offset(width, height * 0.025);
     Rect rect1 = Rect.fromPoints(a1, b1);
 
     //box
-    Offset a2 = Offset(0, heightUnit * 5);
-    Offset b2 = Offset(widthUnit * 100, heightUnit * 35);
+    Offset a2 = Offset(0, height * 0.05);
+    Offset b2 = Offset(width, height * 0.965);
     Rect rect2 = Rect.fromPoints(a2, b2);
     RRect rrect2 = RRect.fromRectAndRadius(rect2, const Radius.circular(15));
 
     //second line
-    Offset a3 = Offset(0, heightUnit * 37);
-    Offset b3 = Offset(widthUnit * 100, heightUnit * 38);
+    Offset a3 = Offset(0, height * 0.99);
+    Offset b3 = Offset(width, height);
     Rect rect3 = Rect.fromPoints(a3, b3);
 
     //text border ///////////////////////////////////////////////
@@ -94,15 +96,15 @@ class DialogBoxPaint extends CustomPainter {
     textBorderPainter.layout();
 
     //text border position
-    Offset textBorderPosition = Offset(
-        (widthUnit * 100 - textBorderPainter.width) * 0.5, heightUnit * 10);
+    Offset textBorderPosition =
+        Offset((width - textBorderPainter.width) * 0.5, height * 0.2);
 
     //text body //////////////////////////////////////////////////
     //text body paint
     Paint textBody = Paint();
     textBody.shader = const LinearGradient(colors: [Colors.red, Colors.yellow])
         .createShader(Rect.fromCircle(
-            center: Offset(widthUnit * 50, heightUnit * 50), radius: 100));
+            center: Offset(width * 0.5, height * 0.5), radius: 100));
     textBody.style = PaintingStyle.fill;
 
     //text body span
@@ -124,20 +126,15 @@ class DialogBoxPaint extends CustomPainter {
     textBodyPainter.layout();
 
     //text body position
-    Offset textBodyPosition = Offset(
-        (widthUnit * 100 - textBodyPainter.width) * 0.5, heightUnit * 10);
+    Offset textBodyPosition =
+        Offset((width - textBodyPainter.width) * 0.5, height * 0.2);
 
     //paints////////////////////////////////////////////////////
-    //barrier paint
-    Paint barrierPaint = Paint();
-    barrierPaint.color = Colors.grey.withOpacity(0.5);
-    barrierPaint.style = PaintingStyle.fill;
-
     //border paint
     Paint borderPaint = Paint();
     borderPaint.color = borderColor;
     borderPaint.style = PaintingStyle.stroke;
-    borderPaint.strokeWidth = 7;
+    borderPaint.strokeWidth = 4;
 
     //body paint
     Paint bodyPaint = Paint();
@@ -145,8 +142,6 @@ class DialogBoxPaint extends CustomPainter {
     bodyPaint.style = PaintingStyle.fill;
 
     //drawing////////////////////////////////////////////////////
-    //drawing barrier
-    canvas.drawPaint(barrierPaint);
 
     //drawing bodies
     canvas.drawRect(rect1, bodyPaint);

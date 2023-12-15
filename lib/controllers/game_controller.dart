@@ -577,7 +577,14 @@ class GameController extends GetxController with GetTickerProviderStateMixin {
     model.value.winningAnimationController.forward();
   }
 
-//8. dialog
+//8. dialog /////////////////////////////////////////////////////////
+
+  void _initializeDialogDimensions() {
+    model.update((val) {
+      val!.dialogHeight = dCont.model.value.height * 0.33;
+      val.dialogWidth = dCont.model.value.width;
+    });
+  }
 
   void showDialog() {}
 
@@ -587,6 +594,7 @@ class GameController extends GetxController with GetTickerProviderStateMixin {
     _initializeGridDimenions();
     _initializeGridPoints();
     _initializePanelDimenions();
+    _initializeDialogDimensions();
     //initialize animations
     _initializeGridAnimation();
     _initializeSymbolAnimation();
