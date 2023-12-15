@@ -107,20 +107,33 @@ class GameController extends GetxController with GetTickerProviderStateMixin {
     }
   }
 
-  void checkWinning() {
-    //1. in case o player wins, increments o-score and fire the wining line.
+  Future<void> checkWinning() async {
+    //1. in case o player wins:
+    //   1. increments o-score, and
+    //   2. fire the wining line.
+    //   3. fire the dialoge animation
+
     if (getScore(model.value.board) == 10) {
       model.update((val) {
         val!.oScore++;
       });
       _fireWinningConnection();
+      await Future.delayed(
+          Duration(milliseconds: model.value.winningLineDuration));
+      _fireDialogAnimation();
     }
-    //2. in case x player wins, increments x-score and fire the wining line.
+    //2. in case x player wins:
+    //   1. increments x-score, and
+    //   2. fire the wining line.
+    //   3. fire the dialoge animation
     if (getScore(model.value.board) == -10) {
       model.update((val) {
         val!.xScore++;
       });
       _fireWinningConnection();
+      await Future.delayed(
+          Duration(milliseconds: model.value.winningLineDuration));
+      _fireDialogAnimation();
     }
   }
 
@@ -586,6 +599,36 @@ class GameController extends GetxController with GetTickerProviderStateMixin {
     });
   }
 
+  _initializeDialogAnimation() {
+    // controler
+    model.value.dialogAnimationController = AnimationController(
+        duration: Duration(milliseconds: model.value.dialogAniamteDuration),
+        vsync: this);
+
+    //curve
+    CurvedAnimation curvedAnimation = CurvedAnimation(
+        parent: model.value.dialogAnimationController, curve: Curves.bounceOut);
+
+    // tween
+    Tween<Alignment> tween = Tween<Alignment>(
+        begin: model.value.dialogAlignmentStart,
+        end: model.value.dialogAlignmentEnd);
+
+    //animation
+    Animation animation = tween.animate(curvedAnimation);
+
+    //updating values
+    model.value.dialogAnimationController.addListener(() {
+      model.update((val) {
+        val!.dialogAlignment = animation.value;
+      });
+    });
+  }
+
+  void _fireDialogAnimation() {
+    model.value.dialogAnimationController.forward();
+  }
+
   void showDialog() {}
 
   @override
@@ -595,15 +638,19 @@ class GameController extends GetxController with GetTickerProviderStateMixin {
     _initializeGridPoints();
     _initializePanelDimenions();
     _initializeDialogDimensions();
+
     //initialize animations
     _initializeGridAnimation();
     _initializeSymbolAnimation();
     _initializeWinningLineAnimation();
     _initializeMovingDashAnimation();
     _initializePanelAnimation();
+    _initializeDialogAnimation();
+
     //firing animations
     _fireGridAnimation();
     _firePanelAnimation();
+
     super.onInit();
   }
 

@@ -14,7 +14,7 @@ class MyDialog extends StatelessWidget {
     GameController gCont = Get.find<GameController>();
     return Obx(() {
       return Align(
-        alignment: const Alignment(-1, -0.5),
+        alignment: gCont.model.value.dialogAlignment,
         child: Container(
           decoration:
               BoxDecoration(border: Border.all(color: Colors.black, width: 10)),
