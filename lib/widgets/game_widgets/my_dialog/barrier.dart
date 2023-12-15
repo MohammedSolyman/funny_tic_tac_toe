@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:funny_tic_tac_toe/controllers/dimensions_controller.dart';
+import 'package:funny_tic_tac_toe/controllers/game_controller.dart';
 import 'package:get/get.dart';
 
 class Barrier extends StatelessWidget {
@@ -8,14 +9,19 @@ class Barrier extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     DimensionsController dCont = Get.find<DimensionsController>();
+    GameController gCont = Get.find<GameController>();
     return Obx(
       () {
-        return Center(
-          child: CustomPaint(
-            painter: BarrierPaint(),
-            size: Size(dCont.model.value.width, dCont.model.value.height),
-          ),
-        );
+        if (gCont.model.value.showBarrier) {
+          return Center(
+            child: CustomPaint(
+              painter: BarrierPaint(),
+              size: Size(dCont.model.value.width, dCont.model.value.height),
+            ),
+          );
+        } else {
+          return Container();
+        }
       },
     );
   }
@@ -26,7 +32,7 @@ class BarrierPaint extends CustomPainter {
   void paint(Canvas canvas, Size size) {
     //paint
     Paint barrierPaint = Paint();
-    barrierPaint.color = Colors.grey.withOpacity(0.5);
+    barrierPaint.color = Colors.black.withOpacity(0.6);
     barrierPaint.style = PaintingStyle.fill;
 
     //drawing

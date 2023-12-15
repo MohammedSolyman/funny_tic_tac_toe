@@ -111,6 +111,7 @@ class GameController extends GetxController with GetTickerProviderStateMixin {
     //1. in case o player wins:
     //   1. increments o-score, and
     //   2. fire the wining line.
+    //   3. show barrier
     //   3. fire the dialoge animation
 
     if (getScore(model.value.board) == 10) {
@@ -120,12 +121,14 @@ class GameController extends GetxController with GetTickerProviderStateMixin {
       _fireWinningConnection();
       await Future.delayed(
           Duration(milliseconds: model.value.winningLineDuration));
+      _showBarrier();
       _fireDialogAnimation();
     }
     //2. in case x player wins:
     //   1. increments x-score, and
     //   2. fire the wining line.
-    //   3. fire the dialoge animation
+    //   3. show barrier
+    //   4. fire the dialoge animation
     if (getScore(model.value.board) == -10) {
       model.update((val) {
         val!.xScore++;
@@ -133,6 +136,7 @@ class GameController extends GetxController with GetTickerProviderStateMixin {
       _fireWinningConnection();
       await Future.delayed(
           Duration(milliseconds: model.value.winningLineDuration));
+      _showBarrier();
       _fireDialogAnimation();
     }
   }
@@ -646,9 +650,25 @@ class GameController extends GetxController with GetTickerProviderStateMixin {
     reset();
     // 2. unfire dialog
     _unFireDialogAnimation();
+    // 3. hide barrier
+    _hideBarrier();
   }
 
-  void showDialog() {}
+//9. barrier /////////////////////////////////////////////////
+
+  _showBarrier() {
+    //show the black barrier behind the dialog
+    model.update((val) {
+      val!.showBarrier = true;
+    });
+  }
+
+  _hideBarrier() {
+    //hide the black barrier behind the dialog
+    model.update((val) {
+      val!.showBarrier = false;
+    });
+  }
 
   @override
   void onInit() {

@@ -15,42 +15,19 @@ class GameScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Get.put(GameController());
-    return Scaffold(
+    return const Scaffold(
       body: Center(
           child: Stack(
         children: [
-          const MyBackground(),
-          const TopBlock(),
-          const Panel(),
-          const GameGridView(),
-
-          2 == 3 ? const Barrier() : Container(),
-          const MyDialog(),
-          const ResetIcon(), //for debuging purpose only
-          const IgnorePointer(child: TransitionBlock())
+          MyBackground(),
+          TopBlock(),
+          Panel(),
+          GameGridView(),
+          Barrier(),
+          MyDialog(),
+          IgnorePointer(child: TransitionBlock())
         ],
       )),
     );
-  }
-}
-
-class ResetIcon extends StatelessWidget {
-  const ResetIcon({
-    super.key,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    GameController gCont = Get.find<GameController>();
-
-    return Positioned(
-        left: 50,
-        bottom: 50,
-        child: IconButton(
-            onPressed: () {
-              //   gCont.reset();
-              gCont.showDialog();
-            },
-            icon: const Icon(Icons.rotate_left_outlined)));
   }
 }

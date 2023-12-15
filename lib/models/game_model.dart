@@ -64,6 +64,9 @@ class GameModel {
 
   final int dialogAniamteDuration = 1000; //milisec
   late AnimationController dialogAnimationController;
+
+  //8. barrier ////////////////////////////////////////////////
+  bool showBarrier = false;
 }
 
 class GridPoints {
