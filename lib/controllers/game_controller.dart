@@ -629,6 +629,17 @@ class GameController extends GetxController with GetTickerProviderStateMixin {
     model.value.dialogAnimationController.forward();
   }
 
+  void _unFireDialogAnimation() {
+    model.value.dialogAnimationController.reverse();
+  }
+
+  void continueFunction() {
+    // 1. reset
+    reset();
+    // 2. unfire dialog
+    _unFireDialogAnimation();
+  }
+
   void showDialog() {}
 
   @override

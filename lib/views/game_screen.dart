@@ -25,8 +25,7 @@ class GameScreen extends StatelessWidget {
           const GameGridView(),
 
           2 == 3 ? const Barrier() : Container(),
-          const IgnorePointer(child: MyDialog()),
-
+          const MyDialog(),
           const ResetIcon(), //for debuging purpose only
           const IgnorePointer(child: TransitionBlock())
         ],
