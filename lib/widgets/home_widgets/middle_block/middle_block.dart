@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:funny_tic_tac_toe/controllers/home_controller.dart';
 import 'package:funny_tic_tac_toe/controllers/theming_controller.dart';
-import 'package:funny_tic_tac_toe/controllers/transition_controller.dart';
 import 'package:funny_tic_tac_toe/utilities/consts/assets_paths.dart';
+import 'package:funny_tic_tac_toe/widgets/home_widgets/middle_block/play_button.dart';
 import 'package:get/get.dart';
 
 class MiddleBlock extends StatelessWidget {
@@ -14,7 +13,11 @@ class MiddleBlock extends StatelessWidget {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.center,
-        children: [Option1(), Option1(), GoButton()],
+        children: [
+          Option1(),
+          Option1(),
+          PlayButton(),
+        ],
       ),
     );
   }
@@ -30,7 +33,6 @@ class Option1 extends StatelessWidget {
     ThemingController thCont = Get.find<ThemingController>();
 
     double width = MediaQuery.of(context).size.width;
-    //  double height = MediaQuery.of(context).size.height;
     return Obx(() {
       return Container(
         margin: const EdgeInsets.all(8),
@@ -55,22 +57,5 @@ class Option1 extends StatelessWidget {
         ),
       );
     });
-  }
-}
-
-class GoButton extends StatelessWidget {
-  const GoButton({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    HomeController hCont = Get.find<HomeController>();
-    TransitionController tCont = Get.find<TransitionController>();
-
-    return ElevatedButton(
-        onPressed: () {
-          tCont.animateTransitionBlock();
-          hCont.goToGame();
-        },
-        child: const Text('go'));
   }
 }

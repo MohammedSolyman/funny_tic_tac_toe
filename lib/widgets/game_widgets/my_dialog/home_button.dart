@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-class ExitButton extends StatelessWidget {
-  const ExitButton({super.key});
+class HomeButton extends StatelessWidget {
+  const HomeButton({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -24,11 +24,11 @@ class ExitButton extends StatelessWidget {
       child: Stack(
         children: [
           Text(
-            'EXIT',
+            'HOME',
             style: GoogleFonts.creepster(fontSize: 30, foreground: bodyPaint),
           ),
           Text(
-            'EXIT',
+            'HOME',
             style: GoogleFonts.creepster(fontSize: 30, foreground: borderPaint),
           ),
         ],

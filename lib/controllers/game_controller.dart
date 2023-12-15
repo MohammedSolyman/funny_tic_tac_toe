@@ -280,12 +280,20 @@ class GameController extends GetxController with GetTickerProviderStateMixin {
   }
 
   void reset() {
+    //1. reset winning line animation controller
     model.value.winningAnimationController.reset();
+
     model.update((val) {
-      val!.isXTurn = true;
-      val.board = ['', '', '', '', '', '', '', '', ''];
+      //2. empty the board
+      val!.board = ['', '', '', '', '', '', '', '', ''];
+
+      //32. empty the winning cells
       val.winningCells = [];
+
+      //4. empty the winning points
       val.winningPoints = [];
+
+      //5. empty xo list
       val.xoList = [];
     });
   }

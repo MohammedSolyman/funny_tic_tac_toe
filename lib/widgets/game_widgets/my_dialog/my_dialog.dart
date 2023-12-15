@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:funny_tic_tac_toe/controllers/game_controller.dart';
 import 'package:funny_tic_tac_toe/widgets/game_widgets/my_dialog/continue_button.dart';
 import 'package:funny_tic_tac_toe/widgets/game_widgets/my_dialog/dialog_box.dart';
-import 'package:funny_tic_tac_toe/widgets/game_widgets/my_dialog/exit_button.dart';
+import 'package:funny_tic_tac_toe/widgets/game_widgets/my_dialog/home_button.dart';
 import 'package:get/get.dart';
 
 class MyDialog extends StatelessWidget {
@@ -30,7 +30,7 @@ class MyDialog extends StatelessWidget {
                   children: [
                     ContinueButton(),
                     SizedBox(width: 15),
-                    ExitButton(),
+                    HomeButton(),
                   ],
                 ),
               )
