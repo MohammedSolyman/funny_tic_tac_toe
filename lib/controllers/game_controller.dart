@@ -83,19 +83,15 @@ class GameController extends GetxController with GetTickerProviderStateMixin {
     //if the following:
     //1. if the game is still ongoing, and
     //2. the index in the grid list is empty, and
-    //3. the playing is allowed (o-player is NOT playing now)
 
     //do the following:
-    //   1. prevent playing during symbol animation
+
     //   2. put 'X' int the board list
     //   3. put 'X' with animation in xo-layer
     //   4. give game trun to 'O'
     //   5. move the moving dash
     //   6. check if someone won
-    if (getScore(model.value.board) == 1 &&
-        model.value.board[index] == '' &&
-        model.value.isPlayAllowed) {
-      _preventPlayingDuringAnimation();
+    if (getScore(model.value.board) == 1 && model.value.board[index] == '') {
       model.update((val) {
         val!.board[index] = 'X';
         val.isXTurn = false;
@@ -145,20 +141,16 @@ class GameController extends GetxController with GetTickerProviderStateMixin {
     //if the following:
     //1. if the game is still ongoing, and
     //2. the index in the grid list is empty, and
-    //3. the playing is allowed (x-player is NOT playing now)
 
     //do the following:
-    //   1. prevent playing during symbol animation
+
     //   2. put 'O' int the board list
     //   3. put 'O' with animation in xo-layer
     //   4. give game trun to 'X'
     //   5. move the moving dash
     //   6. check if someone won
 
-    if (getScore(model.value.board) == 1 &&
-        model.value.board[index] == '' &&
-        model.value.isPlayAllowed) {
-      _preventPlayingDuringAnimation();
+    if (getScore(model.value.board) == 1 && model.value.board[index] == '') {
       model.update((val) {
         val!.board[index] = 'O';
         val.isXTurn = true;
@@ -176,16 +168,14 @@ class GameController extends GetxController with GetTickerProviderStateMixin {
     //3. the playing is allowed (x-player is NOT playing now)
 
     //do the following:
-    //   1. prevent playing during symbol animation
+
     //   2. put 'O' int the board list
     //   3. put 'O' with animation in xo-layer
     //   4. give game trun to 'X'
     //   5. move the moving dash
     //   5. check if someone won
 
-    if (getScore(model.value.board) == 1 && model.value.isPlayAllowed) {
-      _preventPlayingDuringAnimation();
-
+    if (getScore(model.value.board) == 1) {
       List<String> b = model.value.board;
       int bestMoveIndex = -1000;
       int bestScore = -1000;
@@ -257,28 +247,28 @@ class GameController extends GetxController with GetTickerProviderStateMixin {
     }
   }
 
-  Future<void> _waitSymbolAnimation() async {
-    await Future.delayed(
-        Duration(milliseconds: model.value.symbolAnimationDuration));
-  }
+  // Future<void> _waitSymbolAnimation() async {
+  //   await Future.delayed(
+  //       Duration(milliseconds: model.value.symbolAnimationDuration));
+  // }
 
   void play({required bool withAI, required int index}) async {
     if (withAI) {
       // always 'X' player plays first.
       xPlay(index);
-      await _waitSymbolAnimation();
+      //   await _waitSymbolAnimation();
       if (!model.value.isXTurn) {
         // if x-player plays successfully, ai-player will play
         aiPlay();
-        await _waitSymbolAnimation();
+        //  await _waitSymbolAnimation();
       }
     } else {
       if (model.value.isXTurn) {
         xPlay(index);
-        await _waitSymbolAnimation();
+        //   await _waitSymbolAnimation();
       } else {
         oPlay(index);
-        await _waitSymbolAnimation();
+        //   await _waitSymbolAnimation();
       }
     }
   }
@@ -299,17 +289,6 @@ class GameController extends GetxController with GetTickerProviderStateMixin {
 
       //5. empty xo list
       val.xoList = [];
-    });
-  }
-
-  Future<void> _preventPlayingDuringAnimation() async {
-    model.update((val) {
-      val!.isPlayAllowed = false;
-    });
-    await Future.delayed(
-        Duration(milliseconds: model.value.symbolAnimationDuration));
-    model.update((val) {
-      val!.isPlayAllowed = true;
     });
   }
 
@@ -335,21 +314,21 @@ class GameController extends GetxController with GetTickerProviderStateMixin {
     double w = model.value.gridWidth;
     double h = model.value.gridHeight;
 
-    Offset s0 = const Offset(0, 0);
-    Offset s1 = Offset(w / 3, 0);
-    Offset s2 = Offset(w / 3 * 2, 0);
+    Offset s0 = Offset(1 * w / 6, 1 * h / 6);
+    Offset s1 = Offset(3 * w / 6, 1 * h / 6);
+    Offset s2 = Offset(5 * w / 6, 1 * h / 6);
 
-    Offset s3 = Offset(0, h / 3);
-    Offset s4 = Offset(w / 3, h / 3);
-    Offset s5 = Offset(w / 3 * 2, h / 3);
+    Offset s3 = Offset(1 * w / 6, 3 * h / 6);
+    Offset s4 = Offset(3 * w / 6, 3 * h / 6);
+    Offset s5 = Offset(5 * w / 6, 3 * h / 6);
 
-    Offset s6 = Offset(0, h / 3 * 2);
-    Offset s7 = Offset(w / 3, h / 3 * 2);
-    Offset s8 = Offset(w / 3 * 2, h / 3 * 2);
+    Offset s6 = Offset(1 * w / 6, 5 * h / 6);
+    Offset s7 = Offset(3 * w / 6, 5 * h / 6);
+    Offset s8 = Offset(5 * w / 6, 5 * h / 6);
 
     model.update((val) {
       //1. initialize start points
-      val!.gridPoints.startPoints = [s0, s1, s2, s3, s4, s5, s6, s7, s8];
+      val!.gridPoints.cellsCenters = [s0, s1, s2, s3, s4, s5, s6, s7, s8];
 
       //2. initialize corners points
       val.gridPoints.c1 = const Offset(0, 0);
@@ -487,46 +466,71 @@ class GameController extends GetxController with GetTickerProviderStateMixin {
         duration: Duration(milliseconds: model.value.symbolAnimationDuration),
         vsync: this);
 
+    //curve
+    CurvedAnimation curvedAnimation = CurvedAnimation(
+        parent: model.value.symbolAnimationController, curve: Curves.bounceOut);
+
+    //tween
+    Tween<double> tween = Tween<double>(
+        begin: model.value.symbolProgressBegin,
+        end: model.value.symbolProgressEnd);
+
+    //animation
+    Animation<double> animateion = tween.animate(curvedAnimation);
+
     //updating values
     model.value.symbolAnimationController.addListener(() {
       model.update((val) {
-        for (var symbol in val!.xoList) {
-          symbol.updateProgress();
-        }
+        val!.symbolProgress = animateion.value;
+        print('${val.symbolProgress} -------------');
       });
     });
-    //updating status
-    model.value.symbolAnimationController.addStatusListener((status) {
-      if (status == AnimationStatus.completed) {
-        model.value.symbolAnimationController.repeat();
-      }
-    });
+    // //updating status
+    // model.value.symbolAnimationController.addStatusListener((status) {
+    //   if (status == AnimationStatus.completed) {
+    //     model.value.symbolAnimationController.reset();
+    //   }
+    // });
   }
 
   void _fireOAnimation(int index) {
     //this function will put 'O' symbol on the xo layer
     //with animation
-    Offset position = model.value.gridPoints.startPoints[index];
+    Offset position = model.value.gridPoints.cellsCenters[index];
     BigO o = BigO(position);
     model.update((val) {
       val!.xoList.add(o);
     });
     //firing animation
-    model.value.symbolAnimationController.forward();
+    // model.value.symbolAnimationController.forward();
+    if (model.value.symbolAnimationController.status ==
+        AnimationStatus.completed) {
+      model.value.symbolAnimationController.reset();
+      model.value.symbolAnimationController.forward();
+    } else {
+      model.value.symbolAnimationController.forward();
+    }
   }
 
   void _fireXAnimation(int index) {
     //this function will put 'X' symbol on the xo layer
     //with animation
-    Offset position = model.value.gridPoints.startPoints[index];
-    BigX x = BigX(position: position);
+    Offset position = model.value.gridPoints.cellsCenters[index];
+    BigX x = BigX(position);
 
     model.update((val) {
       val!.xoList.add(x);
     });
 
     //firing animation
-    model.value.symbolAnimationController.forward();
+    // model.value.symbolAnimationController.forward();
+    if (model.value.symbolAnimationController.status ==
+        AnimationStatus.completed) {
+      model.value.symbolAnimationController.reset();
+      model.value.symbolAnimationController.forward();
+    } else {
+      model.value.symbolAnimationController.forward();
+    }
   }
 
 //7. winning line ////////////////////////////////////////////////////////////////////
@@ -550,12 +554,12 @@ class GameController extends GetxController with GetTickerProviderStateMixin {
       });
     });
 
-    // //updating status
-    // model.value.winningAnimationController.addStatusListener((status) {
-    //   if (status == AnimationStatus.completed) {
-    //     model.value.winningAnimationController.reset();
-    //   }
-    // });
+    //updating status
+    model.value.winningAnimationController.addStatusListener((status) {
+      if (status == AnimationStatus.completed) {
+        model.value.winningAnimationController.reset();
+      }
+    });
   }
 
   void _fireWinningConnection() {
@@ -700,6 +704,7 @@ class GameController extends GetxController with GetTickerProviderStateMixin {
     model.value.winningAnimationController.dispose();
     model.value.panelAnimationController.dispose();
     model.value.movingDashAnimationController.dispose();
+    print('all controllers were disposed ========================');
     super.onClose();
   }
 }

@@ -39,13 +39,15 @@ class GameModel {
   //4. game logic////////////////////////////////////////////////////
   List<String> board = ['', '', '', '', '', '', '', '', ''];
   bool isXTurn = true;
-  bool isPlayAllowed = true;
 
   //5. xo-layer////////////////////////////////////////////////////
   List<MySymbol> xoList = []; //xo objects in xo layer,used in animation
   late AnimationController symbolAnimationController;
-  //double symbolProgress = 0;
-  int symbolAnimationDuration = 2000;
+  double symbolProgress = 0;
+  int symbolAnimationDuration = 500; //milisec
+
+  double symbolProgressBegin = 0;
+  double symbolProgressEnd = 1 / 3;
 
   //6. winning line layer////////////////////////////////////////////////////
   List<int> winningCells = []; //the three winning cells
@@ -70,9 +72,8 @@ class GameModel {
 }
 
 class GridPoints {
-  //cells start points list: the upper left corner of each cell is the
-  //start point of this cell.
-  List<Offset> startPoints = [];
+  //centers of grid cells.
+  List<Offset> cellsCenters = [];
 
   //cells corners points:
   Offset c1 = Offset.zero;

@@ -1,8 +1,22 @@
 import 'package:flutter/material.dart';
 
 abstract class MySymbol {
-  draw(Canvas canvas, Size size, Color xBorderColor, Color xBodyColor,
-      Color oBorderColor, Color oBodyColor);
-
-  updateProgress();
+  drawManager({
+    required Canvas canvas,
+    required Size size,
+    required Color xBorderColor,
+    required Color xBodyColor,
+    required oBorderColor,
+    required Color oBodyColor,
+    required double progress,
+  });
+  drawMySymbol({
+    required Canvas canvas,
+    required Size size,
+    required Color xBorderColor,
+    required Color xBodyColor,
+    required oBorderColor,
+    required Color oBodyColor,
+    required double progress,
+  });
 }
