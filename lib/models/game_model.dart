@@ -57,6 +57,7 @@ class GameModel {
   final int winningLineDuration = 2000; //milisec
 
   //7. dialog////////////////////////////////////////////////////
+
   double dialogWidth = 0;
   double dialogHeight = 0;
 
@@ -67,6 +68,7 @@ class GameModel {
   final int dialogAniamteDuration = 1000; //milisec
   late AnimationController dialogAnimationController;
 
+  String resultText = '';
   //8. barrier ////////////////////////////////////////////////
   bool showBarrier = false;
 }

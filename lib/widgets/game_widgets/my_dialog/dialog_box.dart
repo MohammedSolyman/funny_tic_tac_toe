@@ -9,7 +9,6 @@ class DialogBox extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // DimensionsController dCont = Get.find<DimensionsController>();
     GameController gCont = Get.find<GameController>();
     ThemingController thCont = Get.find<ThemingController>();
     return Obx(
@@ -22,7 +21,7 @@ class DialogBox extends StatelessWidget {
                 bubbleBodyColor: Colors.orange,
                 bubbleBorderColor: Colors.red,
                 textColor: Colors.yellow,
-                text: 'x wins'),
+                text: gCont.model.value.resultText),
             size: Size(
                 gCont.model.value.dialogWidth, gCont.model.value.dialogHeight),
           ),

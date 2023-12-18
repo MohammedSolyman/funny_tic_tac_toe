@@ -105,14 +105,15 @@ class GameController extends GetxController with GetTickerProviderStateMixin {
 
   Future<void> checkWinning() async {
     //1. in case o player wins:
-    //   1. increments o-score, and
-    //   2. fire the wining line.
-    //   3. show barrier
-    //   3. fire the dialoge animation
-
+    //   1. increments o-score.
+    //   2. assign 'o wins' to result text.
+    //   3. fire the wining line.
+    //   4. show barrier
+    //   5. fire the dialoge animation
     if (getScore(model.value.board) == 10) {
       model.update((val) {
         val!.oScore++;
+        val.resultText = 'o wins';
       });
       _fireWinningConnection();
       await Future.delayed(
@@ -120,18 +121,33 @@ class GameController extends GetxController with GetTickerProviderStateMixin {
       _showBarrier();
       _fireDialogAnimation();
     }
+
     //2. in case x player wins:
-    //   1. increments x-score, and
-    //   2. fire the wining line.
-    //   3. show barrier
-    //   4. fire the dialoge animation
+    //   1. increments x-score
+    //   2. assign 'x wins' to result text.
+    //   3. fire the wining line.
+    //   4. show barrier
+    //   5. fire the dialoge animation
     if (getScore(model.value.board) == -10) {
       model.update((val) {
         val!.xScore++;
+        val.resultText = 'x wins';
       });
       _fireWinningConnection();
       await Future.delayed(
           Duration(milliseconds: model.value.winningLineDuration));
+      _showBarrier();
+      _fireDialogAnimation();
+    }
+
+    //3. in case tie
+    //   1. assign 'it is tie' to result text.
+    //   2. show barrier
+    //   3. fire the dialoge animation
+    if (getScore(model.value.board) == 0) {
+      model.update((val) {
+        val!.resultText = 'it is tie';
+      });
       _showBarrier();
       _fireDialogAnimation();
     }
