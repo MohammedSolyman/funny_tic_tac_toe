@@ -14,13 +14,13 @@ class TransitionController extends GetxController
   ThemingController thCon = Get.find<ThemingController>();
   DimensionsController dCont = Get.find<DimensionsController>();
 
-  void _initializeTransitionList({required int sticksNumber}) {
+  void _initializeTransitionList() {
     double deviceWidth = dCont.model.value.width;
 
     List<Stick> x = [];
-    double width = deviceWidth / sticksNumber;
+    double width = deviceWidth / 10;
 
-    for (var i = 0; i < sticksNumber; i++) {
+    for (var i = 0; i < 10; i++) {
       //initalize a stick
       Stick s = Stick(
           width: width,
@@ -75,15 +75,15 @@ class TransitionController extends GetxController
     });
   }
 
-  void animateTransitionBlock() {
-    _initializeTransitionList(sticksNumber: 10);
+  void fireTransitionAnimation() {
     model.value.transitionAnimationController.forward();
   }
 
   @override
   void onInit() {
-    super.onInit();
+    _initializeTransitionList();
     _initializeTransitionAnimation();
+    super.onInit();
   }
 
   @override

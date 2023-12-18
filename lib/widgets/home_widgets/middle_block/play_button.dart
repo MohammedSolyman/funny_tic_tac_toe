@@ -27,7 +27,7 @@ class PlayButton extends StatelessWidget {
 
     return GestureDetector(
       onTap: () {
-        tCont.animateTransitionBlock();
+        tCont.fireTransitionAnimation();
         hCont.goToGame();
       },
       child: Stack(

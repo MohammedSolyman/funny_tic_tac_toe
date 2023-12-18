@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:funny_tic_tac_toe/controllers/game_controller.dart';
+import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class HomeButton extends StatelessWidget {
@@ -6,6 +8,7 @@ class HomeButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    GameController gCont = Get.find<GameController>();
     //border paint
     Paint borderPaint = Paint();
     borderPaint.color = Colors.black;
@@ -20,7 +23,9 @@ class HomeButton extends StatelessWidget {
     bodyPaint.style = PaintingStyle.fill;
 
     return GestureDetector(
-      onTap: () {},
+      onTap: () async {
+        await gCont.homeFunction();
+      },
       child: Stack(
         children: [
           Text(

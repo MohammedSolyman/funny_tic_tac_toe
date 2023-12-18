@@ -125,12 +125,12 @@ class HomeController extends GetxController with GetTickerProviderStateMixin {
   }
 
   Future<void> goToGame() async {
-    //wait 3 seconds
+    //wait till covering ends
     await Future.delayed(
         Duration(seconds: tCont.model.value.covertingDuration));
 
     //navigate to game screen;
-    Get.to(const GameScreen());
+    Get.to(() => const GameScreen());
   }
 
   @override

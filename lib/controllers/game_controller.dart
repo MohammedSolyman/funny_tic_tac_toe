@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:funny_tic_tac_toe/controllers/dimensions_controller.dart';
+import 'package:funny_tic_tac_toe/controllers/transition_controller.dart';
 import 'package:funny_tic_tac_toe/models/game_model.dart';
+import 'package:funny_tic_tac_toe/views/home_screen.dart';
 import 'package:funny_tic_tac_toe/widgets/game_widgets/xo_layer/big_o/big_o.dart';
 import 'package:funny_tic_tac_toe/widgets/game_widgets/xo_layer/big_x/big_x.dart';
 import 'package:get/get.dart';
@@ -9,6 +11,7 @@ class GameController extends GetxController with GetTickerProviderStateMixin {
   //this controller is responsible of game screen and its animations
   Rx<GameModel> model = GameModel().obs;
   DimensionsController dCont = Get.find<DimensionsController>();
+  TransitionController tCont = Get.find<TransitionController>();
 
 //1. game logic////////////////////////////////////////////////////////////////
   void _updateWinningCells(int i1, int i2, int i3) {
@@ -617,7 +620,7 @@ class GameController extends GetxController with GetTickerProviderStateMixin {
     });
   }
 
-  _initializeDialogAnimation() {
+  void _initializeDialogAnimation() {
     // controler
     model.value.dialogAnimationController = AnimationController(
         duration: Duration(milliseconds: model.value.dialogAniamteDuration),
@@ -654,10 +657,34 @@ class GameController extends GetxController with GetTickerProviderStateMixin {
   void continueFunction() {
     // 1. reset
     reset();
+
     // 2. unfire dialog
     _unFireDialogAnimation();
+
     // 3. hide barrier
     _hideBarrier();
+  }
+
+  Future<void> homeFunction() async {
+    // 1. unfire dialog
+    _unFireDialogAnimation();
+
+    // 2. hide barrier
+    _hideBarrier();
+
+    // 3. wait till dialog disappear
+    await Future.delayed(
+        Duration(microseconds: model.value.dialogAniamteDuration));
+
+    // 4. fire the transition animation
+    tCont.fireTransitionAnimation();
+
+    // 5. wait till the transition block cover the page
+    await Future.delayed(
+        Duration(microseconds: tCont.model.value.covertingDuration));
+
+    // 6. navigate to home page
+    Get.off(() => const HomeScreen());
   }
 
 //9. barrier /////////////////////////////////////////////////
@@ -706,6 +733,7 @@ class GameController extends GetxController with GetTickerProviderStateMixin {
     model.value.winningAnimationController.dispose();
     model.value.panelAnimationController.dispose();
     model.value.movingDashAnimationController.dispose();
+    model.value.dialogAnimationController.dispose();
     super.onClose();
   }
 }
