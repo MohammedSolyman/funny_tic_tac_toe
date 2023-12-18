@@ -787,6 +787,7 @@
 
 import 'dart:ui';
 import 'package:flutter/foundation.dart';
+import 'package:funny_tic_tac_toe/widgets/game_widgets/xo_layer/big_o/o_paths_paints.dart';
 import 'package:funny_tic_tac_toe/widgets/game_widgets/xo_layer/drawing_status.dart';
 import 'package:funny_tic_tac_toe/widgets/game_widgets/xo_layer/my_symbol.dart';
 
@@ -805,33 +806,31 @@ class BigO implements MySymbol {
       required oBorderColor,
       required Color oBodyColor,
       required double progress}) {
-    //1 border paint
-    Paint paintBorder = Paint();
-    paintBorder.color = oBorderColor;
-    paintBorder.style = PaintingStyle.stroke;
-    paintBorder.strokeWidth = 2;
+    //1. paint
+    Paint borderPaint = oBorderPaint(oBorderColor);
+    Paint bodyPaint = oBodyPaint(oBodyColor);
 
-    //2 body paint
-    Paint paintBody = Paint();
-    paintBody.color = oBodyColor;
-    paintBody.style = PaintingStyle.fill;
+    //2  path
+    Path clippedPath = oClippedPath(size);
+    Path pathBorders = oBorders(size);
 
-    //3  path
-    Path path = myPath(size);
-
-    //transformation
+    //3. transformation
     var scalingMatrix = Float64List.fromList(
         [progress, 0, 0, 0, 0, progress, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1]);
-    path = path.transform(scalingMatrix);
 
-    //shifting to the desired position
-    Offset pathCenter = path.getBounds().center;
-    path = path.shift(position - pathCenter);
+    clippedPath = clippedPath.transform(scalingMatrix);
+    pathBorders = pathBorders.transform(scalingMatrix);
 
-    //4 drawing
+    //4. shifting to the desired position
+    Offset pathBordersCenter = pathBorders.getBounds().center;
+    pathBorders = pathBorders.shift(position - pathBordersCenter);
 
-    canvas.drawPath(path, paintBody);
-    canvas.drawPath(path, paintBorder);
+    Offset clippedPathCenter = clippedPath.getBounds().center;
+    clippedPath = clippedPath.shift(position - clippedPathCenter);
+
+    //5 drawing
+    canvas.drawPath(clippedPath, bodyPaint);
+    canvas.drawPath(pathBorders, borderPaint);
   }
 
   @override
@@ -844,15 +843,11 @@ class BigO implements MySymbol {
     required Color oBodyColor,
     required double progress,
   }) {
-    // print('1. progress: $progress--------------');
-
     if (progress == 1 / 3) {
       drawingStatus = DrawingStatus.completed;
     }
 
     if (drawingStatus == DrawingStatus.inAction) {
-      //  print('2. o is in action ');
-
       drawMySymbol(
           canvas: canvas,
           size: size,
@@ -864,7 +859,6 @@ class BigO implements MySymbol {
     }
 
     if (drawingStatus == DrawingStatus.completed) {
-      //  print('3. o is completed -------------');
       drawMySymbol(
           canvas: canvas,
           size: size,
@@ -875,19 +869,4 @@ class BigO implements MySymbol {
           progress: 1 / 3);
     }
   }
-}
-
-Path myPath(Size size) {
-  // dimensions
-  double width = size.width;
-  double height = size.height;
-
-  //path
-  Path path = Path();
-  path.moveTo(width * 0.5, height * 0.1);
-  path.lineTo(width * 0.1, height * 0.9);
-  path.lineTo(width * 0.9, height * 0.9);
-  path.lineTo(width * 0.5, height * 0.1);
-  path.close();
-  return path;
 }

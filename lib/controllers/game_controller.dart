@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:funny_tic_tac_toe/controllers/dimensions_controller.dart';
 import 'package:funny_tic_tac_toe/models/game_model.dart';
-import 'package:funny_tic_tac_toe/widgets/game_widgets/xo_layer/big_o.dart';
-import 'package:funny_tic_tac_toe/widgets/game_widgets/xo_layer/big_x.dart';
+import 'package:funny_tic_tac_toe/widgets/game_widgets/xo_layer/big_o/big_o.dart';
+import 'package:funny_tic_tac_toe/widgets/game_widgets/xo_layer/big_x/big_x.dart';
 import 'package:get/get.dart';
 
 class GameController extends GetxController with GetTickerProviderStateMixin {
@@ -247,20 +247,13 @@ class GameController extends GetxController with GetTickerProviderStateMixin {
     }
   }
 
-  // Future<void> _waitSymbolAnimation() async {
-  //   await Future.delayed(
-  //       Duration(milliseconds: model.value.symbolAnimationDuration));
-  // }
-
-  void play({required bool withAI, required int index}) async {
+  void play({required bool withAI, required int index}) {
     if (withAI) {
       // always 'X' player plays first.
       xPlay(index);
-      //   await _waitSymbolAnimation();
       if (!model.value.isXTurn) {
         // if x-player plays successfully, ai-player will play
         aiPlay();
-        //  await _waitSymbolAnimation();
       }
     } else {
       if (model.value.isXTurn) {
@@ -482,15 +475,8 @@ class GameController extends GetxController with GetTickerProviderStateMixin {
     model.value.symbolAnimationController.addListener(() {
       model.update((val) {
         val!.symbolProgress = animateion.value;
-        print('${val.symbolProgress} -------------');
       });
     });
-    // //updating status
-    // model.value.symbolAnimationController.addStatusListener((status) {
-    //   if (status == AnimationStatus.completed) {
-    //     model.value.symbolAnimationController.reset();
-    //   }
-    // });
   }
 
   void _fireOAnimation(int index) {
@@ -704,7 +690,6 @@ class GameController extends GetxController with GetTickerProviderStateMixin {
     model.value.winningAnimationController.dispose();
     model.value.panelAnimationController.dispose();
     model.value.movingDashAnimationController.dispose();
-    print('all controllers were disposed ========================');
     super.onClose();
   }
 }
