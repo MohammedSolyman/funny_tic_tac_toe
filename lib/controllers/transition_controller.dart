@@ -22,13 +22,7 @@ class TransitionController extends GetxController
 
     for (var i = 0; i < 10; i++) {
       //initalize a stick
-      Stick s = Stick(
-          width: width,
-          bodyColor: i % 2 == 0
-              ? thCon.model.value.myTheme.backgroundColor
-              : Colors.yellow,
-          borderColor: Colors.black,
-          stickIndex: i);
+      Stick s = Stick(width: width, stickIndex: i);
 
       //adding the stick to the list
       x.add(s);

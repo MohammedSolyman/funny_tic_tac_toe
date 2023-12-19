@@ -2,17 +2,18 @@ import 'package:flutter/material.dart';
 
 class Stick {
   final double width;
-  final Color borderColor;
-  final Color bodyColor;
+
   int stickIndex;
 
-  Stick(
-      {required this.width,
-      required this.bodyColor,
-      required this.borderColor,
-      required this.stickIndex});
+  Stick({required this.width, required this.stickIndex});
 
-  draw(Canvas canvas, Size size, {double displacement = 3000}) {
+  draw({
+    required Canvas canvas,
+    required Size size,
+    required Color borderColor,
+    required Color bodyColor,
+    double displacement = 3000,
+  }) {
     //dimensions
     double height = size.height * 2;
 
