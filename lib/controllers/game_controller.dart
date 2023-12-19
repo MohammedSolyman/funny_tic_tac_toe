@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:funny_tic_tac_toe/controllers/dimensions_controller.dart';
+import 'package:funny_tic_tac_toe/controllers/home_controller.dart';
 import 'package:funny_tic_tac_toe/controllers/transition_controller.dart';
 import 'package:funny_tic_tac_toe/models/game_model.dart';
 import 'package:funny_tic_tac_toe/views/home_screen.dart';
@@ -12,6 +13,7 @@ class GameController extends GetxController with GetTickerProviderStateMixin {
   Rx<GameModel> model = GameModel().obs;
   DimensionsController dCont = Get.find<DimensionsController>();
   TransitionController tCont = Get.find<TransitionController>();
+  HomeController hCont = Get.find<HomeController>();
 
 //1. game logic////////////////////////////////////////////////////////////////
   void _updateWinningCells(int i1, int i2, int i3) {
@@ -180,14 +182,13 @@ class GameController extends GetxController with GetTickerProviderStateMixin {
     }
   }
 
-  void aiPlay() {
+  Future<void> aiPlay() async {
     //if the following:
-    //1. if the game is still ongoing, and
-    //2. the index in the grid list is empty, and
-    //3. the playing is allowed (x-player is NOT playing now)
+    //1. if the game is still ongoing,
+    //2. the index in the grid list is empty,
 
     //do the following:
-
+    //   1. wait till x symbol animatin ends
     //   2. put 'O' int the board list
     //   3. put 'O' with animation in xo-layer
     //   4. give game trun to 'X'
@@ -211,6 +212,9 @@ class GameController extends GetxController with GetTickerProviderStateMixin {
         }
       }
 
+//   1. wait till x symbol animatin ends
+      await Future.delayed(
+          Duration(milliseconds: model.value.symbolAnimationDuration));
       //   1. put 'O' int the board list
       model.update((val) {
         val!.board[bestMoveIndex] = 'O';
@@ -277,10 +281,8 @@ class GameController extends GetxController with GetTickerProviderStateMixin {
     } else {
       if (model.value.isXTurn) {
         xPlay(index);
-        //   await _waitSymbolAnimation();
       } else {
         oPlay(index);
-        //   await _waitSymbolAnimation();
       }
     }
   }
@@ -293,7 +295,7 @@ class GameController extends GetxController with GetTickerProviderStateMixin {
       //2. empty the board
       val!.board = ['', '', '', '', '', '', '', '', ''];
 
-      //32. empty the winning cells
+      //3. empty the winning cells
       val.winningCells = [];
 
       //4. empty the winning points
@@ -301,6 +303,15 @@ class GameController extends GetxController with GetTickerProviderStateMixin {
 
       //5. empty xo list
       val.xoList = [];
+
+      //6. fire moving dash, in case of playing with ai, x-player plays first always,
+      // in case of playing with a person, the game starts with x and o players alternately.
+      if (hCont.model.value.withAi) {
+        model.update((val) {
+          val!.isXTurn = true;
+        });
+        _fireMovingDashAnimation();
+      }
     });
   }
 
@@ -460,14 +471,19 @@ class GameController extends GetxController with GetTickerProviderStateMixin {
   }
 
   void _fireMovingDashAnimation() {
-    if (model.value.movingDashAnimationController.status ==
-        AnimationStatus.dismissed) {
+    if (model.value.isXTurn) {
+      model.value.movingDashAnimationController.reverse();
+    } else {
       model.value.movingDashAnimationController.forward();
     }
-    if (model.value.movingDashAnimationController.status ==
-        AnimationStatus.completed) {
-      model.value.movingDashAnimationController.reverse();
-    }
+    // if (model.value.movingDashAnimationController.status ==
+    //     AnimationStatus.dismissed) {
+    //   model.value.movingDashAnimationController.forward();
+    // }
+    // if (model.value.movingDashAnimationController.status ==
+    //     AnimationStatus.completed) {
+    //   model.value.movingDashAnimationController.reverse();
+    // }
   }
 
 //6. xo layer //////////////////////////////////////////////////////////////////////

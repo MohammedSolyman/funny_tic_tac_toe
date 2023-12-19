@@ -33,7 +33,7 @@ class GameModel {
 
   //3. moving dash //////////////////////////////////////////////////////////////
   double movingDashFraction = 0;
-  final int movingDashAniamteDuration = 300; //millisec
+  final int movingDashAniamteDuration = 500; //millisec
   late AnimationController movingDashAnimationController;
 
   //4. game logic////////////////////////////////////////////////////
@@ -57,7 +57,6 @@ class GameModel {
   final int winningLineDuration = 2000; //milisec
 
   //7. dialog////////////////////////////////////////////////////
-
   double dialogWidth = 0;
   double dialogHeight = 0;
 

@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 
 class Stick {
   final double width;
-
   int stickIndex;
 
   Stick({required this.width, required this.stickIndex});
