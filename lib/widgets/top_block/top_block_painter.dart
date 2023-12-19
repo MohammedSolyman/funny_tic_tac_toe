@@ -58,7 +58,7 @@ class TopBlockPainter extends CustomPainter {
       p2.dy,
     );
 
-//shader rect
+    //shader rect
     Offset a = Offset.zero;
     Offset b = Offset(size.width, size.height);
     Rect rect = Rect.fromPoints(a, b);
@@ -76,6 +76,8 @@ class TopBlockPainter extends CustomPainter {
     borderPaint.strokeWidth = thCon.model.value.myTheme.borderWidth;
 
     //draw
+    canvas.drawShadow(
+        bodyPath, thCon.model.value.myTheme.shadowColor, 15, false);
     canvas.drawPath(bodyPath, bodyPaint);
     canvas.drawPath(borderPath, borderPaint);
   }

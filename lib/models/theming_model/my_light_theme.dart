@@ -27,6 +27,10 @@ class MyLightTheme implements MyTheme {
   @override
   double borderWidth = 4;
 
+  //4. shadow color ////////////////////////////////////////////
+  @override
+  Color shadowColor = Colors.black;
+
   @override
   Color innerWinningLineColor = Colors.orange;
 

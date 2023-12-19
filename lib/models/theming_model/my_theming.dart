@@ -13,6 +13,9 @@ class MyTheme {
   late double borderWidth;
   late double borderRadius;
 
+//4. shadow color
+  late Color shadowColor;
+
   //4. big x
   late Color bigXborderColor;
   late Color bigXbodyColor;

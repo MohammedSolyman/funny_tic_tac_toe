@@ -33,7 +33,17 @@ class Option1 extends StatelessWidget {
                   width: thCont.model.value.myTheme.borderWidth,
                 ),
                 borderRadius: BorderRadius.circular(
-                    thCont.model.value.myTheme.borderRadius)),
+                    thCont.model.value.myTheme.borderRadius),
+                boxShadow: hCont.model.value.withAi
+                    ? [
+                        BoxShadow(
+                            color: thCont.model.value.myTheme.shadowColor,
+                            blurRadius: 4,
+                            blurStyle: BlurStyle.normal,
+                            offset: const Offset(4, 4),
+                            spreadRadius: 1),
+                      ]
+                    : []),
             child: SizedBox(
               width: width * 0.5,
               child: Row(

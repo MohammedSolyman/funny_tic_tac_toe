@@ -27,6 +27,10 @@ class MyDarkTheme implements MyTheme {
   @override
   double borderWidth = 4;
 
+  //4. shadow color ////////////////////////////////////////////
+  @override
+  Color shadowColor = Colors.white;
+
   @override
   Color innerWinningLineColor = Colors.white;
 
