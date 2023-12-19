@@ -25,8 +25,8 @@ class TransitionController extends GetxController
       Stick s = Stick(
           width: width,
           bodyColor: i % 2 == 0
-              ? thCon.model.value.myTheme.bgColor1
-              : thCon.model.value.myTheme.bgColor2,
+              ? thCon.model.value.myTheme.backgroundColor
+              : Colors.yellow,
           borderColor: Colors.black,
           stickIndex: i);
 

@@ -2,17 +2,28 @@ import 'package:flutter/material.dart';
 import 'package:funny_tic_tac_toe/models/theming_model/my_theming.dart';
 
 class MyDarkTheme implements MyTheme {
+  //1. top bottom gradient////////////////////////////////////////
   @override
-  Color bgColor1 = const Color.fromARGB(255, 34, 33, 33);
+  List<Color> topBottomGradient = [
+    Colors.black,
+    Colors.grey.shade900,
+  ];
 
+  //2. background gradient /////////////////////////////////////
   @override
-  Color bgColor2 = Colors.black;
+  List<Color> backgroundGradient = [
+    Colors.black,
+    Colors.grey.shade700,
+    Colors.black,
+  ];
+  @override
+  Color backgroundColor = const Color.fromARGB(255, 34, 33, 33);
 
+  //3. borders /////////////////////////////////////////////////
   @override
   Color borderColor = Colors.purple.shade800;
   @override
   double borderRadius = 15;
-
   @override
   double borderWidth = 4;
 
@@ -32,9 +43,6 @@ class MyDarkTheme implements MyTheme {
 
   @override
   Color bigXborderColor = Colors.blue;
-
-  @override
-  Color lightBackgroundGradient = Colors.grey.shade700;
 
   @override
   Color oPlyaerBody1 = Colors.yellow;

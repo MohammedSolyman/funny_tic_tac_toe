@@ -7,7 +7,7 @@ import 'package:funny_tic_tac_toe/widgets/game_widgets/panel/panel.dart';
 import 'package:funny_tic_tac_toe/widgets/my_background/my_background.dart';
 import 'package:funny_tic_tac_toe/widgets/transition_widgets/transition_block.dart';
 import 'package:get/get.dart';
-import 'package:funny_tic_tac_toe/widgets/home_widgets/top_block.dart';
+import 'package:funny_tic_tac_toe/widgets/top_block/top_block.dart';
 
 class GameScreen extends StatelessWidget {
   const GameScreen({super.key});

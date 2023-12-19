@@ -17,11 +17,7 @@ class MyGradient extends StatelessWidget {
       return Container(
         decoration: BoxDecoration(
             gradient: LinearGradient(
-                colors: [
-              thCont.model.value.myTheme.bgColor2,
-              thCont.model.value.myTheme.lightBackgroundGradient,
-              thCont.model.value.myTheme.bgColor2,
-            ],
+                colors: thCont.model.value.myTheme.backgroundGradient,
                 begin: Alignment(0, hCont.model.value.grdientFactorY1),
                 end: Alignment(0, hCont.model.value.grdientFactorY2))),
       );

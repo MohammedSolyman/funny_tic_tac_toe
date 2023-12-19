@@ -116,14 +116,6 @@ class HomeController extends GetxController with GetTickerProviderStateMixin {
     });
   }
 
-  void toLandscapeLayout() {
-    model.value.topAnimationController.forward();
-  }
-
-  void toPortraitLayout() {
-    model.value.topAnimationController.reverse();
-  }
-
   Future<void> goToGame() async {
     //wait till covering ends
     await Future.delayed(
@@ -131,6 +123,12 @@ class HomeController extends GetxController with GetTickerProviderStateMixin {
 
     //navigate to game screen;
     Get.to(() => const GameScreen());
+  }
+
+  void togglePlayMode() {
+    model.update((val) {
+      val!.withAi = !val.withAi;
+    });
   }
 
   @override

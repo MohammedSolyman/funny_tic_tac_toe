@@ -10,7 +10,7 @@ class SmallO extends StatelessWidget {
     ThemingController thCon = Get.find<ThemingController>();
     return Obx(() {
       return CustomPaint(
-        painter: Painter(thCon.model.value.myTheme.bgColor1),
+        painter: Painter(thCon.model.value.myTheme.backgroundColor),
         size: Size(MediaQuery.of(context).size.width,
             MediaQuery.of(context).size.height),
       );

@@ -2,21 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:funny_tic_tac_toe/controllers/theming_controller.dart';
 import 'package:get/get.dart';
 
-class BottomBlock extends StatelessWidget {
-  const BottomBlock({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    double width = MediaQuery.of(context).size.width;
-    double height = MediaQuery.of(context).size.height;
-    return CustomPaint(
-      painter: MyTopPainter(),
-      size: Size(width, height),
-    );
-  }
-}
-
-class MyTopPainter extends CustomPainter {
+class BottomBlockPainter extends CustomPainter {
   @override
   void paint(Canvas canvas, Size size) {
     ThemingController thCon = Get.find<ThemingController>();
@@ -59,9 +45,15 @@ class MyTopPainter extends CustomPainter {
       p2.dy,
     );
 
+//shader rect
+    Offset a = Offset.zero;
+    Offset b = Offset(size.width, size.height);
+    Rect rect = Rect.fromPoints(a, b);
     //body paint
     Paint bodyPaint = Paint();
-    bodyPaint.color = thCon.model.value.myTheme.bgColor2;
+    bodyPaint.shader =
+        LinearGradient(colors: thCon.model.value.myTheme.topBottomGradient)
+            .createShader(rect);
     bodyPaint.style = PaintingStyle.fill;
 
     //border paint

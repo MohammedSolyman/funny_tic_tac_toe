@@ -1,15 +1,18 @@
 import 'package:flutter/material.dart';
 
 class MyTheme {
-  //1. background colors
-  late Color bgColor1;
-  late Color bgColor2;
-  //2. background gradients
-  late Color lightBackgroundGradient;
+  //1. top bottom gradient////////////////////////////////////////
+  late List<Color> topBottomGradient;
+
+  //2. background /////////////////////////////////////////////////
+  late List<Color> backgroundGradient;
+  late Color backgroundColor;
+
   //3. borders
   late Color borderColor;
   late double borderWidth;
   late double borderRadius;
+
   //4. big x
   late Color bigXborderColor;
   late Color bigXbodyColor;

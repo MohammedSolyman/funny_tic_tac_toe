@@ -1,0 +1,58 @@
+import 'package:flutter/material.dart';
+import 'package:funny_tic_tac_toe/controllers/home_controller.dart';
+import 'package:funny_tic_tac_toe/controllers/theming_controller.dart';
+import 'package:funny_tic_tac_toe/utilities/consts/assets_paths.dart';
+import 'package:get/get.dart';
+import 'package:google_fonts/google_fonts.dart';
+
+class Option2 extends StatelessWidget {
+  const Option2({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    ThemingController thCont = Get.find<ThemingController>();
+    HomeController hCont = Get.find<HomeController>();
+
+    double width = MediaQuery.of(context).size.width;
+    return Obx(() {
+      return Transform.scale(
+        scale: hCont.model.value.withAi ? 0.9 : 1,
+        child: GestureDetector(
+          onTap: () {
+            hCont.togglePlayMode();
+          },
+          child: Container(
+            margin: const EdgeInsets.all(8),
+            decoration: BoxDecoration(
+                gradient: LinearGradient(
+                    colors: thCont.model.value.myTheme.topBottomGradient),
+                border: Border.all(
+                  color: thCont.model.value.myTheme.borderColor,
+                  width: thCont.model.value.myTheme.borderWidth,
+                ),
+                borderRadius: BorderRadius.circular(
+                    thCont.model.value.myTheme.borderRadius)),
+            child: SizedBox(
+              width: width * 0.5,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: [
+                  Image.asset(AssetsPaths.person),
+                  Text(
+                    'vs',
+                    style: GoogleFonts.creepster(
+                        color: thCont.model.value.myTheme.borderColor,
+                        fontSize: 20),
+                  ),
+                  Image.asset(AssetsPaths.person),
+                ],
+              ),
+            ),
+          ),
+        ),
+      );
+    });
+  }
+}
