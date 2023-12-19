@@ -125,9 +125,15 @@ class HomeController extends GetxController with GetTickerProviderStateMixin {
     Get.to(() => const GameScreen());
   }
 
-  void togglePlayMode() {
+  void withPersonMode() {
     model.update((val) {
-      val!.withAi = !val.withAi;
+      val!.withAi = false;
+    });
+  }
+
+  void withRobotMode() {
+    model.update((val) {
+      val!.withAi = true;
     });
   }
 

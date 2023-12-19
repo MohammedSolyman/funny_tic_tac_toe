@@ -21,7 +21,7 @@ class Option1 extends StatelessWidget {
         scale: hCont.model.value.withAi ? 1 : 0.9,
         child: GestureDetector(
           onTap: () {
-            hCont.togglePlayMode();
+            hCont.withRobotMode();
           },
           child: Container(
             margin: const EdgeInsets.all(8),
