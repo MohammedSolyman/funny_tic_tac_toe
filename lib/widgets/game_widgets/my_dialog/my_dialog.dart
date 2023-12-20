@@ -15,9 +15,7 @@ class MyDialog extends StatelessWidget {
     return Obx(() {
       return Align(
         alignment: gCont.model.value.dialogAlignment,
-        child: Container(
-          decoration:
-              BoxDecoration(border: Border.all(color: Colors.black, width: 10)),
+        child: SizedBox(
           height: gCont.model.value.dialogHeight,
           width: gCont.model.value.dialogWidth,
           child: Stack(

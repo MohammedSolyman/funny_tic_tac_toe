@@ -38,5 +38,8 @@ class MyTheme {
   late Color scoreBody2;
 
   //10 dialog
-  late Color dialogBackground;
+  late List<Color> dialogBackgroundGradient;
+  late Color textColor;
+  late Color bubbleBodyColor;
+  late Color bubbleBorderColor;
 }

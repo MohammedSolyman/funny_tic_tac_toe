@@ -83,5 +83,14 @@ class MyDarkTheme implements MyTheme {
 
   //10 dialog
   @override
-  Color dialogBackground = Colors.grey;
+  List<Color> dialogBackgroundGradient = [
+    Colors.grey.shade800,
+    Colors.grey.shade600,
+  ];
+  @override
+  Color textColor = Colors.yellow;
+  @override
+  Color bubbleBodyColor = Colors.red;
+  @override
+  Color bubbleBorderColor = Colors.black;
 }

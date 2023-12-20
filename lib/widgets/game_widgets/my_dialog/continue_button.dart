@@ -26,26 +26,17 @@ class ContinueButton extends StatelessWidget {
       onTap: () {
         gCont.continueFunction();
       },
-      child: Container(
-        decoration: BoxDecoration(border: Border.all(color: Colors.red)),
-        child: Stack(
-          children: [
-            IgnorePointer(
-              child: Text(
-                'CONTINUE',
-                style:
-                    GoogleFonts.creepster(fontSize: 30, foreground: bodyPaint),
-              ),
-            ),
-            IgnorePointer(
-              child: Text(
-                'CONTINUE',
-                style: GoogleFonts.creepster(
-                    fontSize: 30, foreground: borderPaint),
-              ),
-            ),
-          ],
-        ),
+      child: Stack(
+        children: [
+          Text(
+            'CONTINUE',
+            style: GoogleFonts.creepster(fontSize: 30, foreground: bodyPaint),
+          ),
+          Text(
+            'CONTINUE',
+            style: GoogleFonts.creepster(fontSize: 30, foreground: borderPaint),
+          ),
+        ],
       ),
     );
   }
