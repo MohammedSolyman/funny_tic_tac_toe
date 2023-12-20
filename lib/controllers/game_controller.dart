@@ -289,7 +289,10 @@ class GameController extends GetxController with GetTickerProviderStateMixin {
 
   void reset() {
     //1. reset winning line animation controller
-    model.value.winningAnimationController.reset();
+    if (model.value.winningAnimationController.status ==
+        AnimationStatus.completed) {
+      model.value.winningAnimationController.reverse();
+    }
 
     model.update((val) {
       //2. empty the board
@@ -575,12 +578,12 @@ class GameController extends GetxController with GetTickerProviderStateMixin {
       });
     });
 
-    //updating status
-    model.value.winningAnimationController.addStatusListener((status) {
-      if (status == AnimationStatus.completed) {
-        model.value.winningAnimationController.reset();
-      }
-    });
+    // //updating status
+    // model.value.winningAnimationController.addStatusListener((status) {
+    //   if (status == AnimationStatus.completed) {
+    //     model.value.winningAnimationController.reset();
+    //   }
+    // });
   }
 
   void _fireWinningConnection() {
