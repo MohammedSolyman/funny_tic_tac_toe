@@ -424,17 +424,21 @@ Path xBorderPath(Size size) {
   return path;
 }
 
-Paint xBorderPaint(Color xBorderColor) {
-  Paint borderPaint = Paint();
-  borderPaint.color = xBorderColor;
-  borderPaint.style = PaintingStyle.stroke;
-  borderPaint.strokeWidth = 2;
-  return borderPaint;
+Paint xBorderPaint(Size size, Offset center, List<Color> xBorderGradient) {
+  Rect rect = Rect.fromCenter(
+      center: center, width: size.width * 0.3, height: size.height * 0.3);
+  Paint paint = Paint();
+  paint.shader = LinearGradient(colors: xBorderGradient).createShader(rect);
+  paint.style = PaintingStyle.stroke;
+  paint.strokeWidth = 2;
+  return paint;
 }
 
-Paint xBodyPaint(Color xBodyColor) {
-  Paint bodyPaint = Paint();
-  bodyPaint.color = xBodyColor;
-  bodyPaint.style = PaintingStyle.fill;
-  return bodyPaint;
+Paint xBodyPaint(Size size, Offset center, List<Color> xBodyGradient) {
+  Rect rect = Rect.fromCenter(
+      center: center, width: size.width * 0.3, height: size.height * 0.3);
+  Paint paint = Paint();
+  paint.shader = LinearGradient(colors: xBodyGradient).createShader(rect);
+  paint.style = PaintingStyle.fill;
+  return paint;
 }

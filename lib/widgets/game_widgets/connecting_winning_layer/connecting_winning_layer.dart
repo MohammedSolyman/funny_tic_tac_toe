@@ -19,8 +19,8 @@ class ConnectingWinningLayer extends StatelessWidget {
               p1: gCont.model.value.winningPoints[0],
               p2: gCont.model.value.winningPoints[1],
               fraction: gCont.model.value.winnginLineProgress,
-              innerColor: thCont.model.value.myTheme.innerWinningLineColor,
-              outerColor: thCont.model.value.myTheme.outerWinningLineColor),
+              innerColor: thCont.model.value.myTheme.innerLineColor,
+              outerColor: thCont.model.value.myTheme.outerLineColor),
           size: Size(gCont.model.value.gridWidth, gCont.model.value.gridHeight),
         );
       }

@@ -31,51 +31,57 @@ class MyLightTheme implements MyTheme {
   @override
   Color shadowColor = Colors.black;
 
+  //5. big x = x-player in panel /////////////////////////////////
   @override
-  Color innerWinningLineColor = Colors.orange;
-
+  List<Color> xBorderGradient = [
+    const Color.fromARGB(255, 9, 48, 108),
+    const Color.fromARGB(255, 14, 81, 181),
+  ];
   @override
-  Color outerWinningLineColor = Colors.red;
+  List<Color> xBodyGradient = [
+    Colors.cyan.shade900,
+    Colors.cyan.shade400,
+  ];
 
+  //6. big o = o-player in panel////////////////////////////
   @override
-  Color bigObodyColor = Colors.red.shade300;
-
+  List<Color> oBorderGradient = [
+    Colors.red.shade900,
+    Colors.red,
+  ];
   @override
-  Color bigOborderColor = Colors.red;
+  List<Color> oBodyGradient = [
+    Colors.red,
+    Colors.orange,
+  ];
 
+  //7. black-white gradient////////////////////////////////////////
   @override
-  Color bigXbodyColor = Colors.blue.shade300;
-
+  List<Color> blackWhieBorderGradient = [
+    Colors.black,
+    Colors.black,
+  ];
   @override
-  Color bigXborderColor = Colors.blue;
+  List<Color> blackWhieBodyGradient = [
+    Colors.grey.shade800,
+    Colors.grey.shade600,
+  ];
 
+  //8 . winning connecting line = moving dash///////////////////
   @override
-  Color oPlyaerBody1 = Colors.yellow;
-
+  Color innerLineColor = Colors.orange;
   @override
-  Color oPlyaerBody2 = Colors.deepOrange;
+  Color outerLineColor = Colors.red;
 
-  @override
-  Color oPlyaerBorder = Colors.red;
-
+  //9. panel - score /////////////////////////////////////////
   @override
   Color scoreBody1 = Colors.blueGrey;
-
   @override
   Color scoreBody2 = Colors.grey;
-
   @override
   Color scoreBorder = Colors.black;
 
+  //10 dialog
   @override
-  Color xPlyaerBody1 = Colors.blueGrey;
-
-  @override
-  Color xPlyaerBody2 = Colors.blue;
-
-  @override
-  Color xPlyaerBorder = Colors.deepPurple;
-  //7. panel - panel shadow
-  @override
-  Color panelShadowColor = Colors.black;
+  Color dialogBackground = Colors.grey;
 }

@@ -14,14 +14,14 @@ class BigX implements MySymbol {
   void drawMySymbol(
       {required Canvas canvas,
       required Size size,
-      required Color xBorderColor,
-      required Color xBodyColor,
-      required oBorderColor,
-      required Color oBodyColor,
+      required List<Color> xBorderGradient,
+      required List<Color> xBodyGradient,
+      required List<Color> oBorderGradient,
+      required List<Color> oBodyGradient,
       required double progress}) {
     //1. paint
-    Paint borderPaint = xBorderPaint(xBorderColor);
-    Paint bodyPaint = xBodyPaint(xBodyColor);
+    Paint borderPaint = xBorderPaint(size, position, xBorderGradient);
+    Paint bodyPaint = xBodyPaint(size, position, xBodyGradient);
 
     //3  path
     Path bodyPath = xBodyPath(size);
@@ -53,10 +53,10 @@ class BigX implements MySymbol {
   drawManager({
     required Canvas canvas,
     required Size size,
-    required Color xBorderColor,
-    required Color xBodyColor,
-    required oBorderColor,
-    required Color oBodyColor,
+    required List<Color> xBorderGradient,
+    required List<Color> xBodyGradient,
+    required List<Color> oBorderGradient,
+    required List<Color> oBodyGradient,
     required double progress,
   }) {
     if (progress == 1 / 3) {
@@ -67,10 +67,10 @@ class BigX implements MySymbol {
       drawMySymbol(
           canvas: canvas,
           size: size,
-          xBorderColor: xBorderColor,
-          xBodyColor: xBodyColor,
-          oBorderColor: oBorderColor,
-          oBodyColor: oBodyColor,
+          oBodyGradient: oBodyGradient,
+          oBorderGradient: oBorderGradient,
+          xBodyGradient: xBodyGradient,
+          xBorderGradient: xBorderGradient,
           progress: progress);
     }
 
@@ -78,10 +78,10 @@ class BigX implements MySymbol {
       drawMySymbol(
           canvas: canvas,
           size: size,
-          xBorderColor: xBorderColor,
-          xBodyColor: xBodyColor,
-          oBorderColor: oBorderColor,
-          oBodyColor: oBodyColor,
+          oBodyGradient: oBodyGradient,
+          oBorderGradient: oBorderGradient,
+          xBodyGradient: xBodyGradient,
+          xBorderGradient: xBorderGradient,
           progress: 1 / 3);
     }
   }

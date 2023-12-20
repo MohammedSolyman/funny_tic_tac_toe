@@ -15,10 +15,10 @@ class XOLayer extends StatelessWidget {
       return CustomPaint(
         painter: XOLayerPainter(
             xoList: gCont.model.value.xoList,
-            oBodyColor: thCont.model.value.myTheme.bigObodyColor,
-            oBorderColor: thCont.model.value.myTheme.bigOborderColor,
-            xBodyColor: thCont.model.value.myTheme.bigXbodyColor,
-            xBorderColor: thCont.model.value.myTheme.bigXborderColor,
+            oBodyGradient: thCont.model.value.myTheme.oBodyGradient,
+            oBorderGradient: thCont.model.value.myTheme.oBorderGradient,
+            xBodyGradient: thCont.model.value.myTheme.xBodyGradient,
+            xBorderGradient: thCont.model.value.myTheme.xBorderGradient,
             progress: gCont.model.value.symbolProgress),
         size: Size(gCont.model.value.gridWidth, gCont.model.value.gridHeight),
       );
@@ -29,19 +29,20 @@ class XOLayer extends StatelessWidget {
 class XOLayerPainter extends CustomPainter {
   List<MySymbol> xoList;
   double progress;
-  Color xBorderColor;
-  Color xBodyColor;
-  Color oBorderColor;
-  Color oBodyColor;
+  List<Color> xBorderGradient;
+  List<Color> xBodyGradient;
+  List<Color> oBorderGradient;
+  List<Color> oBodyGradient;
 
   XOLayerPainter({
     required this.xoList,
     required this.progress,
-    required this.xBodyColor,
-    required this.xBorderColor,
-    required this.oBodyColor,
-    required this.oBorderColor,
+    required this.xBorderGradient,
+    required this.xBodyGradient,
+    required this.oBorderGradient,
+    required this.oBodyGradient,
   });
+
   @override
   void paint(Canvas canvas, Size size) {
     if (xoList.isNotEmpty) {
@@ -49,10 +50,10 @@ class XOLayerPainter extends CustomPainter {
         xoList[i].drawManager(
             canvas: canvas,
             size: size,
-            xBorderColor: xBorderColor,
-            xBodyColor: xBodyColor,
-            oBorderColor: oBorderColor,
-            oBodyColor: oBodyColor,
+            oBodyGradient: oBodyGradient,
+            oBorderGradient: oBorderGradient,
+            xBodyGradient: xBodyGradient,
+            xBorderGradient: xBorderGradient,
             progress: progress);
       }
     }

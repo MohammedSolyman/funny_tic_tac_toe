@@ -232,17 +232,21 @@ Path oClippedPath(Size size) {
   return clippedPath;
 }
 
-Paint oBorderPaint(Color oBorderColor) {
-  Paint borderPaint = Paint();
-  borderPaint.color = oBorderColor;
-  borderPaint.style = PaintingStyle.stroke;
-  borderPaint.strokeWidth = 2;
-  return borderPaint;
+Paint oBorderPaint(Size size, Offset center, List<Color> oBorderGradient) {
+  Rect rect = Rect.fromCenter(
+      center: center, width: size.width * 0.3, height: size.height * 0.3);
+  Paint paint = Paint();
+  paint.shader = LinearGradient(colors: oBorderGradient).createShader(rect);
+  paint.style = PaintingStyle.stroke;
+  paint.strokeWidth = 2;
+  return paint;
 }
 
-Paint oBodyPaint(Color oBodyColor) {
-  Paint bodyPaint = Paint();
-  bodyPaint.color = oBodyColor;
-  bodyPaint.style = PaintingStyle.fill;
-  return bodyPaint;
+Paint oBodyPaint(Size size, Offset center, List<Color> oBodyGradient) {
+  Rect rect = Rect.fromCenter(
+      center: center, width: size.width * 0.3, height: size.height * 0.3);
+  Paint paint = Paint();
+  paint.shader = LinearGradient(colors: oBodyGradient).createShader(rect);
+  paint.style = PaintingStyle.fill;
+  return paint;
 }

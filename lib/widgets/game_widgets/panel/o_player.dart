@@ -18,27 +18,29 @@ class OPlayer extends StatelessWidget {
         decoration:
             BoxDecoration(border: Border.all(color: Colors.blue, width: 3)),
         child: Obx(() {
-          Paint borderPaint = Paint();
-          borderPaint.color = gCont.model.value.isXTurn
-              ? Colors.grey.shade700
-              : thCont.model.value.myTheme.oPlyaerBorder;
-          borderPaint.style = PaintingStyle.stroke;
-          borderPaint.strokeWidth = 3;
-
           return Stack(
             children: [
               //border
-              Text('O player',
-                  style: TextStyle(
-                      foreground: borderPaint,
-                      fontSize: 30,
-                      fontWeight: FontWeight.bold,
-                      shadows: [
-                        Shadow(
-                            blurRadius: 5,
-                            color: thCont.model.value.myTheme.panelShadowColor,
-                            offset: const Offset(2, 2))
-                      ])),
+              ShaderMask(
+                  shaderCallback: (Rect bounds) {
+                    return ui.Gradient.linear(
+                        bounds.topLeft,
+                        bounds.bottomRight,
+                        gCont.model.value.isXTurn
+                            ? thCont.model.value.myTheme.blackWhieBorderGradient
+                            : thCont.model.value.myTheme.oBorderGradient);
+                  },
+                  blendMode: BlendMode.srcIn,
+                  child: Text('O player',
+                      style: TextStyle(
+                          fontSize: 30,
+                          fontWeight: FontWeight.bold,
+                          shadows: [
+                            Shadow(
+                                blurRadius: 5,
+                                color: thCont.model.value.myTheme.shadowColor,
+                                offset: const Offset(2, 2))
+                          ]))),
 
               //body
               ShaderMask(
@@ -47,14 +49,8 @@ class OPlayer extends StatelessWidget {
                         bounds.topLeft,
                         bounds.bottomRight,
                         gCont.model.value.isXTurn
-                            ? [
-                                Colors.grey.shade300,
-                                Colors.grey.shade600,
-                              ]
-                            : [
-                                thCont.model.value.myTheme.oPlyaerBody1,
-                                thCont.model.value.myTheme.oPlyaerBody2,
-                              ]);
+                            ? thCont.model.value.myTheme.blackWhieBodyGradient
+                            : thCont.model.value.myTheme.oBodyGradient);
                   },
                   blendMode: BlendMode.srcIn,
                   child: const Text('O player',

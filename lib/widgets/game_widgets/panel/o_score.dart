@@ -28,7 +28,7 @@ class OScore extends StatelessWidget {
                   shadows: [
                     Shadow(
                         blurRadius: 5,
-                        color: thCont.model.value.myTheme.panelShadowColor,
+                        color: thCont.model.value.myTheme.shadowColor,
                         offset: const Offset(2, 2))
                   ])),
           ColorFiltered(

@@ -31,50 +31,57 @@ class MyDarkTheme implements MyTheme {
   @override
   Color shadowColor = Colors.white;
 
+  //5. big x = x-player in panel /////////////////////////////////
   @override
-  Color innerWinningLineColor = Colors.white;
+  List<Color> xBorderGradient = [
+    const Color.fromARGB(255, 9, 48, 108),
+    const Color.fromARGB(255, 14, 81, 181),
+  ];
+  @override
+  List<Color> xBodyGradient = [
+    Colors.cyan.shade900,
+    Colors.cyan.shade400,
+  ];
 
+  //6. big o = o-player in panel////////////////////////////
   @override
-  Color outerWinningLineColor = Colors.grey;
+  List<Color> oBorderGradient = [
+    Colors.red.shade900,
+    Colors.red,
+  ];
   @override
-  Color bigObodyColor = Colors.red.shade300;
+  List<Color> oBodyGradient = [
+    Colors.red,
+    Colors.orange,
+  ];
 
+  //7. black-white gradient////////////////////////////////////////
   @override
-  Color bigOborderColor = Colors.red;
-
+  List<Color> blackWhieBorderGradient = [
+    Colors.black,
+    Colors.black,
+  ];
   @override
-  Color bigXbodyColor = Colors.blue.shade300;
+  List<Color> blackWhieBodyGradient = [
+    Colors.grey.shade800,
+    Colors.grey.shade600,
+  ];
 
+  //8 . winning connecting line = moving dash///////////////////
   @override
-  Color bigXborderColor = Colors.blue;
-
+  Color innerLineColor = Colors.white;
   @override
-  Color oPlyaerBody1 = Colors.yellow;
+  Color outerLineColor = Colors.grey;
 
-  @override
-  Color oPlyaerBody2 = Colors.deepOrange;
-
-  @override
-  Color oPlyaerBorder = Colors.red;
-
+  //9. panel - score /////////////////////////////////////////
   @override
   Color scoreBody1 = Colors.blueGrey;
-
   @override
   Color scoreBody2 = Colors.grey;
-
   @override
   Color scoreBorder = Colors.black;
 
+  //10 dialog
   @override
-  Color xPlyaerBody1 = Colors.blueGrey;
-
-  @override
-  Color xPlyaerBody2 = Colors.blue;
-
-  @override
-  Color xPlyaerBorder = Colors.deepPurple;
-  //7. panel - panel shadow
-  @override
-  Color panelShadowColor = Colors.white;
+  Color dialogBackground = Colors.grey;
 }
