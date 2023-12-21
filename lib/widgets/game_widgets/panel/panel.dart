@@ -15,10 +15,9 @@ class Panel extends StatelessWidget {
     return Obx(() {
       return Align(
         alignment: gCont.model.value.panelAlignment,
-        child: Container(
+        child: SizedBox(
           width: gCont.model.value.panelWidth,
           height: gCont.model.value.panelHeight,
-          decoration: BoxDecoration(border: Border.all(color: Colors.black)),
           child: const Center(
             child: Stack(
               children: [
@@ -33,7 +32,6 @@ class Panel extends StatelessWidget {
                   ),
                 ),
                 MovingDash(),
-               
               ],
             ),
           ),

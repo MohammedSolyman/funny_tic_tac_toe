@@ -3,6 +3,7 @@ import 'package:funny_tic_tac_toe/controllers/game_controller.dart';
 import 'dart:ui' as ui;
 import 'package:funny_tic_tac_toe/controllers/theming_controller.dart';
 import 'package:get/get.dart';
+import 'package:auto_size_text/auto_size_text.dart';
 
 class XPlayer extends StatelessWidget {
   const XPlayer({super.key});
@@ -14,11 +15,9 @@ class XPlayer extends StatelessWidget {
 
     return Expanded(
       flex: 3,
-      child: Container(
-        decoration:
-            BoxDecoration(border: Border.all(color: Colors.blue, width: 3)),
-        child: Obx(() {
-          return Stack(
+      child: Obx(() {
+        return Center(
+          child: Stack(
             children: [
               //border
               ShaderMask(
@@ -32,7 +31,9 @@ class XPlayer extends StatelessWidget {
                                 .model.value.myTheme.blackWhieBorderGradient);
                   },
                   blendMode: BlendMode.srcIn,
-                  child: Text('X player',
+                  child: AutoSizeText('X player',
+                      maxFontSize: 30,
+                      maxLines: 1,
                       style: TextStyle(
                           fontSize: 30,
                           fontWeight: FontWeight.bold,
@@ -54,15 +55,17 @@ class XPlayer extends StatelessWidget {
                             : thCont.model.value.myTheme.blackWhieBodyGradient);
                   },
                   blendMode: BlendMode.srcIn,
-                  child: const Text('X player',
+                  child: const AutoSizeText('X player',
+                      maxFontSize: 30,
+                      maxLines: 1,
                       style: TextStyle(
                         fontSize: 30,
                         fontWeight: FontWeight.bold,
                       ))),
             ],
-          );
-        }),
-      ),
+          ),
+        );
+      }),
     );
   }
 }

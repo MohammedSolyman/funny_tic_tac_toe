@@ -11,10 +11,9 @@ class MovingDash extends StatelessWidget {
     return Obx(() {
       return Align(
         alignment: gCont.model.value.panelAlignment,
-        child: Container(
+        child: SizedBox(
           width: gCont.model.value.panelWidth,
           height: gCont.model.value.panelHeight,
-          decoration: BoxDecoration(border: Border.all(color: Colors.black)),
           child: Center(
               child: CustomPaint(
             painter: MovingDashPainter(

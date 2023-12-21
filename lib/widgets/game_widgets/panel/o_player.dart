@@ -3,6 +3,7 @@ import 'package:funny_tic_tac_toe/controllers/game_controller.dart';
 import 'dart:ui' as ui;
 import 'package:funny_tic_tac_toe/controllers/theming_controller.dart';
 import 'package:get/get.dart';
+import 'package:auto_size_text/auto_size_text.dart';
 
 class OPlayer extends StatelessWidget {
   const OPlayer({super.key});
@@ -14,11 +15,9 @@ class OPlayer extends StatelessWidget {
 
     return Expanded(
       flex: 3,
-      child: Container(
-        decoration:
-            BoxDecoration(border: Border.all(color: Colors.blue, width: 3)),
-        child: Obx(() {
-          return Stack(
+      child: Obx(() {
+        return Center(
+          child: Stack(
             children: [
               //border
               ShaderMask(
@@ -31,7 +30,9 @@ class OPlayer extends StatelessWidget {
                             : thCont.model.value.myTheme.oBorderGradient);
                   },
                   blendMode: BlendMode.srcIn,
-                  child: Text('O player',
+                  child: AutoSizeText('O player',
+                      maxFontSize: 30,
+                      maxLines: 1,
                       style: TextStyle(
                           fontSize: 30,
                           fontWeight: FontWeight.bold,
@@ -53,15 +54,17 @@ class OPlayer extends StatelessWidget {
                             : thCont.model.value.myTheme.oBodyGradient);
                   },
                   blendMode: BlendMode.srcIn,
-                  child: const Text('O player',
+                  child: const AutoSizeText('O player',
+                      maxFontSize: 30,
+                      maxLines: 1,
                       style: TextStyle(
                         fontSize: 30,
                         fontWeight: FontWeight.bold,
                       ))),
             ],
-          );
-        }),
-      ),
+          ),
+        );
+      }),
     );
   }
 }
