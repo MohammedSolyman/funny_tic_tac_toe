@@ -10,27 +10,17 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    //HomeController hCont = Get.find<HomeController>();
-    //DimensionsController dCont = Get.find<DimensionsController>();
-    //dCont.gettingDeviceDimensions(MediaQuery.of(context).size);
-
-    // if (MediaQuery.of(context).orientation == Orientation.portrait) {
-    //   hCont.toPortraitLayout();
-    //   dCont.gettingDeviceDimensions(MediaQuery.of(context).size);
-    // } else {
-    //   hCont.toLandscapeLayout();
-    //   dCont.gettingDeviceDimensions(MediaQuery.of(context).size);
-    // }
-
-    return const Scaffold(
-        body: Stack(
-      children: [
-        MyBackground(),
-        TopBlock(),
-        IgnorePointer(child: BottomBlock()),
-        MiddleBlock(),
-        IgnorePointer(child: TransitionBlock())
-      ],
-    ));
+    return const SafeArea(
+      child: Scaffold(
+          body: Stack(
+        children: [
+          MyBackground(),
+          TopBlock(),
+          IgnorePointer(child: BottomBlock()),
+          MiddleBlock(),
+          IgnorePointer(child: TransitionBlock())
+        ],
+      )),
+    );
   }
 }

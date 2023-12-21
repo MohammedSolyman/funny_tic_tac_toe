@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:funny_tic_tac_toe/controllers/game_controller.dart';
-import 'package:funny_tic_tac_toe/widgets/game_widgets/panel/middle_block.dart';
-import 'package:funny_tic_tac_toe/widgets/game_widgets/panel/moving_dash.dart';
-import 'package:funny_tic_tac_toe/widgets/game_widgets/panel/o_player.dart';
-import 'package:funny_tic_tac_toe/widgets/game_widgets/panel/x_player.dart';
+import 'package:funny_tic_tac_toe/widgets/game_widgets/panel/middle_block/middle_block.dart';
+import 'package:funny_tic_tac_toe/widgets/game_widgets/panel/moving_dash/moving_dash.dart';
+import 'package:funny_tic_tac_toe/widgets/game_widgets/panel/xo_players/o_player.dart';
+import 'package:funny_tic_tac_toe/widgets/game_widgets/panel/xo_players/x_player.dart';
 import 'package:get/get.dart';
 
 class Panel extends StatelessWidget {

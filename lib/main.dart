@@ -11,7 +11,6 @@ import 'package:get/get.dart';
 git add *
 git commit -m  "first commit"
 git log --oneline
-
 git push https://github.com/MohammedSolyman/funny_tic_tac_toe.git master
 */
 void main() {
@@ -32,6 +31,7 @@ class MainApp extends StatelessWidget {
     Get.put(HomeController());
 
     return const GetMaterialApp(
+      debugShowCheckedModeBanner: false,
       home: HomeScreen(),
     );
   }

@@ -15,19 +15,21 @@ class GameScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Get.put(GameController());
-    return const Scaffold(
-      body: Center(
-          child: Stack(
-        children: [
-          MyBackground(),
-          TopBlock(),
-          Panel(),
-          GameGridView(),
-          Barrier(),
-          MyDialog(),
-          IgnorePointer(child: TransitionBlock())
-        ],
-      )),
+    return const SafeArea(
+      child: Scaffold(
+        body: Center(
+            child: Stack(
+          children: [
+            MyBackground(),
+            TopBlock(),
+            Panel(),
+            GameGridView(),
+            Barrier(),
+            MyDialog(),
+            IgnorePointer(child: TransitionBlock())
+          ],
+        )),
+      ),
     );
   }
 }

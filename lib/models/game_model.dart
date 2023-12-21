@@ -60,9 +60,9 @@ class GameModel {
   double dialogWidth = 0;
   double dialogHeight = 0;
 
-  Alignment dialogAlignmentStart = const Alignment(-1, 2);
+  Alignment dialogAlignmentStart = const Alignment(-1, 2.2);
   Alignment dialogAlignmentEnd = const Alignment(-1, 0);
-  Alignment dialogAlignment = const Alignment(-1, 2);
+  Alignment dialogAlignment = const Alignment(-1, 2.2);
 
   final int dialogAniamteDuration = 1000; //milisec
   late AnimationController dialogAnimationController;
