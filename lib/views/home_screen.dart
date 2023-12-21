@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:funny_tic_tac_toe/widgets/home_widgets/bottom_block/bottom_block.dart';
 import 'package:funny_tic_tac_toe/widgets/home_widgets/middle_block/middle_block.dart';
 import 'package:funny_tic_tac_toe/widgets/my_background/my_background.dart';
@@ -10,6 +11,11 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    SystemChrome.setPreferredOrientations([
+      DeviceOrientation.portraitUp,
+      DeviceOrientation.portraitDown,
+    ]);
+
     return const SafeArea(
       child: Scaffold(
           body: Stack(

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:funny_tic_tac_toe/controllers/game_controller.dart';
 import 'package:funny_tic_tac_toe/widgets/game_widgets/game_gridview.dart';
 import 'package:funny_tic_tac_toe/widgets/game_widgets/my_dialog/barrier.dart';
@@ -14,6 +15,11 @@ class GameScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    SystemChrome.setPreferredOrientations([
+      DeviceOrientation.portraitUp,
+      DeviceOrientation.portraitDown,
+    ]);
+
     Get.put(GameController());
     return const SafeArea(
       child: Scaffold(
