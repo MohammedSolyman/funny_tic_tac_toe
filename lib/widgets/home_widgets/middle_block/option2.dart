@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:funny_tic_tac_toe/controllers/home_controller.dart';
 import 'package:funny_tic_tac_toe/controllers/theming_controller.dart';
-import 'package:funny_tic_tac_toe/utilities/consts/assets_paths.dart';
+import 'package:funny_tic_tac_toe/utilities/assets_paths.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 

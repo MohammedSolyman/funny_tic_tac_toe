@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:funny_tic_tac_toe/controllers/audio_controller.dart';
 import 'package:funny_tic_tac_toe/controllers/dimensions_controller.dart';
 import 'package:funny_tic_tac_toe/controllers/facebook_ad_controller.dart';
 import 'package:funny_tic_tac_toe/controllers/home_controller.dart';
@@ -15,6 +16,7 @@ class GameController extends GetxController with GetTickerProviderStateMixin {
   DimensionsController dCont = Get.find<DimensionsController>();
   TransitionController tCont = Get.find<TransitionController>();
   FacebookAdController fCont = Get.find<FacebookAdController>();
+  AudioController aCont = Get.find<AudioController>();
   HomeController hCont = Get.find<HomeController>();
 
 //1. game logic////////////////////////////////////////////////////////////////
@@ -86,19 +88,22 @@ class GameController extends GetxController with GetTickerProviderStateMixin {
     }
   }
 
-  void xPlay(int index) {
+  Future<void> xPlay(int index) async {
     //if the following:
     //1. if the game is still ongoing, and
     //2. the index in the grid list is empty, and
 
     //do the following:
 
+    //   1. play 'player1' sound
     //   2. put 'X' int the board list
     //   3. put 'X' with animation in xo-layer
     //   4. give game trun to 'O'
     //   5. move the moving dash
     //   6. check if someone won
     if (getScore(model.value.board) == 1 && model.value.board[index] == '') {
+      await aCont.playAudioX();
+
       model.update((val) {
         val!.board[index] = 'X';
         val.isXTurn = false;
@@ -114,6 +119,7 @@ class GameController extends GetxController with GetTickerProviderStateMixin {
     //1. in case o player wins:
     //   1. increments o-score.
     //   2. assign 'o wins' to result text.
+    //   3. play winning audio.
     //   3. fire the wining line.
     //   4. show barrier
     //   5. fire the dialoge animation
@@ -122,6 +128,8 @@ class GameController extends GetxController with GetTickerProviderStateMixin {
         val!.oScore++;
         val.resultText = 'o wins';
       });
+      await aCont.playAudioWinning();
+
       _fireWinningConnection();
       await Future.delayed(
           Duration(milliseconds: model.value.winningLineDuration));
@@ -132,6 +140,7 @@ class GameController extends GetxController with GetTickerProviderStateMixin {
     //2. in case x player wins:
     //   1. increments x-score
     //   2. assign 'x wins' to result text.
+    //   2. play winning audio.
     //   3. fire the wining line.
     //   4. show barrier
     //   5. fire the dialoge animation
@@ -140,6 +149,8 @@ class GameController extends GetxController with GetTickerProviderStateMixin {
         val!.xScore++;
         val.resultText = 'x wins';
       });
+      await aCont.playAudioWinning();
+
       _fireWinningConnection();
       await Future.delayed(
           Duration(milliseconds: model.value.winningLineDuration));
@@ -149,24 +160,28 @@ class GameController extends GetxController with GetTickerProviderStateMixin {
 
     //3. in case tie
     //   1. assign 'it is tie' to result text.
+    //   2. play tie audio.
     //   2. show barrier
     //   3. fire the dialoge animation
     if (getScore(model.value.board) == 0) {
       model.update((val) {
         val!.resultText = 'it is tie';
       });
+
+      await aCont.playAudioTie();
       _showBarrier();
       _fireDialogAnimation();
     }
   }
 
-  void oPlay(int index) {
+  Future<void> oPlay(int index) async {
     //if the following:
     //1. if the game is still ongoing, and
     //2. the index in the grid list is empty, and
 
     //do the following:
 
+    //   1. play 'player2' sound
     //   2. put 'O' int the board list
     //   3. put 'O' with animation in xo-layer
     //   4. give game trun to 'X'
@@ -174,6 +189,8 @@ class GameController extends GetxController with GetTickerProviderStateMixin {
     //   6. check if someone won
 
     if (getScore(model.value.board) == 1 && model.value.board[index] == '') {
+      await aCont.playAudioO();
+
       model.update((val) {
         val!.board[index] = 'O';
         val.isXTurn = true;
@@ -224,6 +241,9 @@ class GameController extends GetxController with GetTickerProviderStateMixin {
       //   2. put 'O' with animation in xo- layer
       _fireOAnimation(bestMoveIndex);
 
+      //   3. play 'player2' audio
+      await aCont.playAudioO();
+
       //   3. give game trun to 'X'
       model.update((val) {
         val!.isXTurn = true;
@@ -272,19 +292,19 @@ class GameController extends GetxController with GetTickerProviderStateMixin {
     }
   }
 
-  void play({required bool withAI, required int index}) {
+  Future<void> play({required bool withAI, required int index}) async {
     if (withAI) {
       // always 'X' player plays first.
-      xPlay(index);
+      await xPlay(index);
       if (!model.value.isXTurn) {
         // if x-player plays successfully, ai-player will play
-        aiPlay();
+        await aiPlay();
       }
     } else {
       if (model.value.isXTurn) {
-        xPlay(index);
+        await xPlay(index);
       } else {
-        oPlay(index);
+        await oPlay(index);
       }
     }
   }

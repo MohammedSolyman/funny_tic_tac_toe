@@ -16,8 +16,8 @@ class GameCell extends StatelessWidget {
 
     return Obx(() {
       return InkWell(
-        onTap: () {
-          gCont.play(withAI: hCont.model.value.withAi, index: index);
+        onTap: () async {
+          await gCont.play(withAI: hCont.model.value.withAi, index: index);
         },
         child: Container(
           decoration: BoxDecoration(

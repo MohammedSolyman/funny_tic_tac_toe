@@ -26,9 +26,9 @@ class MainApp extends StatelessWidget {
     DimensionsController dCont = Get.put(DimensionsController());
     dCont.gettingDeviceDimensions(MediaQuery.of(context).size);
 
+    Get.put(AudioController());
     Get.put(ThemingController());
     Get.put(TransitionController());
-    Get.put(AudioController());
     Get.put(HomeController());
     Get.put(FacebookAdController());
 

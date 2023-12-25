@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:funny_tic_tac_toe/controllers/audio_controller.dart';
 import 'package:funny_tic_tac_toe/controllers/dimensions_controller.dart';
 import 'package:funny_tic_tac_toe/controllers/theming_controller.dart';
 import 'package:funny_tic_tac_toe/models/transition_model.dart';
@@ -13,6 +14,7 @@ class TransitionController extends GetxController
   Rx<TransitionModel> model = TransitionModel().obs;
   ThemingController thCon = Get.find<ThemingController>();
   DimensionsController dCont = Get.find<DimensionsController>();
+  AudioController aCont = Get.find<AudioController>();
 
   void _initializeTransitionList() {
     double deviceWidth = dCont.model.value.width;
@@ -71,6 +73,8 @@ class TransitionController extends GetxController
 
   void fireTransitionAnimation() {
     model.value.transitionAnimationController.forward();
+    //4. play page transition audio
+    aCont.playAudioPageTransition();
   }
 
   @override
