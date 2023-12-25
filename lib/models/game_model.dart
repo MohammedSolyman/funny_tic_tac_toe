@@ -39,6 +39,7 @@ class GameModel {
   //4. game logic////////////////////////////////////////////////////
   List<String> board = ['', '', '', '', '', '', '', '', ''];
   bool isXTurn = true;
+  int gameNumber = 0;
 
   //5. xo-layer////////////////////////////////////////////////////
   List<MySymbol> xoList = []; //xo objects in xo layer,used in animation

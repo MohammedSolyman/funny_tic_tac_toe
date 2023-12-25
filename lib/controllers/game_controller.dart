@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:funny_tic_tac_toe/controllers/dimensions_controller.dart';
+import 'package:funny_tic_tac_toe/controllers/facebook_ad_controller.dart';
 import 'package:funny_tic_tac_toe/controllers/home_controller.dart';
 import 'package:funny_tic_tac_toe/controllers/transition_controller.dart';
 import 'package:funny_tic_tac_toe/models/game_model.dart';
@@ -13,6 +14,7 @@ class GameController extends GetxController with GetTickerProviderStateMixin {
   Rx<GameModel> model = GameModel().obs;
   DimensionsController dCont = Get.find<DimensionsController>();
   TransitionController tCont = Get.find<TransitionController>();
+  FacebookAdController fCont = Get.find<FacebookAdController>();
   HomeController hCont = Get.find<HomeController>();
 
 //1. game logic////////////////////////////////////////////////////////////////
@@ -682,6 +684,23 @@ class GameController extends GetxController with GetTickerProviderStateMixin {
 
     // 3. hide barrier
     _hideBarrier();
+
+    //4. increase game number (from 0 to 5)
+    if (model.value.gameNumber == 5) {
+      model.update((val) {
+        val!.gameNumber = 1;
+      });
+    } else {
+      model.update((val) {
+        val!.gameNumber++;
+      });
+    }
+    print('----------- ${model.value.gameNumber}');
+
+    // 5. show rewarded video ad (every 5 games)
+    if (model.value.gameNumber == 5) {
+      fCont.showRewardedAd();
+    }
   }
 
   Future<void> homeFunction() async {

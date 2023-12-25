@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:funny_tic_tac_toe/controllers/audio_controller.dart';
 import 'package:funny_tic_tac_toe/controllers/dimensions_controller.dart';
+import 'package:funny_tic_tac_toe/controllers/facebook_ad_controller.dart';
 import 'package:funny_tic_tac_toe/controllers/home_controller.dart';
 import 'package:funny_tic_tac_toe/controllers/theming_controller.dart';
 import 'package:funny_tic_tac_toe/controllers/transition_controller.dart';
@@ -29,6 +30,7 @@ class MainApp extends StatelessWidget {
     Get.put(TransitionController());
     Get.put(AudioController());
     Get.put(HomeController());
+    Get.put(FacebookAdController());
 
     return const GetMaterialApp(
       debugShowCheckedModeBanner: false,
