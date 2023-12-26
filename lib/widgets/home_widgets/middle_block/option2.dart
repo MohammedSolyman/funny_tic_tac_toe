@@ -27,7 +27,7 @@ class Option2 extends StatelessWidget {
             margin: const EdgeInsets.all(8),
             decoration: BoxDecoration(
                 gradient: LinearGradient(
-                    colors: thCont.model.value.myTheme.topBottomGradient),
+                    colors: thCont.model.value.myTheme.primaryGradient),
                 border: Border.all(
                   color: thCont.model.value.myTheme.borderColor,
                   width: thCont.model.value.myTheme.borderWidth,

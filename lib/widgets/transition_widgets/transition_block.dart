@@ -16,7 +16,7 @@ class TransitionBlock extends StatelessWidget {
     return Obx(() {
       return CustomPaint(
         painter: TransitionPainter(
-          bodyColor1: thCont.model.value.myTheme.topBottomGradient[0],
+          bodyColor1: thCont.model.value.myTheme.primaryGradient[0],
           bodyColor2: thCont.model.value.myTheme.backgroundColor,
           borderColor: thCont.model.value.myTheme.borderColor,
           displacement: tCont.model.value.displacementY,

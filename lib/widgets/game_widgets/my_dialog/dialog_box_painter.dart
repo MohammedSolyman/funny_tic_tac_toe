@@ -4,14 +4,14 @@ import 'package:google_fonts/google_fonts.dart';
 class DialogBoxPaint extends CustomPainter {
   DialogBoxPaint(
       {required this.borderColor,
-      required this.dialogBackgroundGradient,
+      required this.primaryGradient,
       required this.textColor,
       required this.bubbleBorderColor,
       required this.bubbleBodyColor,
       required this.text});
 
   Color borderColor;
-  List<Color> dialogBackgroundGradient;
+  List<Color> primaryGradient;
   Color textColor;
   Color bubbleBorderColor;
   Color bubbleBodyColor;
@@ -111,7 +111,7 @@ class DialogBoxPaint extends CustomPainter {
     Paint bodyPaint = Paint();
     Rect rect = Rect.fromPoints(a, b);
     bodyPaint.shader =
-        LinearGradient(colors: dialogBackgroundGradient).createShader(rect);
+        LinearGradient(colors: primaryGradient).createShader(rect);
 
     bodyPaint.style = PaintingStyle.fill;
 

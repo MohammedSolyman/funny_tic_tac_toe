@@ -22,9 +22,10 @@ class PlayButton extends StatelessWidget {
 
     //body paint
     Paint bodyPaint = Paint();
-    bodyPaint.shader = const LinearGradient(colors: [Colors.red, Colors.yellow])
-        .createShader(
-            Rect.fromCircle(center: const Offset(20, 20), radius: 100));
+    bodyPaint.shader = LinearGradient(colors: [
+      thCont.model.value.myTheme.playButtonColor,
+      thCont.model.value.myTheme.playButtonColor
+    ]).createShader(Rect.fromCircle(center: const Offset(20, 20), radius: 100));
     bodyPaint.style = PaintingStyle.fill;
 
     return Obx(() {

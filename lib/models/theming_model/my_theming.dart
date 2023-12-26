@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 
 class MyTheme {
-  //1. top bottom gradient////////////////////////////////////////
-  late List<Color> topBottomGradient;
+  //1. top bottom gradient = score in panel  /////////////////////
+  //  = options in home page = dialog background//////////////////
+  late List<Color> primaryGradient;
 
   //2. background /////////////////////////////////////////////////
   late List<Color> backgroundGradient;
@@ -32,14 +33,11 @@ class MyTheme {
   late Color innerLineColor;
   late Color outerLineColor;
 
-  //9. panel - score
-  late Color scoreBorder;
-  late Color scoreBody1;
-  late Color scoreBody2;
-
-  //10 dialog
-  late List<Color> dialogBackgroundGradient;
+  //9 dialog
   late Color textColor;
   late Color bubbleBodyColor;
   late Color bubbleBorderColor;
+
+  //10
+  late Color playButtonColor;
 }

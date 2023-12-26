@@ -16,8 +16,7 @@ class DialogBox extends StatelessWidget {
         return Center(
           child: CustomPaint(
             painter: DialogBoxPaint(
-                dialogBackgroundGradient:
-                    thCont.model.value.myTheme.dialogBackgroundGradient,
+                primaryGradient: thCont.model.value.myTheme.primaryGradient,
                 borderColor: thCont.model.value.myTheme.borderColor,
                 bubbleBodyColor: Colors.orange,
                 bubbleBorderColor: Colors.red,

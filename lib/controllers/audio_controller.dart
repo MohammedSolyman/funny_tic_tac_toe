@@ -7,20 +7,24 @@ class AudioController extends GetxController {
   Rx<AudioModel> model = AudioModel().obs;
 
   Future<void> playAudio1(Audio a) async {
-    try {
-      await model.value.player1.open(a, autoStart: false);
-      await model.value.player1.play();
-    } catch (e) {
-      print('--- error: $e');
+    if (model.value.isAudioOn) {
+      try {
+        await model.value.player1.open(a, autoStart: false);
+        await model.value.player1.play();
+      } catch (e) {
+        print('--- error: $e');
+      }
     }
   }
 
   Future<void> playAudio2(Audio a) async {
-    try {
-      await model.value.player2.open(a, autoStart: false);
-      await model.value.player2.play();
-    } catch (e) {
-      print('--- error: $e');
+    if (model.value.isAudioOn) {
+      try {
+        await model.value.player2.open(a, autoStart: false);
+        await model.value.player2.play();
+      } catch (e) {
+        print('--- error: $e');
+      }
     }
   }
 
@@ -52,5 +56,11 @@ class AudioController extends GetxController {
   Future<void> playAudioWinning() async {
     Audio winning = Audio(AudioPaths.winning);
     await playAudio2(winning);
+  }
+
+  void toggleAudioMode() {
+    model.update((val) {
+      val!.isAudioOn = !val.isAudioOn;
+    });
   }
 }

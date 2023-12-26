@@ -5,10 +5,15 @@ import 'package:get/get.dart';
 class FacebookAdController extends GetxController {
   Rx<FacebookAdModel> model = FacebookAdModel().obs;
 
-  void loadRewardedVideoAd() {
-    FacebookRewardedVideoAd.loadRewardedVideoAd(
+  void loadRewardedVideoAd() async {
+    print('--- reward video function loading start ... ');
+
+    await FacebookRewardedVideoAd.loadRewardedVideoAd(
       listener: (result, value) {
-        print("--- $result --> $value");
+        print("--- result:");
+        print("--- $result");
+        print("--- result:");
+        print("--- $value");
         if (result == RewardedVideoAdResult.LOADED) {
           model.update((val) {
             val!.isRewarderLoaded = true;

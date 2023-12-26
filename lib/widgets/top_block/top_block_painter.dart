@@ -65,7 +65,7 @@ class TopBlockPainter extends CustomPainter {
     //body paint
     Paint bodyPaint = Paint();
     bodyPaint.shader =
-        LinearGradient(colors: thCon.model.value.myTheme.topBottomGradient)
+        LinearGradient(colors: thCon.model.value.myTheme.primaryGradient)
             .createShader(rect);
     bodyPaint.style = PaintingStyle.fill;
 

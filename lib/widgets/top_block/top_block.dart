@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:funny_tic_tac_toe/controllers/audio_controller.dart';
 import 'package:funny_tic_tac_toe/controllers/home_controller.dart';
 import 'package:funny_tic_tac_toe/controllers/theming_controller.dart';
 import 'package:funny_tic_tac_toe/utilities/assets_paths.dart';
@@ -12,6 +13,8 @@ class TopBlock extends StatelessWidget {
   Widget build(BuildContext context) {
     HomeController hCont = Get.find<HomeController>();
     ThemingController thCont = Get.find<ThemingController>();
+    AudioController aCont = Get.find<AudioController>();
+
     double width = MediaQuery.of(context).size.width;
     double height = MediaQuery.of(context).size.height;
     return Obx(() {
@@ -33,14 +36,22 @@ class TopBlock extends StatelessWidget {
                   thCont.toggleThemingMode();
                 },
                 child: Image.asset(
-                  AssetsPaths.sun,
-                  color: thCont.model.value.myTheme.borderColor,
+                  thCont.model.value.isLightTheme
+                      ? AssetsPaths.sun
+                      : AssetsPaths.robot1,
+
+                  // color: thCont.model.value.myTheme.borderColor,
                 ),
               ),
               GestureDetector(
+                onTap: () {
+                  aCont.toggleAudioMode();
+                },
                 child: Image.asset(
-                  AssetsPaths.audio,
-                  color: thCont.model.value.myTheme.borderColor,
+                  aCont.model.value.isAudioOn
+                      ? AssetsPaths.audio
+                      : AssetsPaths.noAudio,
+                  //  color: thCont.model.value.myTheme.borderColor,
                 ),
               )
             ],

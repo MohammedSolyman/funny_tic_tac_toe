@@ -23,7 +23,7 @@ class GameCell extends StatelessWidget {
           decoration: BoxDecoration(
               border: Border.all(color: thCont.model.value.myTheme.borderColor),
               gradient: LinearGradient(
-                  colors: thCont.model.value.myTheme.topBottomGradient),
+                  colors: thCont.model.value.myTheme.primaryGradient),
               borderRadius: BorderRadius.circular(15)),
         ),
       );

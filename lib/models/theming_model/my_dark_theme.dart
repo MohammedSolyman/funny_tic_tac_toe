@@ -2,9 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:funny_tic_tac_toe/models/theming_model/my_theming.dart';
 
 class MyDarkTheme implements MyTheme {
-  //1. top bottom gradient////////////////////////////////////////
+  //1. top bottom gradient = score in panel  /////////////////////
+  //  = options in home page = dialog background//////////////////
   @override
-  List<Color> topBottomGradient = [
+  List<Color> primaryGradient = [
     Colors.black,
     Colors.grey.shade900,
   ];
@@ -73,24 +74,24 @@ class MyDarkTheme implements MyTheme {
   @override
   Color outerLineColor = Colors.grey;
 
-  //9. panel - score /////////////////////////////////////////
-  @override
-  Color scoreBody1 = Colors.blueGrey;
-  @override
-  Color scoreBody2 = Colors.grey;
-  @override
-  Color scoreBorder = Colors.black;
+  // //9. panel - score /////////////////////////////////////////
+  // @override
+  // @override
+  // List<Color> scoreGradient = [Colors.blueGrey, Colors.grey];
+
+  // @override
+  // Color scoreBorder = Colors.black;
 
   //10 dialog
-  @override
-  List<Color> dialogBackgroundGradient = [
-    Colors.grey.shade800,
-    Colors.grey.shade600,
-  ];
+
   @override
   Color textColor = Colors.yellow;
   @override
   Color bubbleBodyColor = Colors.red;
   @override
   Color bubbleBorderColor = Colors.black;
+
+  //10 play button color
+  @override
+  Color playButtonColor = Colors.yellow;
 }
