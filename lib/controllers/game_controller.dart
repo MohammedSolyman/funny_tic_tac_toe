@@ -95,13 +95,18 @@ class GameController extends GetxController with GetTickerProviderStateMixin {
 
     //do the following:
 
+    //   1. prevent playing
     //   1. play 'player1' sound
     //   2. put 'X' int the board list
     //   3. put 'X' with animation in xo-layer
     //   4. give game trun to 'O'
     //   5. move the moving dash
     //   6. check if someone won
+    //   8. allow playing
+
     if (getScore(model.value.board) == 1 && model.value.board[index] == '') {
+      _preventPlaying();
+
       await aCont.playAudioX();
 
       model.update((val) {
@@ -112,6 +117,8 @@ class GameController extends GetxController with GetTickerProviderStateMixin {
       _fireXAnimation(index);
 
       checkWinning();
+
+      _allowPlaying();
     }
   }
 
@@ -177,18 +184,22 @@ class GameController extends GetxController with GetTickerProviderStateMixin {
   Future<void> oPlay(int index) async {
     //if the following:
     //1. if the game is still ongoing, and
-    //2. the index in the grid list is empty, and
+    //2. the index in the grid list is empty
 
     //do the following:
 
+    //   1. prevent plaing
     //   1. play 'player2' sound
     //   2. put 'O' int the board list
     //   3. put 'O' with animation in xo-layer
     //   4. give game trun to 'X'
     //   5. move the moving dash
     //   6. check if someone won
+    //   8. allow playing
 
     if (getScore(model.value.board) == 1 && model.value.board[index] == '') {
+      _preventPlaying();
+
       await aCont.playAudioO();
 
       model.update((val) {
@@ -198,6 +209,8 @@ class GameController extends GetxController with GetTickerProviderStateMixin {
       });
       _fireOAnimation(index);
       checkWinning();
+
+      _allowPlaying();
     }
   }
 
@@ -207,14 +220,18 @@ class GameController extends GetxController with GetTickerProviderStateMixin {
     //2. the index in the grid list is empty,
 
     //do the following:
-    //   1. wait till x symbol animatin ends
-    //   2. put 'O' int the board list
-    //   3. put 'O' with animation in xo-layer
-    //   4. give game trun to 'X'
-    //   5. move the moving dash
-    //   5. check if someone won
+    //   1. prevent x-player from playing
+    //   2. wait till x symbol animatin ends
+    //   3. put 'O' int the board list
+    //   4. put 'O' with animation in xo-layer
+    //   5. give game trun to 'X'
+    //   6. move the moving dash
+    //   7. check if someone won
+    //   8. prevent x-player from playing
 
     if (getScore(model.value.board) == 1) {
+      _preventPlaying();
+
       List<String> b = model.value.board;
       int bestMoveIndex = -1000;
       int bestScore = -1000;
@@ -231,7 +248,7 @@ class GameController extends GetxController with GetTickerProviderStateMixin {
         }
       }
 
-//   1. wait till x symbol animatin ends
+      //   1. wait till x symbol animatin ends
       await Future.delayed(
           Duration(milliseconds: model.value.symbolAnimationDuration));
       //   1. put 'O' int the board list
@@ -253,7 +270,21 @@ class GameController extends GetxController with GetTickerProviderStateMixin {
 
       //   5. check if someone won
       checkWinning();
+
+      _allowPlaying();
     }
+  }
+
+  void _allowPlaying() {
+    model.update((val) {
+      val!.playingAllowed = true;
+    });
+  }
+
+  void _preventPlaying() {
+    model.update((val) {
+      val!.playingAllowed = false;
+    });
   }
 
   int miniMax(List<String> b, int depth, bool isMaximizing) {
@@ -293,14 +324,14 @@ class GameController extends GetxController with GetTickerProviderStateMixin {
   }
 
   Future<void> play({required bool withAI, required int index}) async {
-    if (withAI) {
+    if (withAI && model.value.playingAllowed) {
       // always 'X' player plays first.
       await xPlay(index);
       if (!model.value.isXTurn) {
         // if x-player plays successfully, ai-player will play
         await aiPlay();
       }
-    } else {
+    } else if (!withAI && model.value.playingAllowed) {
       if (model.value.isXTurn) {
         await xPlay(index);
       } else {
