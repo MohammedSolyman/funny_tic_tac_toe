@@ -9,6 +9,7 @@ import 'package:funny_tic_tac_toe/views/home_screen.dart';
 import 'package:get/get.dart';
 
 /*
+
 git add *
 git commit -m  "first commit"
 git log --oneline
