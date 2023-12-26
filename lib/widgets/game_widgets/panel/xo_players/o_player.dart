@@ -14,7 +14,7 @@ class OPlayer extends StatelessWidget {
     ThemingController thCont = Get.find<ThemingController>();
 
     return Expanded(
-      flex: 3,
+      flex: 1,
       child: Obx(() {
         return Center(
           child: Stack(

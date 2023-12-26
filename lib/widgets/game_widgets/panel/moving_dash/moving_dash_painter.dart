@@ -13,11 +13,11 @@ class MovingDashPainter extends CustomPainter {
   @override
   void paint(Canvas canvas, Size size) {
     //dimensions
-    double widthUnit = size.width / 7;
+
     double height = size.height * 0.9;
 
-    double dashLength = widthUnit * 3;
-    double displacement = widthUnit * 4;
+    double dashLength = size.width / 3;
+    double displacement = size.width * (2 / 3);
 
     double startX = displacement * fraction;
     double endX = startX + dashLength;

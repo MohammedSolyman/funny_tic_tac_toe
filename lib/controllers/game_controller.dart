@@ -376,7 +376,7 @@ class GameController extends GetxController with GetTickerProviderStateMixin {
   void _initializePanelDimenions() {
     model.update((val) {
       val!.panelHeight = dCont.model.value.height * 0.1;
-      val.panelWidth = dCont.model.value.width * 0.6;
+      val.panelWidth = dCont.model.value.width * 0.7;
     });
   }
 

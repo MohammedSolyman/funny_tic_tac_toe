@@ -61,6 +61,7 @@ class FacebookAdController extends GetxController {
   @override
   void onInit() {
     FacebookAudienceNetwork.init(testingId: model.value.testId);
+
     loadRewardedVideoAd();
     super.onInit();
   }

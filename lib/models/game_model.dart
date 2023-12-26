@@ -6,9 +6,9 @@ class GameModel {
   double gridWidth = 0;
   double gridHeight = 0;
 
-  Alignment gridAlignmentStart = const Alignment(4, 0.2);
+  Alignment gridAlignmentStart = const Alignment(6, 0.2);
   Alignment gridAlignmentEnd = const Alignment(0, 0.2);
-  Alignment gridAlignment = const Alignment(4, 0.2);
+  Alignment gridAlignment = const Alignment(6, 0.2);
 
   GridPoints gridPoints = GridPoints();
   final int gridAniamteDuration = 3000;
@@ -22,9 +22,9 @@ class GameModel {
   int xScore = 0;
   int oScore = 0;
 
-  Alignment panelAlignmentStart = const Alignment(4, -0.4);
+  Alignment panelAlignmentStart = const Alignment(6, -0.4);
   Alignment panelAlignmentEnd = const Alignment(0, -0.4);
-  Alignment panelAlignment = const Alignment(4, -0.4);
+  Alignment panelAlignment = const Alignment(6, -0.4);
 
   final int panelAniamteDuration = 3000;
   final int panelAniamteAfterPeriod =
