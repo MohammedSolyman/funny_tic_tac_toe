@@ -38,7 +38,7 @@ class TopBlock extends StatelessWidget {
                 child: Image.asset(
                   thCont.model.value.isLightTheme
                       ? AssetsPaths.sun
-                      : AssetsPaths.robot1,
+                      : AssetsPaths.moon,
 
                   // color: thCont.model.value.myTheme.borderColor,
                 ),
