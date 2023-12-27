@@ -3,6 +3,7 @@ import 'package:funny_tic_tac_toe/controllers/audio_controller.dart';
 import 'package:funny_tic_tac_toe/controllers/home_controller.dart';
 import 'package:funny_tic_tac_toe/controllers/theming_controller.dart';
 import 'package:funny_tic_tac_toe/utilities/assets_paths.dart';
+import 'package:funny_tic_tac_toe/widgets/top_block/my_icon.dart';
 import 'package:funny_tic_tac_toe/widgets/top_block/top_block_painter.dart';
 import 'package:get/get.dart';
 
@@ -35,13 +36,9 @@ class TopBlock extends StatelessWidget {
                 onTap: () {
                   thCont.toggleThemingMode();
                 },
-                child: Image.asset(
-                  thCont.model.value.isLightTheme
-                      ? AssetsPaths.sun
-                      : AssetsPaths.moon,
-
-                  // color: thCont.model.value.myTheme.borderColor,
-                ),
+                child: thCont.model.value.isLightTheme
+                    ? const MyIcon(AssetsPaths.sun)
+                    : const MyIcon(AssetsPaths.moon),
               ),
               GestureDetector(
                 onTap: () {
