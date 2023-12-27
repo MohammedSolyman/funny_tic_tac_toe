@@ -1,7 +1,10 @@
 import 'package:assets_audio_player/assets_audio_player.dart';
 import 'package:funny_tic_tac_toe/utilities/audio_paths.dart';
+import 'package:get_storage/get_storage.dart';
 
 class AudioModel {
+  final box = GetStorage();
+
   bool isAudioOn = true;
 
   AssetsAudioPlayer player1 = AssetsAudioPlayer();

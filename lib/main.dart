@@ -7,13 +7,16 @@ import 'package:funny_tic_tac_toe/controllers/theming_controller.dart';
 import 'package:funny_tic_tac_toe/controllers/transition_controller.dart';
 import 'package:funny_tic_tac_toe/views/home_screen.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 
 /*
 git add *
 git commit -m  "first commit"
 git log --oneline
+git push https://github.com/MohammedSolyman/funny_tic_tac_toe.git master
 */
-void main() {
+void main() async {
+  await GetStorage.init();
   runApp(const MainApp());
 }
 

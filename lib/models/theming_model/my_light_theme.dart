@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:funny_tic_tac_toe/models/theming_model/my_theming.dart';
-import 'package:get/get.dart';
 
 // class MyLightTheme implements MyTheme {
 //   //1. top bottom gradient////////////////////////////////////////

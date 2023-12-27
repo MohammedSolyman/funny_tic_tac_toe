@@ -12,11 +12,33 @@ class ThemingController extends GetxController {
     model.update((val) {
       val!.isLightTheme = !val.isLightTheme;
 
-      if (val.isLightTheme) {
+      model.value.box.write('isLightTheme', model.value.isLightTheme);
+
+      _changeThemeData();
+    });
+  }
+
+  void _changeThemeData() {
+    model.update((val) {
+      if (val!.isLightTheme) {
         val.myTheme = MyLightTheme();
       } else {
         val.myTheme = MyDarkTheme();
       }
     });
+  }
+
+  void _getThemeFromStorage() {
+    model.update((val) {
+      val!.isLightTheme = val.box.read('isLightTheme') ?? true;
+    });
+  }
+
+  @override
+  void onInit() {
+    _getThemeFromStorage();
+    _changeThemeData();
+
+    super.onInit();
   }
 }

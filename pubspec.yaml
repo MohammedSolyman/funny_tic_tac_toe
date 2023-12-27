@@ -11,18 +11,17 @@ dependencies:
     sdk: flutter
   get: ^4.6.6
   assets_audio_player: ^3.1.1
-  flutter_launcher_icons: ^0.13.1
   flutter_native_splash: ^2.3.6
   google_fonts: ^6.1.0
   auto_size_text: ^3.0.0
   facebook_audience_network: ^1.0.1
-
+  get_storage: ^2.1.1
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
   flutter_lints: ^2.0.0
-  
+  flutter_launcher_icons: ^0.13.1
 
 flutter:
   uses-material-design: true
@@ -30,4 +29,14 @@ flutter:
     - assets/audio/
     - assets/icons/
 
+flutter_launcher_icons:
+  android: "launcher_icon"
+  ios: true
+  image_path: "assets/icons/app_icon.png"
+
+
+flutter_native_splash:
+  background_image: "assets/images/background.jpg"
+  image: "assets/icons/app_icon.png"
+  android_gravity: center
 

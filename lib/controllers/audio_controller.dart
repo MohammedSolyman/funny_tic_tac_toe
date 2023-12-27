@@ -62,5 +62,19 @@ class AudioController extends GetxController {
     model.update((val) {
       val!.isAudioOn = !val.isAudioOn;
     });
+    model.value.box.write('isAudioOn', model.value.isAudioOn);
+  }
+
+  void _getAudioFromStorage() {
+    model.update((val) {
+      val!.isAudioOn = val.box.read('isAudioOn') ?? true;
+    });
+  }
+
+  @override
+  void onInit() {
+    _getAudioFromStorage();
+
+    super.onInit();
   }
 }
