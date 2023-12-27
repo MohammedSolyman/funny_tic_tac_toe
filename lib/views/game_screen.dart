@@ -11,8 +11,19 @@ import 'package:funny_tic_tac_toe/widgets/transition_widgets/transition_block.da
 import 'package:get/get.dart';
 import 'package:funny_tic_tac_toe/widgets/top_block/top_block.dart';
 
-class GameScreen extends StatelessWidget {
+class GameScreen extends StatefulWidget {
   const GameScreen({super.key});
+
+  @override
+  State<GameScreen> createState() => _GameScreenState();
+}
+
+class _GameScreenState extends State<GameScreen> {
+  @override
+  void initState() {
+    SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersiveSticky);
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {

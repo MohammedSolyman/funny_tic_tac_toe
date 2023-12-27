@@ -5,9 +5,21 @@ import 'package:funny_tic_tac_toe/widgets/home_widgets/middle_block/middle_block
 import 'package:funny_tic_tac_toe/widgets/my_background/my_background.dart';
 import 'package:funny_tic_tac_toe/widgets/top_block/top_block.dart';
 import 'package:funny_tic_tac_toe/widgets/transition_widgets/transition_block.dart';
+import 'package:flutter/services.dart';
 
-class HomeScreen extends StatelessWidget {
+class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
+
+  @override
+  State<HomeScreen> createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> {
+  @override
+  void initState() {
+    SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersiveSticky);
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
