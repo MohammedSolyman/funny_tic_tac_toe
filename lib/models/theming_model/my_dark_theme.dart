@@ -128,7 +128,7 @@ class MyDarkTheme implements MyTheme {
 
   //4. shadow color ////////////////////////////////////////////
   @override
-  Color shadowColor = MyDarkBlue.mcgpalette0.shade900;
+  Color shadowColor = MyDarkBlue.mcgpalette0.shade50;
 
   //5. big x = x-player in panel /////////////////////////////////
   @override
@@ -138,8 +138,8 @@ class MyDarkTheme implements MyTheme {
   ];
   @override
   List<Color> xBodyGradient = [
-    MyDarkGreen.mcgpalette0.shade400,
-    MyDarkGreen.mcgpalette0.shade500,
+    MyDarkGreen.mcgpalette0.shade200,
+    MyDarkGreen.mcgpalette0.shade300,
   ];
 
   //6. big o = o-player in panel////////////////////////////
@@ -151,8 +151,8 @@ class MyDarkTheme implements MyTheme {
 
   @override
   List<Color> oBodyGradient = [
-    MyDarkPink.mcgpalette0.shade400,
-    MyDarkPink.mcgpalette0.shade500,
+    MyDarkPink.mcgpalette0.shade200,
+    MyDarkPink.mcgpalette0.shade300,
   ];
 
   //7. black-white gradient////////////////////////////////////////
@@ -185,7 +185,7 @@ class MyDarkTheme implements MyTheme {
 
   //10 play button color
   @override
-  Color playButtonColor = MyDarkGreen.mcgpalette0.shade700;
+  Color playButtonColor = MyDarkGreen.mcgpalette0.shade400;
 }
 
 // class MyDarkGreen {
