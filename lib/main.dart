@@ -21,6 +21,7 @@ override back arrow
 notification
 */
 void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
   await GetStorage.init();
   runApp(const MainApp());
 }
@@ -31,7 +32,9 @@ class MainApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     DimensionsController dCont = Get.put(DimensionsController());
-    dCont.gettingDeviceDimensions(MediaQuery.of(context).size);
+    dCont.gettingDeviceDimensions(
+        height: MediaQuery.of(context).size.height,
+        width: MediaQuery.of(context).size.width);
 
     Get.put(AudioController());
     Get.put(ThemingController());
