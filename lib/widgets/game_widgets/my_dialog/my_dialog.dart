@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:funny_tic_tac_toe/controllers/dimensions_controller.dart';
 import 'package:funny_tic_tac_toe/controllers/game_controller.dart';
 import 'package:funny_tic_tac_toe/widgets/game_widgets/my_dialog/continue_button.dart';
 import 'package:funny_tic_tac_toe/widgets/game_widgets/my_dialog/dialog_box.dart';
@@ -10,7 +11,9 @@ class MyDialog extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    double heightWidth = MediaQuery.of(context).size.height / 100;
+    DimensionsController dCont = Get.find<DimensionsController>();
+
+    double height = dCont.model.value.height / 100;
     GameController gCont = Get.find<GameController>();
     return Obx(() {
       return Align(
@@ -22,7 +25,7 @@ class MyDialog extends StatelessWidget {
             children: [
               const DialogBox(),
               Padding(
-                padding: EdgeInsets.only(top: heightWidth * 20),
+                padding: EdgeInsets.only(top: height * 20),
                 child: const Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [

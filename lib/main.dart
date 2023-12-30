@@ -21,6 +21,7 @@ override back arrow
 notification
 */
 void main() async {
+  await Future.delayed(const Duration(seconds: 5));
   WidgetsFlutterBinding.ensureInitialized();
   await GetStorage.init();
   runApp(const MainApp());
@@ -33,15 +34,13 @@ class MainApp extends StatelessWidget {
   Widget build(BuildContext context) {
     DimensionsController dCont = Get.put(DimensionsController());
     dCont.gettingDeviceDimensions(
-        height: MediaQuery.of(context).size.height,
-        width: MediaQuery.of(context).size.width);
-
+        width: MediaQuery.of(context).size.width,
+        height: MediaQuery.of(context).size.height);
     Get.put(AudioController());
     Get.put(ThemingController());
     Get.put(TransitionController());
     Get.put(HomeController());
     Get.put(FacebookAdController());
-
     return const GetMaterialApp(
       debugShowCheckedModeBanner: false,
       home: HomeScreen(),

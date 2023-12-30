@@ -21,8 +21,8 @@ class GameScreen extends StatefulWidget {
 class _GameScreenState extends State<GameScreen> {
   @override
   void initState() {
-    SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersiveSticky);
-    super.initState();
+    // SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersiveSticky);
+    // super.initState();
   }
 
   @override

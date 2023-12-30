@@ -16,7 +16,8 @@ dependencies:
   auto_size_text: ^3.0.0
   facebook_audience_network: ^1.0.1
   get_storage: ^2.1.1
-
+  flutter_screenutil: ^5.9.0
+  
 dev_dependencies:
   flutter_test:
     sdk: flutter
@@ -28,6 +29,7 @@ flutter:
   assets:
     - assets/audio/
     - assets/icons/
+    - assets/images/
 
 flutter_launcher_icons:
   android: "launcher_icon"

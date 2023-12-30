@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:funny_tic_tac_toe/controllers/dimensions_controller.dart';
 import 'package:funny_tic_tac_toe/controllers/theming_controller.dart';
 import 'package:funny_tic_tac_toe/controllers/transition_controller.dart';
 import 'package:funny_tic_tac_toe/widgets/transition_widgets/components/transition_painter.dart';
@@ -11,9 +12,10 @@ class TransitionBlock extends StatelessWidget {
   Widget build(BuildContext context) {
     TransitionController tCont = Get.find<TransitionController>();
     ThemingController thCont = Get.find<ThemingController>();
-    double width = MediaQuery.of(context).size.width;
-    double height = MediaQuery.of(context).size.height;
+    DimensionsController dCont = Get.find<DimensionsController>();
+
     return Obx(() {
+      print('---displacementY: ${tCont.model.value.displacementY}');
       return CustomPaint(
         painter: TransitionPainter(
           bodyColor1: thCont.model.value.myTheme.primaryGradient[0],
@@ -22,7 +24,7 @@ class TransitionBlock extends StatelessWidget {
           displacement: tCont.model.value.displacementY,
           sticksList: tCont.model.value.sticksList,
         ),
-        size: Size(width, height),
+        size: Size(dCont.model.value.width, dCont.model.value.height),
       );
     });
   }

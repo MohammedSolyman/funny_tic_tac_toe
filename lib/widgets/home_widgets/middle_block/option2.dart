@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:funny_tic_tac_toe/controllers/dimensions_controller.dart';
 import 'package:funny_tic_tac_toe/controllers/home_controller.dart';
 import 'package:funny_tic_tac_toe/controllers/theming_controller.dart';
 import 'package:funny_tic_tac_toe/utilities/assets_paths.dart';
@@ -14,8 +15,8 @@ class Option2 extends StatelessWidget {
   Widget build(BuildContext context) {
     ThemingController thCont = Get.find<ThemingController>();
     HomeController hCont = Get.find<HomeController>();
+    DimensionsController dCont = Get.find<DimensionsController>();
 
-    double width = MediaQuery.of(context).size.width;
     return Obx(() {
       return Transform.scale(
         scale: hCont.model.value.withAi ? 0.9 : 1,
@@ -45,7 +46,7 @@ class Option2 extends StatelessWidget {
                             spreadRadius: 1),
                       ]),
             child: SizedBox(
-              width: width * 0.5,
+              width: dCont.model.value.width * 0.5,
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [

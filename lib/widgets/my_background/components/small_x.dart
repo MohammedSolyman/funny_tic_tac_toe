@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:funny_tic_tac_toe/controllers/dimensions_controller.dart';
 import 'package:funny_tic_tac_toe/controllers/theming_controller.dart';
 import 'package:get/get.dart';
 
@@ -8,11 +9,12 @@ class SmallX extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     ThemingController thCon = Get.find<ThemingController>();
+    DimensionsController dCont = Get.find<DimensionsController>();
+
     return Obx(() {
       return CustomPaint(
         painter: Painter(thCon.model.value.myTheme.backgroundColor),
-        size: Size(MediaQuery.of(context).size.width,
-            MediaQuery.of(context).size.height),
+        size: Size(dCont.model.value.width, dCont.model.value.height),
       );
     });
   }

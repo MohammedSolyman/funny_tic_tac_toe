@@ -746,6 +746,7 @@ class GameController extends GetxController with GetTickerProviderStateMixin {
         val!.gameNumber++;
       });
     }
+    print('----------- ${model.value.gameNumber}');
 
     // 5. show rewarded video ad (every 5 games)
     if (model.value.gameNumber == 5) {

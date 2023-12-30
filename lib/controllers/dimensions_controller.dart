@@ -8,11 +8,31 @@ class DimensionsController extends GetxController {
 
   void gettingDeviceDimensions(
       {required double width, required double height}) {
+    // final view = WidgetsBinding.instance.platformDispatcher.views.first;
+    // final size = view.physicalSize;
+    // final pixelRatio = view.devicePixelRatio;
+
+// //   Size in physical pixels:
+//     final width = size.width;
+//     final height = size.height;
+
+// Size in logical pixels:
+    // final width = size.width / pixelRatio;
+    // final height = size.height / pixelRatio;
+
     model.update((val) {
-      // val!.height = height;
-      // val.width = width;
-      val!.height = 853.3333333333334;
-      val.width = 480;
+      val!.height = height;
+      val.width = width;
+      print('------ height');
+      print('--- ${val.height}');
+      print('--- width');
+      print('------ ${val.width}');
     });
   }
+
+  // @override
+  // void onInit() {
+  //   _gettingDeviceDimensions();
+  //   super.onInit();
+  // }
 }

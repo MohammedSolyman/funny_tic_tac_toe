@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:funny_tic_tac_toe/controllers/audio_controller.dart';
+import 'package:funny_tic_tac_toe/controllers/dimensions_controller.dart';
 import 'package:funny_tic_tac_toe/controllers/home_controller.dart';
 import 'package:funny_tic_tac_toe/controllers/theming_controller.dart';
 import 'package:funny_tic_tac_toe/utilities/assets_paths.dart';
@@ -15,9 +16,8 @@ class TopBlock extends StatelessWidget {
     HomeController hCont = Get.find<HomeController>();
     ThemingController thCont = Get.find<ThemingController>();
     AudioController aCont = Get.find<AudioController>();
+    DimensionsController dCont = Get.find<DimensionsController>();
 
-    double width = MediaQuery.of(context).size.width;
-    double height = MediaQuery.of(context).size.height;
     return Obx(() {
       return CustomPaint(
         painter: TopBlockPainter(
@@ -27,7 +27,7 @@ class TopBlock extends StatelessWidget {
           controlPoint2x: hCont.model.value.controlPoint2x,
           controlPoint2y: hCont.model.value.controlPoint2y,
         ),
-        size: Size(width, height),
+        size: Size(dCont.model.value.width, dCont.model.value.height),
         child: Align(
           alignment: Alignment.topRight,
           child: Column(

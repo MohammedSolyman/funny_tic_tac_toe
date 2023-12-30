@@ -16,17 +16,17 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   @override
   void initState() {
-    SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersiveSticky);
-    super.initState();
-  }
-
-  @override
-  Widget build(BuildContext context) {
     SystemChrome.setPreferredOrientations([
       DeviceOrientation.portraitUp,
       DeviceOrientation.portraitDown,
     ]);
 
+    // SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersiveSticky);
+    // super.initState();
+  }
+
+  @override
+  Widget build(BuildContext context) {
     return const SafeArea(
       child: Scaffold(
           body: Stack(
