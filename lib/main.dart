@@ -21,9 +21,14 @@ override back arrow
 notification
 */
 void main() async {
-  await Future.delayed(const Duration(seconds: 5));
+  //await Future.delayed(const Duration(seconds: 5));
   WidgetsFlutterBinding.ensureInitialized();
   await GetStorage.init();
+
+  Get.put(FacebookAdController());
+  Get.put(AudioController());
+  Get.put(ThemingController());
+
   runApp(const MainApp());
 }
 
@@ -36,14 +41,40 @@ class MainApp extends StatelessWidget {
     dCont.gettingDeviceDimensions(
         width: MediaQuery.of(context).size.width,
         height: MediaQuery.of(context).size.height);
-    Get.put(AudioController());
-    Get.put(ThemingController());
-    Get.put(TransitionController());
-    Get.put(HomeController());
-    Get.put(FacebookAdController());
-    return const GetMaterialApp(
+
+    return GetMaterialApp(
       debugShowCheckedModeBanner: false,
-      home: HomeScreen(),
+      //home: HomeScreen(),
+      home: Splash(),
+    );
+  }
+}
+
+class Splash extends StatelessWidget {
+  Splash({super.key});
+
+  Color myColor = Colors.amber;
+  @override
+  Widget build(BuildContext context) {
+    DimensionsController dCont = Get.find<DimensionsController>();
+
+    return Scaffold(
+      body: Obx(() {
+        if (dCont.model.value.height != 0 && dCont.model.value.width != 0) {
+          myColor = Colors.green;
+          // Get.to(() => HomeScreen());
+          Navigator.of(context).pushReplacement(
+              MaterialPageRoute(builder: (context) => const HomeScreen()));
+        }
+        return Scaffold(
+          body: Container(
+            color: myColor,
+            decoration: const BoxDecoration(
+                image: DecorationImage(
+                    image: AssetImage('assets/images/background.jpg'))),
+          ),
+        );
+      }),
     );
   }
 }

@@ -16,25 +16,25 @@ class TransitionController extends GetxController
   DimensionsController dCont = Get.find<DimensionsController>();
   AudioController aCont = Get.find<AudioController>();
 
-  void _initializeTransitionList() {
-    double deviceWidth = dCont.model.value.width;
+  // void _initializeTransitionList() {
+  //   double deviceWidth = dCont.model.value.width;
 
-    List<Stick> x = [];
-    double width = deviceWidth / 10;
+  //   List<Stick> x = [];
+  //   double width = deviceWidth / 10;
 
-    for (var i = 0; i < 10; i++) {
-      //initalize a stick
-      Stick s = Stick(width: width, stickIndex: i);
+  //   for (var i = 0; i < 10; i++) {
+  //     //initalize a stick
+  //     Stick s = Stick(width: width, stickIndex: i);
 
-      //adding the stick to the list
-      x.add(s);
-    }
+  //     //adding the stick to the list
+  //     x.add(s);
+  //   }
 
-    //updating the model
-    model.update((val) {
-      val!.sticksList = x;
-    });
-  }
+  //   //updating the model
+  //   model.update((val) {
+  //     val!.sticksList = x;
+  //   });
+  // }
 
   void _initializeTransitionAnimation() {
     //updating device hight
@@ -79,7 +79,7 @@ class TransitionController extends GetxController
 
   @override
   void onInit() {
-    _initializeTransitionList();
+    // _initializeTransitionList();
     _initializeTransitionAnimation();
     super.onInit();
   }

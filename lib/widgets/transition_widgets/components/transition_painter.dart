@@ -2,14 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:funny_tic_tac_toe/widgets/transition_widgets/components/stick.dart';
 
 class TransitionPainter extends CustomPainter {
-  List<Stick> sticksList;
+  // List<Stick> sticksList;
   double displacement;
   Color bodyColor1;
   Color bodyColor2;
   Color borderColor;
 
   TransitionPainter(
-      {required this.sticksList,
+      {
+      //    required this.sticksList,
       required this.displacement,
       required this.bodyColor1,
       required this.bodyColor2,

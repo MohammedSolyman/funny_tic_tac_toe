@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:funny_tic_tac_toe/widgets/transition_widgets/components/stick.dart';
 
 class TransitionModel {
-  List<Stick> sticksList = [];
+  // List<Stick> sticksList = [];
 
   // transition animation
   late AnimationController transitionAnimationController;

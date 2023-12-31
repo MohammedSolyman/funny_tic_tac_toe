@@ -22,7 +22,7 @@ class TransitionBlock extends StatelessWidget {
           bodyColor2: thCont.model.value.myTheme.backgroundColor,
           borderColor: thCont.model.value.myTheme.borderColor,
           displacement: tCont.model.value.displacementY,
-          sticksList: tCont.model.value.sticksList,
+          //sticksList: tCont.model.value.sticksList,
         ),
         size: Size(dCont.model.value.width, dCont.model.value.height),
       );
