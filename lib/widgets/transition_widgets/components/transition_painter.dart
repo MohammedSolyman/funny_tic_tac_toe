@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:funny_tic_tac_toe/widgets/transition_widgets/components/stick.dart';
 
 class TransitionPainter extends CustomPainter {
   // List<Stick> sticksList;
@@ -40,17 +39,6 @@ class TransitionPainter extends CustomPainter {
       canvas.drawPath(path, bodyPaint);
       canvas.drawPath(path, borderPaint);
     }
-    // for (var i = 0; i < sticksList.length; i++) {
-    //   Color bodyColor = i % 2 == 0 ? bodyColor1 : bodyColor2;
-
-    //   sticksList[i].draw(
-    //     bodyColor: bodyColor,
-    //     borderColor: borderColor,
-    //     canvas: canvas,
-    //     size: size,
-    //     displacement: displacement,
-    //   );
-    // }
   }
 
   @override

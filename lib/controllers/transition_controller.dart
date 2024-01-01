@@ -3,7 +3,6 @@ import 'package:funny_tic_tac_toe/controllers/audio_controller.dart';
 import 'package:funny_tic_tac_toe/controllers/dimensions_controller.dart';
 import 'package:funny_tic_tac_toe/controllers/theming_controller.dart';
 import 'package:funny_tic_tac_toe/models/transition_model.dart';
-import 'package:funny_tic_tac_toe/widgets/transition_widgets/components/stick.dart';
 import 'package:get/get.dart';
 
 class TransitionController extends GetxController
@@ -15,26 +14,6 @@ class TransitionController extends GetxController
   ThemingController thCon = Get.find<ThemingController>();
   DimensionsController dCont = Get.find<DimensionsController>();
   AudioController aCont = Get.find<AudioController>();
-
-  // void _initializeTransitionList() {
-  //   double deviceWidth = dCont.model.value.width;
-
-  //   List<Stick> x = [];
-  //   double width = deviceWidth / 10;
-
-  //   for (var i = 0; i < 10; i++) {
-  //     //initalize a stick
-  //     Stick s = Stick(width: width, stickIndex: i);
-
-  //     //adding the stick to the list
-  //     x.add(s);
-  //   }
-
-  //   //updating the model
-  //   model.update((val) {
-  //     val!.sticksList = x;
-  //   });
-  // }
 
   void _initializeTransitionAnimation() {
     //updating device hight
@@ -79,7 +58,6 @@ class TransitionController extends GetxController
 
   @override
   void onInit() {
-    // _initializeTransitionList();
     _initializeTransitionAnimation();
     super.onInit();
   }
