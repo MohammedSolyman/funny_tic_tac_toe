@@ -37,7 +37,8 @@ class MainApp extends StatelessWidget {
     DimensionsController dCont = Get.put(DimensionsController());
     dCont.gettingDeviceDimensions(
         width: MediaQuery.of(context).size.width,
-        height: MediaQuery.of(context).size.height);
+        height: MediaQuery.of(context).size.height,
+        statusBarHeight: MediaQuery.of(context).viewPadding.top);
 
     return const GetMaterialApp(
       debugShowCheckedModeBanner: false,

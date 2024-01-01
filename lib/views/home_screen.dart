@@ -19,13 +19,17 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   @override
   void initState() {
+    super.initState();
+
+    // Show Status bar and hide Navigation bar
+    SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual,
+        overlays: [SystemUiOverlay.top]);
+
+    // show in portrait orientation only
     SystemChrome.setPreferredOrientations([
       DeviceOrientation.portraitUp,
       DeviceOrientation.portraitDown,
     ]);
-
-    // SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersiveSticky);
-    // super.initState();
   }
 
   @override
@@ -33,17 +37,15 @@ class _HomeScreenState extends State<HomeScreen> {
     Get.put(TransitionController());
     Get.put(HomeController());
 
-    return const SafeArea(
-      child: Scaffold(
-          body: Stack(
-        children: [
-          MyBackground(),
-          TopBlock(),
-          IgnorePointer(child: BottomBlock()),
-          MiddleBlock(),
-          IgnorePointer(child: TransitionBlock())
-        ],
-      )),
-    );
+    return const Scaffold(
+        body: Stack(
+      children: [
+        MyBackground(),
+        TopBlock(),
+        IgnorePointer(child: BottomBlock()),
+        MiddleBlock(),
+        IgnorePointer(child: TransitionBlock())
+      ],
+    ));
   }
 }

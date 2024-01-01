@@ -21,8 +21,17 @@ class GameScreen extends StatefulWidget {
 class _GameScreenState extends State<GameScreen> {
   @override
   void initState() {
-    // SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersiveSticky);
-    // super.initState();
+    super.initState();
+
+    // Show Status bar and hide Navigation bar
+    SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual,
+        overlays: [SystemUiOverlay.top]);
+
+    // show in portrait orientation only
+    SystemChrome.setPreferredOrientations([
+      DeviceOrientation.portraitUp,
+      DeviceOrientation.portraitDown,
+    ]);
   }
 
   @override
@@ -33,22 +42,20 @@ class _GameScreenState extends State<GameScreen> {
     ]);
 
     Get.put(GameController());
-    return const SafeArea(
-      child: Scaffold(
-        body: Center(
-            child: Stack(
-          children: [
-            MyBackground(),
-            TopBlock(),
-            Panel(),
-            GameGridView(),
-            MyBannerAd(),
-            Barrier(),
-            MyDialog(),
-            IgnorePointer(child: TransitionBlock())
-          ],
-        )),
-      ),
+    return const Scaffold(
+      body: Center(
+          child: Stack(
+        children: [
+          MyBackground(),
+          TopBlock(),
+          Panel(),
+          GameGridView(),
+          MyBannerAd(),
+          Barrier(),
+          MyDialog(),
+          IgnorePointer(child: TransitionBlock())
+        ],
+      )),
     );
   }
 }

@@ -32,6 +32,9 @@ class TopBlock extends StatelessWidget {
           alignment: Alignment.topRight,
           child: Column(
             children: [
+              SizedBox(
+                height: dCont.model.value.statusBarHeight,
+              ),
               GestureDetector(
                 onTap: () {
                   thCont.toggleThemingMode();
