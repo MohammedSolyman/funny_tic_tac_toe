@@ -385,7 +385,7 @@ class GameController extends GetxController with GetTickerProviderStateMixin {
   void _initializeGridDimenions() {
     model.update((val) {
       val!.gridHeight = dCont.model.value.height * 0.33;
-      val.gridWidth = dCont.model.value.width * 0.5;
+      val.gridWidth = dCont.model.value.width * 0.7;
     });
   }
 
@@ -532,14 +532,6 @@ class GameController extends GetxController with GetTickerProviderStateMixin {
     } else {
       model.value.movingDashAnimationController.forward();
     }
-    // if (model.value.movingDashAnimationController.status ==
-    //     AnimationStatus.dismissed) {
-    //   model.value.movingDashAnimationController.forward();
-    // }
-    // if (model.value.movingDashAnimationController.status ==
-    //     AnimationStatus.completed) {
-    //   model.value.movingDashAnimationController.reverse();
-    // }
   }
 
 //6. xo layer //////////////////////////////////////////////////////////////////////
@@ -579,7 +571,6 @@ class GameController extends GetxController with GetTickerProviderStateMixin {
       val!.xoList.add(o);
     });
     //firing animation
-    // model.value.symbolAnimationController.forward();
     if (model.value.symbolAnimationController.status ==
         AnimationStatus.completed) {
       model.value.symbolAnimationController.reset();
@@ -600,7 +591,6 @@ class GameController extends GetxController with GetTickerProviderStateMixin {
     });
 
     //firing animation
-    // model.value.symbolAnimationController.forward();
     if (model.value.symbolAnimationController.status ==
         AnimationStatus.completed) {
       model.value.symbolAnimationController.reset();
@@ -630,13 +620,6 @@ class GameController extends GetxController with GetTickerProviderStateMixin {
         val!.winnginLineProgress = animation.value;
       });
     });
-
-    // //updating status
-    // model.value.winningAnimationController.addStatusListener((status) {
-    //   if (status == AnimationStatus.completed) {
-    //     model.value.winningAnimationController.reset();
-    //   }
-    // });
   }
 
   void _fireWinningConnection() {
@@ -679,7 +662,6 @@ class GameController extends GetxController with GetTickerProviderStateMixin {
     });
 
     //firiing connceting line
-
     model.value.winningAnimationController.forward();
   }
 
@@ -763,14 +745,14 @@ class GameController extends GetxController with GetTickerProviderStateMixin {
 
     // 3. wait till dialog disappear
     await Future.delayed(
-        Duration(microseconds: model.value.dialogAniamteDuration));
+        Duration(milliseconds: model.value.dialogAniamteDuration));
 
     // 4. fire the transition animation
     tCont.fireTransitionAnimation();
 
     // 5. wait till the transition block cover the page
     await Future.delayed(
-        Duration(microseconds: tCont.model.value.covertingDuration));
+        Duration(seconds: tCont.model.value.covertingDuration));
 
     // 6. navigate to home page
     Get.off(() => const HomeScreen());
