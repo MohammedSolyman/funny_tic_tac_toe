@@ -1,6 +1,5 @@
 import 'package:funny_tic_tac_toe/models/dimensions_model.dart';
 import 'package:get/get.dart';
-import 'package:get_storage/get_storage.dart';
 
 class DimensionsController extends GetxController {
   //this controller is responsible of device dimensions of the whole app.
