@@ -24,8 +24,7 @@ class _GameScreenState extends State<GameScreen> {
     super.initState();
 
     // Show Status bar and hide Navigation bar
-    SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual,
-        overlays: [SystemUiOverlay.top]);
+    SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersiveSticky);
 
     // show in portrait orientation only
     SystemChrome.setPreferredOrientations([

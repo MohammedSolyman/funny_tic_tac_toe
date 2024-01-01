@@ -22,8 +22,7 @@ class _HomeScreenState extends State<HomeScreen> {
     super.initState();
 
     // Show Status bar and hide Navigation bar
-    SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual,
-        overlays: [SystemUiOverlay.top]);
+    SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersiveSticky);
 
     // show in portrait orientation only
     SystemChrome.setPreferredOrientations([
