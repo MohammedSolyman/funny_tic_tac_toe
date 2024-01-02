@@ -65,13 +65,10 @@ class _SplashState extends State<SplashScreen> {
     return Obx(
       () {
         if (dCont.model.value.height != 0 && dCont.model.value.width != 0) {
-          print('---it is ok, lets to go to home screen');
           WidgetsBinding.instance.addPostFrameCallback((_) {
             Get.off(() => const HomeScreen());
           });
-          //  Get.off(() => const HomeScreen());
         } else {
-          print('--- dimensions are zeros');
           dCont.gettingDeviceDimensions(
               width: MediaQuery.of(context).size.width,
               height: MediaQuery.of(context).size.height,

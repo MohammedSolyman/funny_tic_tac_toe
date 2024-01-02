@@ -1,4 +1,5 @@
 import 'package:facebook_audience_network/facebook_audience_network.dart';
+import 'package:flutter/material.dart';
 import 'package:funny_tic_tac_toe/models/facebook_ads_model.dart';
 import 'package:get/get.dart';
 
@@ -6,14 +7,9 @@ class FacebookAdController extends GetxController {
   Rx<FacebookAdModel> model = FacebookAdModel().obs;
 
   void loadRewardedVideoAd() async {
-    print('--- reward video function loading start ... ');
-
     await FacebookRewardedVideoAd.loadRewardedVideoAd(
+      placementId: model.value.testIdVideo,
       listener: (result, value) {
-        print("--- result:");
-        print("--- $result");
-        print("--- result:");
-        print("--- $value");
         if (result == RewardedVideoAdResult.LOADED) {
           model.update((val) {
             val!.isRewarderLoaded = true;
@@ -35,28 +31,26 @@ class FacebookAdController extends GetxController {
   void showRewardedAd() {
     if (model.value.isRewarderLoaded == true) {
       FacebookRewardedVideoAd.showRewardedVideoAd();
-    } else {
-      print("---Rewarded Ad not yet loaded!");
     }
   }
 
   FacebookBannerAd getBannerAd() {
     return FacebookBannerAd(
-      // placementId: model.value.placementId,
+      placementId: model.value.testIdBanner,
       bannerSize: BannerSize.STANDARD,
       listener: (result, value) {
         switch (result) {
           case BannerAdResult.ERROR:
-            print("Error: $value");
+            debugPrint("Error: $value");
             break;
           case BannerAdResult.LOADED:
-            print("Loaded: $value");
+            debugPrint("Loaded: $value");
             break;
           case BannerAdResult.CLICKED:
-            print("Clicked: $value");
+            debugPrint("Clicked: $value");
             break;
           case BannerAdResult.LOGGING_IMPRESSION:
-            print("Logging Impression: $value");
+            debugPrint("Logging Impression: $value");
             break;
         }
       },
@@ -65,7 +59,7 @@ class FacebookAdController extends GetxController {
 
   @override
   void onInit() {
-    FacebookAudienceNetwork.init(testingId: model.value.testId);
+    FacebookAudienceNetwork.init();
 
     loadRewardedVideoAd();
     super.onInit();

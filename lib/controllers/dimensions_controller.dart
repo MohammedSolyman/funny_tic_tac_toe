@@ -15,8 +15,6 @@ class DimensionsController extends GetxController {
         val!.height = height;
         val.width = width;
         val.statusBarHeight = statusBarHeight;
-        print(
-            '---from media query  (${val.height} ,${val.width}, ${val.statusBarHeight} )');
       });
     }
 

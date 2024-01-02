@@ -1,4 +1,5 @@
 import 'package:assets_audio_player/assets_audio_player.dart';
+import 'package:flutter/material.dart';
 import 'package:funny_tic_tac_toe/models/audio_model.dart';
 import 'package:funny_tic_tac_toe/utilities/audio_paths.dart';
 import 'package:get/get.dart';
@@ -12,7 +13,7 @@ class AudioController extends GetxController {
         await model.value.player1.open(a, autoStart: false);
         await model.value.player1.play();
       } catch (e) {
-        print('--- error: $e');
+        debugPrint('--- error: $e');
       }
     }
   }
@@ -23,7 +24,7 @@ class AudioController extends GetxController {
         await model.value.player2.open(a, autoStart: false);
         await model.value.player2.play();
       } catch (e) {
-        print('--- error: $e');
+        debugPrint('--- error: $e');
       }
     }
   }
